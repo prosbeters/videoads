@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Prompt Generator (Multi-Gaya)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+        .form-input, .form-select, .form-file {
+            background-color: #1f2937;
+            border-color: #4b5563;
+            color: #f3f4f6;
+            transition: all 0.3s;
+        }
+        .form-input:focus, .form-select:focus {
+            background-color: #374151;
+            border-color: #3b82f6;
+            ring: 0;
+            outline: 0;
+        }
+        .btn-primary {
+            background-color: #2563eb;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-primary:disabled {
+            background-color: #4b5563;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background-color: #4b5563;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #6b7280;
+        }
+        #output-container {
+            border: 1px solid #374151;
+            background-color: #1f2937;
+        }
+        #image-loader div, .btn-loader {
+            border-top-color: #3b82f6;
+        }
+        .btn-loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f4f6;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .ratio-label {
+            cursor: pointer;
+            border: 2px solid #4b5563;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+        .ratio-label:hover {
+             border-color: #6b7280;
+        }
+        input[type="radio"]:checked + .ratio-label {
+            border-color: #2563eb;
+            background-color: #2563eb20;
+            color: #60a5fa;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-container {
+            transition: transform 0.3s ease;
+        }
+        #help-modal-content ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        #help-modal-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Login Container -->
+    <div id="login-container" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <h1 class="text-5xl font-bold text-white text-center mb-8">Video Prompt Generator</h1>
+            <div class="bg-gray-800 p-8 rounded-xl shadow-lg">
+                <div class="flex justify-center mb-6">
+                    <svg class="w-16 h-16 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.88 18.15C16.24 18.68 15.5 19.08 14.68 19.31C13.86 19.54 13.01 19.65 12.13 19.65C10.09 19.65 8.31 19.01 6.79 17.73C5.27 16.45 4.5 14.73 4.5 12.57C4.5 11.43 4.73 10.38 5.19 9.42C5.65 8.46 6.3 7.65 7.14 7.01C7.98 6.37 8.94 5.91 10.03 5.64C11.12 5.37 12.25 5.24 13.43 5.24C14.57 5.24 15.61 5.41 16.55 5.75L15.98 7.68C15.21 7.4 14.38 7.26 13.48 7.26C12.54 7.26 11.67 7.39 10.86 7.65C10.05 7.91 9.35 8.29 8.76 8.79C8.17 9.29 7.72 9.9 7.41 10.62C7.1 11.34 6.95 12.1 6.95 12.9C6.95 14.48 7.47 15.76 8.51 16.74C9.55 17.72 10.85 18.21 12.4 18.21C13.21 18.21 13.95 18.09 14.62 17.85L15.23 19.74L16.88 18.15Z" fill="currentColor"/>
+                        <path d="M19.5 12.57C19.5 10.41 18.73 8.69 17.21 7.41C15.69 6.13 13.91 5.49 11.87 5.49C10.73 5.49 9.68 5.72 8.72 6.18C8.25 6.42 7.82 6.71 7.41 7.01L9.06 8.64C9.62 8.16 10.25 7.84 10.95 7.68C11.65 7.52 12.37 7.44 13.13 7.44C14.71 7.44 15.99 7.96 16.97 9C17.95 10.04 18.44 11.33 18.44 12.87C18.44 13.68 18.32 14.42 18.08 15.09L19.97 15.7L19.5 12.57Z" fill="currentColor" fill-opacity="0.6"/>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-white text-center mb-2">Selamat Datang</h2>
+                <p class="text-gray-400 text-center mb-6">Silakan login untuk melanjutkan.</p>
+                <form id="login-form">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full form-input rounded-md" required>
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                            <input type="password" id="password" class="w-full form-input rounded-md" required>
+                        </div>
+                    </div>
+                    <div id="login-error" class="text-red-400 text-sm mt-4 text-center"></div>
+                    <div class="mt-6">
+                        <button type="submit" class="btn-primary w-full font-bold py-3 rounded-lg flex items-center justify-center">
+                            <span id="login-btn-text">Login</span>
+                            <span id="login-btn-loader" class="hidden btn-loader"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <p class="text-center mt-8 font-bold text-white">Made by ProsBe</p>
+        </div>
+    </div>
+
+    <!-- Main App Container (hidden by default) -->
+    <div id="app-container" class="hidden">
+        <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+            <!-- API Key Notice -->
+            <div id="api-key-notice" class="hidden bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 px-4 py-3 rounded-lg relative mb-6" role="alert">
+                <strong class="font-bold">Perhatian!</strong>
+                <span class="block sm:inline">Anda belum memasukkan API Key Google AI Studio. Silakan masukkan di menu Pengaturan untuk menggunakan fitur AI.</span>
+                <button id="open-settings-from-notice" class="ml-4 bg-yellow-500 text-black font-bold py-1 px-3 rounded-md">Buka Pengaturan</button>
+            </div>
+
+            <header class="flex justify-between items-center mb-8">
+                <div class="text-left">
+                    <h1 class="text-4xl font-bold text-white mb-2">Video Prompt Generator</h1>
+                    <p class="text-lg text-gray-400">Ciptakan prompt video sinematik dengan kekuatan AI.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                     <button id="open-help-button" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </button>
+                    <button id="open-settings-button" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button id="logout-button" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </button>
+                </div>
+            </header>
+
+            <main>
+                <div id="form-container" class="bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <!-- Image Analysis Section -->
+                    <div class="mb-8 bg-gray-900 p-4 rounded-lg border border-blue-500/30">
+                        <label for="image-upload" class="block text-xl font-semibold text-white mb-2">Mulai dengan Gambar (Opsional)</label>
+                        <p class="text-gray-400 mb-3">Unggah gambar produk Anda (gedung, makanan, dll.) dan biarkan AI menganalisis & mengisi formulir secara otomatis.</p>
+                        <div class="flex flex-col sm:flex-row gap-2 items-center">
+                            <input type="file" id="image-upload" accept="image/*" class="w-full form-file rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-300 hover:file:bg-gray-600">
+                            <button type="button" id="analyze-image-button" class="btn-secondary font-bold py-2 px-5 rounded-lg text-white w-full sm:w-auto flex items-center justify-center mt-2 sm:mt-0">
+                                <span id="analyze-btn-text">Analisa Gambar</span>
+                                <span id="analyze-btn-loader" class="hidden btn-loader"></span>
+                            </button>
+                        </div>
+                        <div id="image-preview-container" class="mt-4 text-center hidden">
+                            <img id="image-preview" src="#" alt="Pratinjau Gambar" class="max-h-48 mx-auto rounded-lg">
+                        </div>
+                        <div id="analysis-result" class="text-green-400 mt-3 text-center font-semibold"></div>
+                    </div>
+
+                    <form id="product-form">
+                        <!-- Style & Ratio Selector -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="animation-style" class="block text-xl font-semibold text-white mb-2">Pilih Gaya Iklan</label>
+                                <select id="animation-style" class="w-full form-select rounded-md">
+                                    <option value="transformasi">1. Transformasi Kapsul Ajaib</option>
+                                    <option value="perakitan">2. Perakitan Dinamis</option>
+                                    <option value="logo">3. Transformasi Logo</option>
+                                    <option value="ruangan">4. Perakitan Ruangan</option>
+                                    <option value="ledakan">5. Ledakan Kreatif</option>
+                                    <option value="suasana">6. Suasana dalam Kotak</option>
+                                    <option value="kejutan">7. Kejutan dari Kotak</option>
+                                    <option value="layar">8. Keluar dari Layar</option>
+                                    <option value="unboxing">9. Unboxing Elegan</option>
+                                    <option value="vault">10. Transformasi Ruang Kolektor</option>
+                                    <option value="pov">11. Aksi Sudut Pandang Pertama (POV)</option>
+                                    <option value="pemujaan">12. Pemujaan Produk (Sakral)</option>
+                                    <option value="fashion">13. Pembekuan Realitas (Gaya Fashion)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xl font-semibold text-white mb-2">Pilih Rasio Video</label>
+                                <div class="flex gap-4">
+                                    <input type="radio" name="aspect_ratio" id="ratio_16_9" value="16:9" class="sr-only" checked>
+                                    <label for="ratio_16_9" class="ratio-label w-full text-center">Landscape (16:9)</label>
+                                    
+                                    <input type="radio" name="aspect_ratio" id="ratio_9_16" value="9:16" class="sr-only">
+                                    <label for="ratio_9_16" class="ratio-label w-full text-center">Portrait (9:16)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shared Inputs -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">Detail Produk & Suasana</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="product-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Produk / Merek / Pesan</label>
+                                    <input type="text" id="product-name" class="w-full form-input rounded-md" placeholder="Contoh: Kacamata 'Aura'" required>
+                                </div>
+                                <div id="location-wrapper">
+                                    <label for="location" class="block text-sm font-medium text-gray-300 mb-1">Lokasi / Latar Awal</label>
+                                    <input type="text" id="location" class="w-full form-input rounded-md" placeholder="Contoh: Jalanan kota yang ramai saat senja" required>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="product-features" class="block text-sm font-medium text-gray-300 mb-1">Fitur / Keunggulan / Rasa / Mood</label>
+                                    <textarea id="product-features" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: high fashion, modern noir, mewah, misterius, berani"></textarea>
+                                </div>
+                                <!-- Style-specific inputs -->
+                                 <div id="perakitan-inputs" class="md:col-span-2 hidden">
+                                    <label for="product-components" class="block text-sm font-medium text-gray-300 mb-1">Komponen / Bahan Utama Produk</label>
+                                    <textarea id="product-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Serat karbon, busa nitrogen, kain rajut"></textarea>
+                                </div>
+                                 <div id="logo-inputs" class="md:col-span-2 hidden">
+                                    <label for="logo-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo Merek Anda</label>
+                                    <input type="text" id="logo-description" class="w-full form-input rounded-md" placeholder="Contoh: Logo centang yang dinamis">
+                                    <label for="final-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Terkait di Akhir (Opsional)</label>
+                                    <input type="text" id="final-element" class="w-full form-input rounded-md" placeholder="Contoh: Sebuah bola basket mendarat di sebelah sepatu">
+                                </div>
+                                <div id="ruangan-inputs" class="md:col-span-2 hidden">
+                                    <label for="product-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk dalam Adegan</label>
+                                    <textarea id="product-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: tempat tidur, meja samping, lampu, lemari, rak, cermin, karpet, gorden"></textarea>
+                                    <label for="final-human-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Manusia di Akhir (Opsional)</label>
+                                    <input type="text" id="final-human-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang desainer interior yang tersenyum puas">
+                                </div>
+                                 <div id="ledakan-inputs" class="md:col-span-2 hidden">
+                                    <label for="ledakan-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk yang Meledak Keluar</label>
+                                    <textarea id="ledakan-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: sofa modern, bantal warna-warni, kursi kuning, lampu, rak buku, gitar, dekorasi unik"></textarea>
+                                    <label for="human-reaction" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Deskripsi Orang & Reaksinya</label>
+                                    <input type="text" id="human-reaction" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita muda cantik dengan sweater merah, kaget dan takjub">
+                                </div>
+                                 <div id="suasana-inputs" class="md:col-span-2 hidden">
+                                    <label for="vibe-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Suasana / Adegan</label>
+                                    <textarea id="vibe-description" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Pesta kebun sore hari yang santai, sesi nge-band di tepi pantai, malam nonton film yang nyaman"></textarea>
+                                    <label for="vibe-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Orang & Elemen Kunci dalam Adegan</label>
+                                    <input type="text" id="vibe-elements" class="w-full form-input rounded-md" placeholder="Contoh: Empat teman bermain gitar, keyboard. Ada furnitur rotan, minuman dingin, lampu-lampu.">
+                                </div>
+                                <div id="kejutan-inputs" class="md:col-span-2 hidden">
+                                    <label for="surprise-recipient" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Penerima Kejutan</label>
+                                    <input type="text" id="surprise-recipient" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang sedang duduk termenung di sofa">
+                                    <label for="surprise-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Apa/Siapa yang Keluar dari Kotak?</label>
+                                    <input type="text" id="surprise-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang pria tampan membawa setangkai mawar merah">
+                                </div>
+                                <div id="layar-inputs" class="md:col-span-2 hidden">
+                                    <label for="screen-product" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Produk di Layar Gawai</label>
+                                    <input type="text" id="screen-product" class="w-full form-input rounded-md" placeholder="Contoh: Burger yang lezat dengan keju meleleh di aplikasi">
+                                    <label for="screen-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Pemicu di Layar</label>
+                                    <input type="text" id="screen-action" class="w-full form-input rounded-md" placeholder="Contoh: Jari menekan tombol 'Pesan Sekarang'">
+                                </div>
+                                 <div id="unboxing-inputs" class="md:col-span-2 hidden">
+                                    <label for="box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
+                                    <input type="text" id="box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak hitam elegan dengan logo emas">
+                                    <label for="unboxing-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Produk yang Keluar dari Kotak</label>
+                                    <textarea id="unboxing-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu, rak sepatu, kaus kaki, semir sepatu"></textarea>
+                                </div>
+                                 <div id="vault-inputs" class="md:col-span-2 hidden">
+                                    <label for="vault-box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
+                                    <input type="text" id="vault-box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak sepatu hitam matte dengan logo putih menyala">
+                                    <label for="vault-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Koleksi & Display</label>
+                                    <textarea id="vault-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu Air Jordan, rak display akrilik, memorabilia basket, poster, lampu LED neon"></textarea>
+                                </div>
+                                <div id="pov-inputs" class="md:col-span-2 hidden">
+                                    <label for="pov-action" class="block text-sm font-medium text-gray-300 mb-1">Aksi Pengguna (POV)</label>
+                                    <input type="text" id="pov-action" class="w-full form-input rounded-md" placeholder="Contoh: Mengangkat iPhone ke depan mata, menekan tombol capture">
+                                    <label for="pov-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Dramatis (Pembekuan Waktu)</label>
+                                    <textarea id="pov-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Waktu langsung membeku, kerumunan berhenti bergerak, tetesan hujan neon menggantung di udara"></textarea>
+                                </div>
+                                 <div id="pemujaan-inputs" class="md:col-span-2 hidden">
+                                    <label for="worship-figure" class="block text-sm font-medium text-gray-300 mb-1">Figur & Aksi Ritual</label>
+                                    <input type="text" id="worship-figure" class="w-full form-input rounded-md" placeholder="Contoh: Sosok berjubah mendekat dengan hormat, mematahkan sepotong cokelat">
+                                    <label for="worship-sound" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Suara & Musik</label>
+                                    <textarea id="worship-sound" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Nyanyian Gregorian, piano ambient, bisikan 'This isn't just chocolate. It's worship.'"></textarea>
+                                </div>
+                                <div id="fashion-inputs" class="md:col-span-2 hidden">
+                                    <label for="fashion-character" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Karakter Utama</label>
+                                    <input type="text" id="fashion-character" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang percaya diri dan misterius">
+                                    <label for="fashion-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Kunci (Memakai Produk)</label>
+                                    <textarea id="fashion-action" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Memakai kacamata hitam ikonik dengan gerakan yang tajam dan percaya diri"></textarea>
+                                    <label for="fashion-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Pembekuan Realitas</label>
+                                    <textarea id="fashion-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Kerumunan di sekitarnya langsung membeku, matanya memantulkan pemandangan kota futuristik melalui lensa"></textarea>
+                                </div>
+                                <div id="location-details-wrapper" class="md:col-span-2">
+                                    <label for="location-details" class="block text-sm font-medium text-gray-300 mb-1">Detail Suasana Lokasi Awal</label>
+                                    <textarea id="location-details" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Papan reklame holografik, genangan air memantulkan cahaya"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center flex gap-4">
+                            <button type="button" id="reset-button" class="btn-secondary font-bold py-3 px-8 rounded-lg text-white w-full">Reset Proyek</button>
+                            <button type="submit" id="generate-button" class="btn-primary font-bold py-3 px-8 rounded-lg text-white text-lg w-full">
+                                <span id="btn-text">Generate Prompt</span>
+                                <span id="btn-loader" class="hidden btn-loader"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Output Section -->
+                <div id="output-section" class="hidden mt-8">
+                     <div id="output-container" class="p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-white">Hasil Prompt Video</h2>
+                            <button id="copy-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
+                                Salin Prompt
+                            </button>
+                        </div>
+                        <div id="generated-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
+                    </div>
+
+                    <!-- AI Image Idea Generator -->
+                    <div id="image-idea-container" class="mt-8 bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+                        <h2 class="text-2xl font-bold text-white mb-4">Butuh Inspirasi Visual?</h2>
+                        <p class="text-gray-400 mb-4">Dapatkan ide gambar AI berdasarkan prompt yang telah dibuat.</p>
+                        <button id="generate-image-idea" class="btn-primary font-bold py-2 px-6 rounded-lg text-white">
+                            Buat Ide Gambar
+                        </button>
+                        <div id="image-loader" class="hidden justify-center items-center mt-6">
+                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-600 border-t-blue-500"></div>
+                            <p class="ml-4 text-gray-300">AI sedang melukis...</p>
+                        </div>
+                        <div id="image-result" class="mt-6">
+                             <img id="generated-image" src="" alt="Generated AI image" class="hidden max-w-full mx-auto rounded-lg shadow-md">
+                             <p id="image-error" class="hidden text-red-400"></p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-overlay">
+        <div class="bg-gray-800 rounded-xl shadow-lg w-full max-w-md p-6 modal-container transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-white">Pengaturan API Key</h2>
+                <button id="close-settings-modal-button" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div>
+                <label for="api-key-input" class="block text-sm font-medium text-gray-300 mb-1">Google AI Studio API Key</label>
+                <input type="password" id="api-key-input" class="w-full form-input rounded-md" placeholder="Masukkan API Key Anda...">
+                <p class="text-xs text-gray-500 mt-1">API Key Anda disimpan dengan aman di browser Anda.</p>
+            </div>
+            <div id="api-key-message" class="text-sm mt-3"></div>
+            <div class="mt-6 flex gap-4">
+                <button id="save-api-key-button" class="btn-primary font-bold py-2 px-4 rounded-lg text-white w-full flex items-center justify-center">
+                    <span id="save-btn-text">Simpan</span>
+                    <span id="save-btn-loader" class="hidden btn-loader"></span>
+                </button>
+                <button id="delete-api-key-button" class="bg-red-600 hover:bg-red-700 font-bold py-2 px-4 rounded-lg text-white w-full">Hapus</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="help-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-overlay">
+        <div class="bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 modal-container transform scale-95 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 sticky top-0 bg-gray-800 py-2">
+                <h2 class="text-2xl font-bold text-white">Panduan Pengguna</h2>
+                <button id="close-help-modal-button" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div id="help-modal-content" class="text-gray-300 space-y-6">
+                <!-- Help content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-confirm-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-overlay">
+        <div class="bg-gray-800 rounded-xl shadow-lg w-full max-w-md p-6 modal-container transform scale-95">
+            <h2 class="text-2xl font-bold text-white">Reset Proyek?</h2>
+            <p class="text-gray-400 mt-2">Apakah Anda yakin ingin membersihkan semua isian formulir dan memulai proyek baru?</p>
+            <div class="mt-6 flex gap-4">
+                <button id="cancel-reset-button" class="btn-secondary font-bold py-2 px-4 rounded-lg text-white w-full">Batal</button>
+                <button id="confirm-reset-button" class="bg-red-600 hover:bg-red-700 font-bold py-2 px-4 rounded-lg text-white w-full">Ya, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxHhY5THznZH0qmcrqJq8I4kTOq5m3zNc",
+            authDomain: "prompt-ajaib.firebaseapp.com",
+            projectId: "prompt-ajaib",
+            storageBucket: "prompt-ajaib.firebasestorage.app",
+            messagingSenderId: "557430800881",
+            appId: "1:557430800881:web:c651638be9f57c0810c450"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        // --- DOM Elements ---
+        const loginContainer = document.getElementById('login-container');
+        const appContainer = document.getElementById('app-container');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const logoutButton = document.getElementById('logout-button');
+        const loginBtnText = document.getElementById('login-btn-text');
+        const loginBtnLoader = document.getElementById('login-btn-loader');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        
+        // --- Auth State Logic ---
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                // User is signed in
+                loginContainer.classList.add('hidden');
+                appContainer.classList.remove('hidden');
+                checkApiKeyStatus();
+            } else {
+                // User is signed out
+                loginContainer.classList.remove('hidden');
+                appContainer.classList.add('hidden');
+            }
+        });
+
+        // --- Login Logic ---
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            setLoading(true, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login', 'Logging in...');
+            loginError.textContent = '';
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // The onAuthStateChanged observer will handle showing the app
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    let errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
+                    if (errorCode === 'auth/user-not-found' || errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential') {
+                        errorMessage = "Email atau password salah.";
+                    }
+                    console.error("Login error:", error);
+                    loginError.textContent = errorMessage;
+                })
+                .finally(() => {
+                    setLoading(false, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login', 'Logging in...');
+                });
+        });
+
+        // --- Logout Logic ---
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                // Clear the input fields on successful logout
+                emailInput.value = '';
+                passwordInput.value = '';
+                loginError.textContent = '';
+            }).catch((error) => {
+                console.error("Logout error:", error);
+            });
+        });
+
+        // The rest of your application's JavaScript goes here
+        // Store the previous style to enable smart data transfer between styles
+        let previousStyle = 'transformasi';
+
+        // Mappings for conceptually similar fields across different styles
+        const styleToFieldMap = {
+            collection: {
+                perakitan: 'product-components',
+                ruangan: 'product-collection',
+                ledakan: 'ledakan-collection',
+                suasana: 'vibe-elements',
+                unboxing: 'unboxing-elements',
+                vault: 'vault-elements'
+            },
+            boxDescription: {
+                unboxing: 'box-description',
+                vault: 'vault-box-description'
+            }
+        };
+
+        const productForm = document.getElementById('product-form');
+        const outputSection = document.getElementById('output-section');
+        const generatedPrompt = document.getElementById('generated-prompt');
+        const copyButton = document.getElementById('copy-button');
+        const generateButton = document.getElementById('generate-button');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+        
+        const analyzeImageButton = document.getElementById('analyze-image-button');
+        const analysisResult = document.getElementById('analysis-result');
+        const analyzeBtnText = document.getElementById('analyze-btn-text');
+        const analyzeBtnLoader = document.getElementById('analyze-btn-loader');
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+
+        const animationStyleSelect = document.getElementById('animation-style');
+        const allStyleInputs = {
+            perakitan: document.getElementById('perakitan-inputs'),
+            logo: document.getElementById('logo-inputs'),
+            ruangan: document.getElementById('ruangan-inputs'),
+            ledakan: document.getElementById('ledakan-inputs'),
+            suasana: document.getElementById('suasana-inputs'),
+            kejutan: document.getElementById('kejutan-inputs'),
+            layar: document.getElementById('layar-inputs'),
+            unboxing: document.getElementById('unboxing-inputs'),
+            vault: document.getElementById('vault-inputs'),
+            pov: document.getElementById('pov-inputs'),
+            pemujaan: document.getElementById('pemujaan-inputs'),
+            fashion: document.getElementById('fashion-inputs'),
+        };
+        const locationWrapper = document.getElementById('location-wrapper');
+        const locationDetailsWrapper = document.getElementById('location-details-wrapper');
+
+        const generateImageButton = document.getElementById('generate-image-idea');
+        const imageLoader = document.getElementById('image-loader');
+        const generatedImage = document.getElementById('generated-image');
+        const imageError = document.getElementById('image-error');
+
+        // Modal Elements
+        const settingsModal = document.getElementById('settings-modal');
+        const openSettingsButton = document.getElementById('open-settings-button');
+        const openSettingsFromNotice = document.getElementById('open-settings-from-notice');
+        const closeSettingsModalButton = document.getElementById('close-settings-modal-button');
+        const saveApiKeyButton = document.getElementById('save-api-key-button');
+        const deleteApiKeyButton = document.getElementById('delete-api-key-button');
+        const apiKeyInput = document.getElementById('api-key-input');
+        const apiKeyNotice = document.getElementById('api-key-notice');
+        const apiKeyMessage = document.getElementById('api-key-message');
+        const saveBtnText = document.getElementById('save-btn-text');
+        const saveBtnLoader = document.getElementById('save-btn-loader');
+
+        const helpModal = document.getElementById('help-modal');
+        const openHelpButton = document.getElementById('open-help-button');
+        const closeHelpModalButton = document.getElementById('close-help-modal-button');
+
+        const resetConfirmModal = document.getElementById('reset-confirm-modal');
+        const resetButton = document.getElementById('reset-button');
+        const cancelResetButton = document.getElementById('cancel-reset-button');
+        const confirmResetButton = document.getElementById('confirm-reset-button');
+
+        let currentFormData = {};
+
+        // --- Modal Logic ---
+        function toggleModal(modal, show) {
+            const overlay = modal;
+            const container = overlay.querySelector('.modal-container');
+            if (show) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    container.classList.remove('scale-95');
+                }, 10);
+            } else {
+                overlay.classList.add('opacity-0');
+                container.classList.add('scale-95');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // --- Settings Modal ---
+        async function saveApiKey() {
+            const key = apiKeyInput.value.trim();
+            if (!key) {
+                apiKeyMessage.textContent = 'Kolom API Key tidak boleh kosong.';
+                apiKeyMessage.className = 'text-sm mt-3 text-red-400';
+                return;
+            }
+
+            setLoading(true, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan', 'Memvalidasi...');
+            apiKeyMessage.textContent = '';
+
+            try {
+                const validationUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
+                const response = await fetch(validationUrl);
+                
+                if (response.ok) {
+                    localStorage.setItem('googleApiKey', key);
+                    apiKeyMessage.textContent = 'API Key valid dan berhasil disimpan!';
+                    apiKeyMessage.className = 'text-sm mt-3 text-green-400';
+                    checkApiKeyStatus();
+                    setTimeout(() => toggleModal(settingsModal, false), 1500);
+                } else {
+                    let errorMessage = 'API Key tidak valid atau terjadi masalah jaringan.';
+                     try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.error && errorData.error.message) {
+                            errorMessage = `Validasi Gagal: ${errorData.error.message}`;
+                        }
+                    } catch (jsonError) {
+                        console.error("Could not parse error JSON from API response:", jsonError);
+                    }
+                    throw new Error(errorMessage);
+                }
+            } catch (error) {
+                console.error('API Key validation failed:', error);
+                apiKeyMessage.textContent = error.message;
+                apiKeyMessage.className = 'text-sm mt-3 text-red-400';
+            } finally {
+                setLoading(false, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan', 'Memvalidasi...');
+            }
+        }
+
+        function deleteApiKey() {
+            localStorage.removeItem('googleApiKey');
+            apiKeyInput.value = '';
+            apiKeyMessage.textContent = 'API Key berhasil dihapus.';
+            apiKeyMessage.className = 'text-sm mt-3 text-yellow-400';
+            checkApiKeyStatus();
+        }
+
+        function checkApiKeyStatus() {
+            const key = localStorage.getItem('googleApiKey');
+            if (key) {
+                apiKeyNotice.classList.add('hidden');
+            } else {
+                apiKeyNotice.classList.remove('hidden');
+            }
+            return !!key;
+        }
+
+        openSettingsButton.addEventListener('click', () => toggleModal(settingsModal, true));
+        openSettingsFromNotice.addEventListener('click', () => toggleModal(settingsModal, true));
+        closeSettingsModalButton.addEventListener('click', () => toggleModal(settingsModal, false));
+        settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) { toggleModal(settingsModal, false); } });
+        saveApiKeyButton.addEventListener('click', saveApiKey);
+        deleteApiKeyButton.addEventListener('click', deleteApiKey);
+
+        // --- Help Modal ---
+        openHelpButton.addEventListener('click', () => toggleModal(helpModal, true));
+        closeHelpModalButton.addEventListener('click', () => toggleModal(helpModal, false));
+        helpModal.addEventListener('click', (e) => { if (e.target === helpModal) { toggleModal(helpModal, false); } });
+
+        // --- Reset Modal ---
+        resetButton.addEventListener('click', () => toggleModal(resetConfirmModal, true));
+        cancelResetButton.addEventListener('click', () => toggleModal(resetConfirmModal, false));
+        resetConfirmModal.addEventListener('click', (e) => { if (e.target === resetConfirmModal) { toggleModal(resetConfirmModal, false); } });
+        confirmResetButton.addEventListener('click', () => {
+            resetForm();
+            toggleModal(resetConfirmModal, false);
+        });
+
+        function resetForm() {
+            productForm.reset();
+            outputSection.classList.add('hidden');
+            generatedPrompt.textContent = '';
+            imagePreviewContainer.classList.add('hidden');
+            imagePreview.src = '#';
+            analysisResult.textContent = '';
+            imageUpload.value = ''; // Clear file input
+            animationStyleSelect.value = 'transformasi'; // Reset to default
+            handleStyleChange();
+        }
+
+        // --- Main App Logic ---
+        function handleStyleChange() {
+            const newStyle = animationStyleSelect.value;
+            
+            function transferData(fieldGroup) {
+                const sourceFieldId = fieldGroup[previousStyle];
+                const targetFieldId = fieldGroup[newStyle];
+                if (sourceFieldId && targetFieldId) {
+                    const sourceElement = document.getElementById(sourceFieldId);
+                    const targetElement = document.getElementById(targetFieldId);
+                    if (sourceElement && targetElement && sourceElement.value && !targetElement.value) {
+                        targetElement.value = sourceElement.value;
+                    }
+                }
+            }
+            transferData(styleToFieldMap.collection);
+            transferData(styleToFieldMap.boxDescription);
+
+            Object.values(allStyleInputs).forEach(el => el.classList.add('hidden'));
+            if (allStyleInputs[newStyle]) {
+                allStyleInputs[newStyle].classList.remove('hidden');
+            }
+            
+            locationWrapper.classList.remove('hidden');
+            locationDetailsWrapper.classList.remove('hidden');
+            let placeholder = "Contoh: Ruangan kosong yang nyaman";
+            if (newStyle === 'logo') {
+                placeholder = "Contoh: Ruang putih minimalis berkabut";
+                locationDetailsWrapper.classList.add('hidden');
+            } else if (newStyle === 'transformasi') {
+                placeholder = "Contoh: Jalanan kota yang ramai";
+            } else if (newStyle === 'fashion') {
+                placeholder = "Contoh: Jalanan kota yang ramai saat senja";
+            }
+            document.getElementById('location').placeholder = placeholder;
+
+            previousStyle = newStyle;
+        }
+        animationStyleSelect.addEventListener('change', handleStyleChange);
+
+        imageUpload.addEventListener('change', (event) => {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+
+        function ensureFormCompletion(analysis) {
+            const productName = analysis.product_name || 'produk';
+            const keyElements = analysis.key_elements || 'elemen-elemen produk';
+
+            const fillIfEmpty = (id, value) => {
+                const el = document.getElementById(id);
+                if (el && !el.value) { el.value = value; }
+            };
+
+            fillIfEmpty('product-components', keyElements);
+            fillIfEmpty('logo-description', `Logo ikonik untuk ${productName}`);
+            fillIfEmpty('product-collection', keyElements);
+            fillIfEmpty('final-human-element', `Seorang pengguna yang puas`);
+            fillIfEmpty('ledakan-collection', keyElements);
+            fillIfEmpty('human-reaction', `Seseorang yang kaget dan takjub`);
+            fillIfEmpty('vibe-description', `Suasana ${analysis.product_features || 'yang unik'}`);
+            fillIfEmpty('vibe-elements', `Beberapa orang menikmati ${productName}, ${keyElements}`);
+            fillIfEmpty('surprise-recipient', `Seseorang yang menerima hadiah`);
+            fillIfEmpty('surprise-element', `Kejutan spesial terkait ${productName}`);
+            fillIfEmpty('screen-product', `${productName} di layar aplikasi`);
+            fillIfEmpty('screen-action', `Menekan tombol 'Dapatkan Sekarang'`);
+            fillIfEmpty('box-description', `Kotak elegan untuk ${productName}`);
+            fillIfEmpty('unboxing-elements', keyElements);
+            fillIfEmpty('vault-box-description', `Kotak premium untuk ${productName}`);
+            fillIfEmpty('vault-elements', `${productName}, ${keyElements}`);
+            fillIfEmpty('pov-action', `Menggunakan ${productName} untuk pertama kali`);
+            fillIfEmpty('pov-effect', `Dunia di sekitar berubah menjadi lebih keren`);
+            fillIfEmpty('worship-figure', `Seseorang yang mengagumi ${productName}`);
+            fillIfEmpty('worship-sound', `Musik sinematik yang megah`);
+            fillIfEmpty('fashion-character', `Model yang stylish dan percaya diri`);
+            fillIfEmpty('fashion-action', `Memakai ${productName} dengan elegan`);
+            fillIfEmpty('fashion-effect', `Semua mata tertuju padanya, dunia melambat`);
+        }
+
+        analyzeImageButton.addEventListener('click', async () => {
+            if (!checkApiKeyStatus()) {
+                toggleModal(settingsModal, true);
+                return;
+            }
+            const file = imageUpload.files[0];
+            if (!file) {
+                alert('Mohon pilih gambar untuk dianalisis.');
+                return;
+            }
+
+            setLoading(true, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar', 'Menganalisis...');
+            analysisResult.textContent = '';
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async () => {
+                const base64ImageData = reader.result.split(',')[1];
+                
+                try {
+                    const prompt = `You are a creative director expert. Analyze the following image. Based on the image, generate a creative concept for a video ad. Your response must be a JSON object with the following keys: "product_name", "product_features", "location", "location_details", "key_elements", and "recommended_style". The style must be one of: 'transformasi', 'perakitan', 'logo', 'ruangan', 'ledakan', 'suasana', 'kejutan', 'layar', 'unboxing', 'vault', 'pov', 'pemujaan', 'fashion'.`;
+                    const payload = {
+                        contents: [{
+                            parts: [
+                                { text: prompt },
+                                { inline_data: { mime_type: file.type, data: base64ImageData } }
+                            ]
+                        }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "product_name": { "type": "STRING" },
+                                    "product_features": { "type": "STRING" },
+                                    "location": { "type": "STRING" },
+                                    "location_details": { "type": "STRING" },
+                                    "key_elements": { "type": "STRING" },
+                                    "recommended_style": { "type": "STRING" }
+                                },
+                                required: ["product_name", "product_features", "location", "location_details", "key_elements", "recommended_style"]
+                            }
+                        }
+                    };
+
+                    const apiKey = localStorage.getItem('googleApiKey');
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+                    if (!response.ok) throw new Error(`API call failed: ${response.status}`);
+                    
+                    const result = await response.json();
+                    
+                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        const analysis = JSON.parse(result.candidates[0].content.parts[0].text);
+                        
+                        document.getElementById('product-name').value = analysis.product_name || '';
+                        document.getElementById('product-features').value = analysis.product_features || '';
+                        document.getElementById('location').value = analysis.location || '';
+                        document.getElementById('location-details').value = analysis.location_details || '';
+                        
+                        ensureFormCompletion(analysis);
+                        
+                        animationStyleSelect.value = analysis.recommended_style;
+                        handleStyleChange();
+                        
+                        const selectedOptionText = animationStyleSelect.options[animationStyleSelect.selectedIndex].text;
+                        analysisResult.textContent = `Analisis Selesai! Gaya yang direkomendasikan: ${selectedOptionText}. Formulir telah diisi.`;
+                        analysisResult.classList.remove('text-red-400');
+                        analysisResult.classList.add('text-green-400');
+                    } else {
+                        throw new Error("Invalid response from AI.");
+                    }
+
+                } catch (error) {
+                    console.error('Error analyzing image:', error);
+                    analysisResult.textContent = 'Maaf, gagal menganalisis gambar. Coba lagi.';
+                    analysisResult.classList.add('text-red-400');
+                    analysisResult.classList.remove('text-green-400');
+                } finally {
+                    setLoading(false, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar', 'Menganalisis...');
+                }
+            };
+        });
+
+        productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!checkApiKeyStatus()) {
+                toggleModal(settingsModal, true);
+                return;
+            }
+            setLoading(true, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
+
+            const style = animationStyleSelect.value;
+            const aspectRatio = document.querySelector('input[name="aspect_ratio"]:checked').value;
+            const userInput = {
+                style: style,
+                aspectRatio: aspectRatio,
+                productName: document.getElementById('product-name').value,
+                productFeatures: document.getElementById('product-features').value,
+                location: document.getElementById('location').value,
+                locationDetails: document.getElementById('location-details').value,
+                productComponents: document.getElementById('product-components').value,
+                logoDescription: document.getElementById('logo-description').value,
+                finalElement: document.getElementById('final-element').value,
+                productCollection: document.getElementById('product-collection').value,
+                finalHumanElement: document.getElementById('final-human-element').value,
+                ledakanCollection: document.getElementById('ledakan-collection').value,
+                humanReaction: document.getElementById('human-reaction').value,
+                vibeDescription: document.getElementById('vibe-description').value,
+                vibeElements: document.getElementById('vibe-elements').value,
+                surpriseRecipient: document.getElementById('surprise-recipient').value,
+                surpriseElement: document.getElementById('surprise-element').value,
+                screenProduct: document.getElementById('screen-product').value,
+                screenAction: document.getElementById('screen-action').value,
+                boxDescription: document.getElementById('box-description').value,
+                unboxingElements: document.getElementById('unboxing-elements').value,
+                vaultBoxDescription: document.getElementById('vault-box-description').value,
+                vaultElements: document.getElementById('vault-elements').value,
+                povAction: document.getElementById('pov-action').value,
+                povEffect: document.getElementById('pov-effect').value,
+                worshipFigure: document.getElementById('worship-figure').value,
+                worshipSound: document.getElementById('worship-sound').value,
+                fashionCharacter: document.getElementById('fashion-character').value,
+                fashionAction: document.getElementById('fashion-action').value,
+                fashionEffect: document.getElementById('fashion-effect').value,
+            };
+
+            if ((style === 'perakitan' && !userInput.productComponents) ||
+                (style === 'logo' && !userInput.logoDescription) ||
+                (style === 'ruangan' && !userInput.productCollection) ||
+                (style === 'ledakan' && !userInput.ledakanCollection) ||
+                (style === 'suasana' && !userInput.vibeDescription) ||
+                (style === 'kejutan' && (!userInput.surpriseRecipient || !userInput.surpriseElement)) ||
+                (style === 'layar' && (!userInput.screenProduct || !userInput.screenAction)) ||
+                (style === 'unboxing' && (!userInput.boxDescription || !userInput.unboxingElements)) ||
+                (style === 'vault' && (!userInput.vaultBoxDescription || !userInput.vaultElements)) ||
+                (style === 'pov' && (!userInput.povAction || !userInput.povEffect)) ||
+                (style === 'pemujaan' && (!userInput.worshipFigure || !userInput.worshipSound)) ||
+                (style === 'fashion' && (!userInput.fashionCharacter || !userInput.fashionAction))
+                ) {
+                alert('Mohon isi kolom spesifik untuk gaya yang dipilih.');
+                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
+                return;
+            }
+
+            try {
+                const prompt = generateVideoPrompt(userInput);
+                currentFormData = { ...userInput, prompt: prompt };
+                
+                generatedPrompt.textContent = prompt;
+                outputSection.classList.remove('hidden');
+                outputSection.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Error generating prompt:", error);
+                alert("Maaf, terjadi kesalahan saat membuat prompt. Silakan coba lagi.");
+            } finally {
+                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
+            }
+        });
+
+        function setLoading(isLoading, button, textElement, loaderElement, defaultText, loadingText) {
+            button.disabled = isLoading;
+            textElement.textContent = isLoading ? loadingText : defaultText;
+            loaderElement.classList.toggle('hidden', !isLoading);
+        }
+
+        function generateVideoPrompt(data) {
+            const base = `cinematic video, aspect ratio ${data.aspectRatio}, 8k, photorealistic, high detail, professional color grading,`;
+
+            switch (data.style) {
+                case 'transformasi':
+                    return `${base} dynamic shot in a bustling ${data.location}, a person throws a small high-tech capsule, it lands and with a 'POOF' of thick smoke, it instantly transforms into a new ${data.productName} which has these features: ${data.productFeatures}. Onlookers are stunned and amazed.`;
+                case 'perakitan':
+                    return `${base} fixed wide angle shot in a premium ${data.location}, ${data.productComponents} fly out and assemble in slow-motion, merging precisely to form a perfect ${data.productName} with features like ${data.productFeatures}.`;
+                case 'logo':
+                    return `${base} in a minimalist abstract space with ${data.lightingStyle} lighting, a glowing ${data.logoDescription} logo morphs and twists like ribbons of energy, then explodes into fragments that swirl and reassemble mid-air into a pair of ${data.productName}. The camera floats around them in slow motion as they land. ${data.finalElement} rolls in and stops perfectly next to the product.`;
+                case 'ruangan':
+                    return `${base} fixed wide-angle view of an empty ${data.location}, a flat-pack box with the ${data.productName} logo opens, and a full room of furniture (${data.productCollection}) assembles itself rapidly in a time-lapse style. Finally, ${data.finalHumanElement} pops out from the box, gesturing enthusiastically at the newly assembled room.`;
+                case 'ledakan':
+                    return `${base} slow camera push-in on a large box labeled '${data.productName}' in an empty, cozy ${data.location}. The box suddenly bursts open, and a vibrant, colorful living room (${data.ledakanCollection}) erupts in slow motion. When everything is in place, ${data.humanReaction} appears in the middle of the scene, with an expressive shocked pose.`;
+                case 'suasana':
+                    return `${base} in an empty room with sunlight streaming in, a box labeled '${data.productName}' opens and a complete, cozy ${data.vibeDescription} scene bursts out in slow motion, including ${data.vibeElements}. The view outside the window transforms to match the new cozy, bohemian mood.`;
+                case 'kejutan':
+                    return `${base} in a beautiful, cozy ${data.location}, ${data.surpriseRecipient} looks surprised as a gift box labeled '${data.productName}' opens slowly. From inside, ${data.surpriseElement} emerges in dramatic slow motion, illuminated by soft golden light, creating a subtle romantic atmosphere with floating dust particles.`;
+                case 'layar':
+                    return `${base} 3D animation scene in a cozy ${data.location}, a realistic hand holds a smartphone showing a ${data.screenProduct}. The hand performs an action: ${data.screenAction}. The ${data.productName} then emerges out of the phone, floating with smooth realistic animation, and lands perfectly on the table, becoming a real aesthetic object with detailed textures.`;
+                case 'unboxing':
+                    return `${base} in a clean, modern ${data.location}, a stylish box described as '${data.boxDescription}' sits at the center. The camera quickly zooms toward the box. The box opens smoothly with a subtle glow from inside. From the open box, product-related elements like ${data.unboxingElements} begin to float upward with gentle motion and soft lighting. The elements hover momentarily, then spread out and arrange themselves neatly around the box. Finally, the camera pulls back slowly to reveal the full, elegant setup.`;
+                case 'vault':
+                    return `${base} photorealistic cinematic shot of an empty modern ${data.location} with ${data.locationDetails}. A sealed ${data.vaultBoxDescription} sits in the center. The box shakes intensely, glows with red accent lighting, and bursts open dramatically. ${data.vaultElements} fly out and assemble rapidly into a complete luxury collector's vault. The final shot is a bold, high-energy sanctuary glowing with cool LED lighting and red neon accents.`;
+                case 'pov':
+                    return `${base} dynamic first-person POV, user runs through a hyper-modern, neon-lit ${data.location} at night. Heartbeat synced with techno pulses. Holographic signs and data streams glitch and react to eye movement. In one motion, user performs action: ${data.povAction}. Instantly, ${data.povEffect}. The camera orbits 360 degrees, capturing the surreal stillness of the scene. The main product, ${data.productName}, is then revealed in a macro close-up, looking high-gloss and futuristic.`;
+                case 'pemujaan':
+                    return `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}. The final frame shows the ${data.productName} logo glowing, embossed into stone, surrounded by flickering candlelight. Mood is indulgent, reverent, warm, luxurious.`;
+                case 'fashion':
+                    return `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`;
+            }
+            return "";
+        }
+        
+        copyButton.addEventListener('click', () => {
+            const textToCopy = generatedPrompt.textContent;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "1px";
+            textArea.style.height = "1px";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                copyButton.textContent = 'Berhasil Disalin!';
+                setTimeout(() => { copyButton.textContent = 'Salin Prompt'; }, 2000);
+            } catch (err) {
+                console.error('Gagal menyalin prompt: ', err);
+            }
+
+            document.body.removeChild(textArea);
+        });
+
+        generateImageButton.addEventListener('click', async () => {
+            if (!checkApiKeyStatus()) {
+                toggleModal(settingsModal, true);
+                return;
+            }
+            if (!currentFormData.prompt) { alert("Generate prompt dulu!"); return; }
+            imageLoader.style.display = 'flex';
+            generatedImage.classList.add('hidden');
+            imageError.classList.add('hidden');
+            
+            try {
+                const payload = { instances: [{ prompt: currentFormData.prompt }], parameters: { "sampleCount": 1 } };
+                const apiKey = localStorage.getItem('googleApiKey');
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const result = await response.json();
+                if (result.predictions?.[0]?.bytesBase64Encoded) {
+                    generatedImage.src = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    generatedImage.classList.remove('hidden');
+                } else { throw new Error("No image data from API."); }
+            } catch (error) {
+                console.error('Error generating image:', error);
+                imageError.textContent = 'Gagal membuat gambar. Coba lagi.';
+                imageError.classList.remove('hidden');
+            } finally {
+                imageLoader.style.display = 'none';
+            }
+        });
+
+        // Initial check on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkApiKeyStatus();
+            handleStyleChange(); // Set initial visibility of style inputs
+            // Populate help modal content
+            document.getElementById('help-modal-content').innerHTML = `
+                <section>
+                    <h3 class="text-xl font-semibold text-white mb-2">1. Cara Mendapatkan Google AI Studio API Key</h3>
+                    <p>API Key ini wajib diisi agar fitur AI (Analisa Gambar & Generate Gambar) bisa berfungsi. Caranya mudah:</p>
+                    <ol class="mt-2 space-y-1">
+                        <li>Buka situs <a href="https://aistudio.google.com/" target="_blank" class="text-blue-400 hover:underline">Google AI Studio</a>.</li>
+                        <li>Masuk (login) dengan akun Google Anda.</li>
+                        <li>Di halaman utama, klik tombol <strong class="text-white">"Get API Key"</strong> (biasanya di pojok kiri atas).</li>
+                        <li>Klik <strong class="text-white">"Create API key in new project"</strong>.</li>
+                        <li>Sebuah kunci akan muncul. Klik ikon salin (copy) di sebelahnya.</li>
+                        <li>Kembali ke aplikasi ini, buka menu <strong class="text-white">Pengaturan</strong> (ikon gerigi), tempel (paste) kuncinya di kolom yang tersedia, lalu klik <strong class="text-white">Simpan</strong>.</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3 class="text-xl font-semibold text-white mb-2">2. Cara Menggunakan Aplikasi</h3>
+                    <div>
+                        <h4 class="text-lg font-semibold text-white mt-4 mb-1">Cara Cepat (Rekomendasi)</h4>
+                        <ol>
+                            <li><strong class="text-white">Unggah Gambar:</strong> Klik area unggah dan pilih gambar produk Anda.</li>
+                            <li><strong class="text-white">Analisa:</strong> Klik tombol "Analisa Gambar". AI akan otomatis mengisi seluruh formulir dan merekomendasikan gaya iklan terbaik.</li>
+                            <li><strong class="text-white">Sempurnakan:</strong> Baca hasil isian AI. Anda bisa mengubah atau menambah detail apa pun agar lebih sesuai dengan visi Anda.</li>
+                            <li><strong class="text-white">Generate:</strong> Klik "Generate Prompt" untuk mendapatkan hasil akhir.</li>
+                        </ol>
+                    </div>
+                     <div>
+                        <h4 class="text-lg font-semibold text-white mt-4 mb-1">Cara Manual</h4>
+                        <ol>
+                            <li><strong class="text-white">Pilih Gaya & Rasio:</strong> Pilih gaya iklan dan rasio video yang Anda inginkan dari menu dropdown.</li>
+                            <li><strong class="text-white">Isi Formulir:</strong> Isi semua detail produk dan suasana secara manual.</li>
+                            <li><strong class="text-white">Generate:</strong> Klik "Generate Prompt".</li>
+                        </ol>
+                    </div>
+                </section>
+                 <section>
+                    <h3 class="text-xl font-semibold text-white mb-2">3. Penjelasan Gaya Iklan</h3>
+                    <div class="space-y-4">
+                        <p><strong>1. Transformasi Kapsul Ajaib:</strong> Produk muncul instan dari kapsul berteknologi tinggi. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang ingin terkesan canggih, praktis, dan instan.</p>
+                        <p><strong>2. Perakitan Dinamis:</strong> Komponen-komponen produk terbang dan merakit diri secara sinematik. <strong class="text-blue-300">Cocok untuk:</strong> Produk dengan detail teknis atau bahan berkualitas (gadget, mesin, makanan, gedung).</p>
+                        <p><strong>3. Transformasi Logo:</strong> Logo merek Anda berubah bentuk menjadi produk. <strong class="text-blue-300">Cocok untuk:</strong> Membangun citra merek yang kuat dan premium.</p>
+                        <p><strong>4. Perakitan Ruangan:</strong> Satu kotak merakit seluruh isi ruangan secara cepat (time-lapse). <strong class="text-blue-300">Cocok untuk:</strong> Furnitur, paket dekorasi, atau produk yang menciptakan lingkungan.</p>
+                        <p><strong>5. Ledakan Kreatif:</strong> Ruangan lengkap "meledak" keluar dari kotak, mengejutkan seseorang. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang memberikan transformasi gaya hidup instan dan dramatis.</p>
+                        <p><strong>6. Suasana dalam Kotak:</strong> Sebuah kotak mengeluarkan adegan yang hidup, lengkap dengan orang dan aktivitas. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau gaya hidup (travel, acara, komunitas).</p>
+                        <p><strong>7. Kejutan dari Kotak:</strong> Kotak menjadi "portal" untuk memunculkan kejutan emosional (seseorang atau hadiah). <strong class="text-blue-300">Cocok untuk:</strong> Produk yang diposisikan sebagai hadiah atau untuk kampanye romantis/emosional.</p>
+                        <p><strong>8. Keluar dari Layar:</strong> Produk di layar gawai menjadi nyata. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang dipesan online (e-commerce, makanan delivery) atau layanan digital.</p>
+                        <p><strong>9. Unboxing Elegan:</strong> Produk dan aksesorisnya keluar dari kotak dan menata diri secara estetik. <strong class="text-blue-300">Cocok untuk:</strong> Produk premium dengan kemasan dan kelengkapan yang menarik (fashion, kosmetik, gadget).</p>
+                        <p><strong>10. Transformasi Ruang Kolektor:</strong> Kotak produk mengubah ruangan menjadi "lemari koleksi" mewah. <strong class="text-blue-300">Cocok untuk:</strong> Produk edisi terbatas atau barang koleksi (sneakers, jam tangan, mainan).</p>
+                        <p><strong>11. Aksi Sudut Pandang Pertama (POV):</strong> Penonton melihat aksi dari mata pengguna, di mana produk memberikan kekuatan super. <strong class="text-blue-300">Cocok untuk:</strong> Produk teknologi canggih yang memberikan kemampuan baru bagi pengguna.</p>
+                        <p><strong>12. Pemujaan Produk (Sakral):</strong> Produk ditampilkan sebagai artefak suci di lokasi yang megah. <strong class="text-blue-300">Cocok untuk:</strong> Produk ultra-premium yang ingin diposisikan sebagai mahakarya (cokelat, parfum, perhiasan).</p>
+                        <p><strong>13. Pembekuan Realitas (Gaya Fashion):</strong> Karakter utama menggunakan produk dan membuat dunia di sekitarnya membeku. <strong class="text-blue-300">Cocok untuk:</strong> Produk fashion dan aksesori yang memberikan rasa percaya diri dan kekuatan.</p>
+                    </div>
+                </section>
+            `;
+        });
+    </script>
+</body>
+</html>
