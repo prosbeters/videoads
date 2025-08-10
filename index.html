@@ -191,16 +191,19 @@
                                     <option value="transformasi">1. Transformasi Kapsul Ajaib</option>
                                     <option value="perakitan">2. Perakitan Dinamis</option>
                                     <option value="logo">3. Transformasi Logo</option>
-                                    <option value="ruangan">4. Perakitan Ruangan</option>
-                                    <option value="ledakan">5. Ledakan Kreatif</option>
-                                    <option value="suasana">6. Suasana dalam Kotak</option>
-                                    <option value="kejutan">7. Kejutan dari Kotak</option>
-                                    <option value="layar">8. Keluar dari Layar</option>
-                                    <option value="unboxing">9. Unboxing Elegan</option>
-                                    <option value="vault">10. Transformasi Ruang Kolektor</option>
-                                    <option value="pov">11. Aksi Sudut Pandang Pertama (POV)</option>
-                                    <option value="pemujaan">12. Pemujaan Produk (Sakral)</option>
-                                    <option value="fashion">13. Pembekuan Realitas (Gaya Fashion)</option>
+                                    <option value="dekonstruksi">4. Dekonstruksi Logo (Mewah)</option>
+                                    <option value="ruangan">5. Perakitan Ruangan</option>
+                                    <option value="ledakan">6. Ledakan Kreatif</option>
+                                    <option value="suasana">7. Suasana dalam Kotak</option>
+                                    <option value="kejutan">8. Kejutan dari Kotak</option>
+                                    <option value="layar">9. Keluar dari Layar</option>
+                                    <option value="unboxing">10. Unboxing Elegan</option>
+                                    <option value="vault">11. Transformasi Ruang Kolektor</option>
+                                    <option value="pov">12. Aksi Sudut Pandang Pertama (POV)</option>
+                                    <option value="pemujaan">13. Pemujaan Produk (Sakral)</option>
+                                    <option value="fashion">14. Pembekuan Realitas (Gaya Fashion)</option>
+                                    <option value="sajian">15. Sajian Sinematik (Makanan)</option>
+                                    <option value="teardown">16. Pembongkaran Canggih (Tech)</option>
                                 </select>
                             </div>
                             <div>
@@ -241,6 +244,12 @@
                                     <input type="text" id="logo-description" class="w-full form-input rounded-md" placeholder="Contoh: Logo centang yang dinamis">
                                     <label for="final-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Terkait di Akhir (Opsional)</label>
                                     <input type="text" id="final-element" class="w-full form-input rounded-md" placeholder="Contoh: Sebuah bola basket mendarat di sebelah sepatu">
+                                </div>
+                                <div id="dekonstruksi-inputs" class="md:col-span-2 hidden">
+                                    <label for="dekon-logo-text" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo & Teks Awal</label>
+                                    <input type="text" id="dekon-logo-text" class="w-full form-input rounded-md" placeholder="Contoh: Logo mahkota emas Rolex">
+                                    <label for="dekon-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Mekanis Hasil Dekonstruksi</label>
+                                    <textarea id="dekon-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: gigi mesin, bezel, per, casing, dan potongan dial"></textarea>
                                 </div>
                                 <div id="ruangan-inputs" class="md:col-span-2 hidden">
                                     <label for="product-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk dalam Adegan</label>
@@ -303,6 +312,20 @@
                                     <textarea id="fashion-action" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Memakai kacamata hitam ikonik dengan gerakan yang tajam dan percaya diri"></textarea>
                                     <label for="fashion-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Pembekuan Realitas</label>
                                     <textarea id="fashion-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Kerumunan di sekitarnya langsung membeku, matanya memantulkan pemandangan kota futuristik melalui lensa"></textarea>
+                                </div>
+                                <div id="sajian-inputs" class="md:col-span-2 hidden">
+                                    <label for="plating-container" class="block text-sm font-medium text-gray-300 mb-1">Wadah Awal Produk</label>
+                                    <input type="text" id="plating-container" class="w-full form-input rounded-md" placeholder="Contoh: Bungkus Indomie Mi Goreng, kotak pizza">
+                                    <label for="plating-ingredients" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Bahan-bahan yang Dimasak</label>
+                                    <textarea id="plating-ingredients" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: mie yang sudah matang, sayuran hijau renyah, telur mata sapi, partikel bumbu, bawang goreng"></textarea>
+                                </div>
+                                <div id="teardown-inputs" class="md:col-span-2 hidden">
+                                    <label for="teardown-box" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Premium</label>
+                                    <input type="text" id="teardown-box" class="w-full form-input rounded-md" placeholder="Contoh: Kotak Apple Vision Pro putih bersih di atas meja kayu">
+                                    <label for="teardown-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Inti Produk</label>
+                                    <textarea id="teardown-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: lensa, sensor, chip, tali, dan casing"></textarea>
+                                    <label for="teardown-immersion" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Transisi/Imersi</label>
+                                    <textarea id="teardown-immersion" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Headset bergerak ke arah penonton dan 'terpasang', layar menjadi hitam dan logo Apple muncul"></textarea>
                                 </div>
                                 <div id="location-details-wrapper" class="md:col-span-2">
                                     <label for="location-details" class="block text-sm font-medium text-gray-300 mb-1">Detail Suasana Lokasi Awal</label>
@@ -534,6 +557,7 @@
             pov: document.getElementById('pov-inputs'),
             pemujaan: document.getElementById('pemujaan-inputs'),
             fashion: document.getElementById('fashion-inputs'),
+            sajian: document.getElementById('sajian-inputs'),
         };
         const locationWrapper = document.getElementById('location-wrapper');
         const locationDetailsWrapper = document.getElementById('location-details-wrapper');
@@ -962,6 +986,10 @@
                     return `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}. The final frame shows the ${data.productName} logo glowing, embossed into stone, surrounded by flickering candlelight. Mood is indulgent, reverent, warm, luxurious.`;
                 case 'fashion':
                     return `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`;
+                case 'sajian':
+                    return `${base} hyper-realistic cinematic food sequence in a ${data.location} with ${data.locationDetails}. A sealed ${data.platingContainer} is placed on a table under focused top-light. The container opens smoothly, releasing individual cooked ingredients into the air: ${data.platingIngredients}. Each component rises gracefully in a seamless, elegant slow-floating motion with no blur. The camera follows this orchestrated assembly as ingredients land precisely onto a clean plate. The final frame reveals a neatly plated ${data.productName} dish. Mood is elegant, focused, mouth-watering.`;
+                case 'teardown':
+                    return `${base} in a softly lit, premium environment like a ${data.location}, a pristine ${data.teardownBox} rests on a surface. The camera slowly pushes in as the box gently opens on its own. The ${data.productName} lifts smoothly and floats mid-air, rotating to show its details. The device then disassembles into its core components — ${data.teardownComponents} — all suspended in precise formation. The camera floats through the exploded view, highlighting craftsmanship, before the components magnetically reassemble. Finally, ${data.teardownImmersion}. Style: Apple-level premium, tactile, futuristic, luxurious.`;
             }
             return "";
         }
