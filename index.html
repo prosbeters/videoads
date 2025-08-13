@@ -152,7 +152,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                      <button id="open-help-button" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     </button>
                     <button id="open-settings-button" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -204,6 +204,11 @@
                                     <option value="fashion">14. Pembekuan Realitas (Gaya Fashion)</option>
                                     <option value="sajian">15. Sajian Sinematik (Makanan)</option>
                                     <option value="teardown">16. Pembongkaran Canggih (Tech)</option>
+                                    <option value="kinetic">17. Disintegrasi Kinetik</option>
+                                    <option value="absurd">18. Kekacauan Absurd Robot Mini</option>
+                                    <option value="ingredient_explosion">19. Ledakan Bahan Baku</option>
+                                    <option value="magical_transformation">20. Transformasi Lingkungan Sekitar</option>
+                                    <option value="retro_dynamic">21. Gaya Retro Dinamis</option>
                                 </select>
                             </div>
                             <div>
@@ -236,103 +241,164 @@
                                 </div>
                                 <!-- Style-specific inputs -->
                                  <div id="perakitan-inputs" class="md:col-span-2 hidden">
-                                    <label for="product-components" class="block text-sm font-medium text-gray-300 mb-1">Komponen / Bahan Utama Produk</label>
-                                    <textarea id="product-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Serat karbon, busa nitrogen, kain rajut"></textarea>
-                                </div>
+                                     <label for="product-components" class="block text-sm font-medium text-gray-300 mb-1">Komponen / Bahan Utama Produk</label>
+                                     <textarea id="product-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Serat karbon, busa nitrogen, kain rajut"></textarea>
+                                 </div>
                                  <div id="logo-inputs" class="md:col-span-2 hidden">
-                                    <label for="logo-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo Merek Anda</label>
-                                    <input type="text" id="logo-description" class="w-full form-input rounded-md" placeholder="Contoh: Logo centang yang dinamis">
-                                    <label for="final-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Terkait di Akhir (Opsional)</label>
-                                    <input type="text" id="final-element" class="w-full form-input rounded-md" placeholder="Contoh: Sebuah bola basket mendarat di sebelah sepatu">
-                                </div>
+                                     <label for="logo-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo Merek Anda</label>
+                                     <input type="text" id="logo-description" class="w-full form-input rounded-md" placeholder="Contoh: Logo centang yang dinamis">
+                                     <label for="final-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Terkait di Akhir (Opsional)</label>
+                                     <input type="text" id="final-element" class="w-full form-input rounded-md" placeholder="Contoh: Sebuah bola basket mendarat di sebelah sepatu">
+                                 </div>
                                 <div id="dekonstruksi-inputs" class="md:col-span-2 hidden">
-                                    <label for="dekon-logo-text" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo & Teks Awal</label>
-                                    <input type="text" id="dekon-logo-text" class="w-full form-input rounded-md" placeholder="Contoh: Logo mahkota emas Rolex">
-                                    <label for="dekon-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Mekanis Hasil Dekonstruksi</label>
-                                    <textarea id="dekon-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: gigi mesin, bezel, per, casing, dan potongan dial"></textarea>
-                                </div>
+                                     <label for="dekon-logo-text" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo & Teks Awal</label>
+                                     <input type="text" id="dekon-logo-text" class="w-full form-input rounded-md" placeholder="Contoh: Logo mahkota emas Rolex">
+                                     <label for="dekon-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Mekanis Hasil Dekonstruksi</label>
+                                     <textarea id="dekon-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: gigi mesin, bezel, per, casing, dan potongan dial"></textarea>
+                                 </div>
                                 <div id="ruangan-inputs" class="md:col-span-2 hidden">
-                                    <label for="product-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk dalam Adegan</label>
-                                    <textarea id="product-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: tempat tidur, meja samping, lampu, lemari, rak, cermin, karpet, gorden"></textarea>
-                                    <label for="final-human-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Manusia di Akhir (Opsional)</label>
-                                    <input type="text" id="final-human-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang desainer interior yang tersenyum puas">
-                                </div>
+                                     <label for="product-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk dalam Adegan</label>
+                                     <textarea id="product-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: tempat tidur, meja samping, lampu, lemari, rak, cermin, karpet, gorden"></textarea>
+                                     <label for="final-human-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Manusia di Akhir (Opsional)</label>
+                                     <input type="text" id="final-human-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang desainer interior yang tersenyum puas">
+                                 </div>
                                  <div id="ledakan-inputs" class="md:col-span-2 hidden">
-                                    <label for="ledakan-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk yang Meledak Keluar</label>
-                                    <textarea id="ledakan-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: sofa modern, bantal warna-warni, kursi kuning, lampu, rak buku, gitar, dekorasi unik"></textarea>
-                                    <label for="human-reaction" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Deskripsi Orang & Reaksinya</label>
-                                    <input type="text" id="human-reaction" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita muda cantik dengan sweater merah, kaget dan takjub">
-                                </div>
+                                     <label for="ledakan-collection" class="block text-sm font-medium text-gray-300 mb-1">Koleksi Produk yang Meledak Keluar</label>
+                                     <textarea id="ledakan-collection" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: sofa modern, bantal warna-warni, kursi kuning, lampu, rak buku, gitar, dekorasi unik"></textarea>
+                                     <label for="human-reaction" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Deskripsi Orang & Reaksinya</label>
+                                     <input type="text" id="human-reaction" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita muda cantik dengan sweater merah, kaget dan takjub">
+                                 </div>
                                  <div id="suasana-inputs" class="md:col-span-2 hidden">
-                                    <label for="vibe-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Suasana / Adegan</label>
-                                    <textarea id="vibe-description" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Pesta kebun sore hari yang santai, sesi nge-band di tepi pantai, malam nonton film yang nyaman"></textarea>
-                                    <label for="vibe-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Orang & Elemen Kunci dalam Adegan</label>
-                                    <input type="text" id="vibe-elements" class="w-full form-input rounded-md" placeholder="Contoh: Empat teman bermain gitar, keyboard. Ada furnitur rotan, minuman dingin, lampu-lampu.">
-                                </div>
+                                     <label for="vibe-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Suasana / Adegan</label>
+                                     <textarea id="vibe-description" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Pesta kebun sore hari yang santai, sesi nge-band di tepi pantai, malam nonton film yang nyaman"></textarea>
+                                     <label for="vibe-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Orang & Elemen Kunci dalam Adegan</label>
+                                     <input type="text" id="vibe-elements" class="w-full form-input rounded-md" placeholder="Contoh: Empat teman bermain gitar, keyboard. Ada furnitur rotan, minuman dingin, lampu-lampu.">
+                                 </div>
                                 <div id="kejutan-inputs" class="md:col-span-2 hidden">
-                                    <label for="surprise-recipient" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Penerima Kejutan</label>
-                                    <input type="text" id="surprise-recipient" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang sedang duduk termenung di sofa">
-                                    <label for="surprise-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Apa/Siapa yang Keluar dari Kotak?</label>
-                                    <input type="text" id="surprise-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang pria tampan membawa setangkai mawar merah">
-                                </div>
+                                     <label for="surprise-recipient" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Penerima Kejutan</label>
+                                     <input type="text" id="surprise-recipient" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang sedang duduk termenung di sofa">
+                                     <label for="surprise-element" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Apa/Siapa yang Keluar dari Kotak?</label>
+                                     <input type="text" id="surprise-element" class="w-full form-input rounded-md" placeholder="Contoh: Seorang pria tampan membawa setangkai mawar merah">
+                                 </div>
                                 <div id="layar-inputs" class="md:col-span-2 hidden">
-                                    <label for="screen-product" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Produk di Layar Gawai</label>
-                                    <input type="text" id="screen-product" class="w-full form-input rounded-md" placeholder="Contoh: Burger yang lezat dengan keju meleleh di aplikasi">
-                                    <label for="screen-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Pemicu di Layar</label>
-                                    <input type="text" id="screen-action" class="w-full form-input rounded-md" placeholder="Contoh: Jari menekan tombol 'Pesan Sekarang'">
-                                </div>
+                                     <label for="screen-product" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Produk di Layar Gawai</label>
+                                     <input type="text" id="screen-product" class="w-full form-input rounded-md" placeholder="Contoh: Burger yang lezat dengan keju meleleh di aplikasi">
+                                     <label for="screen-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Pemicu di Layar</label>
+                                     <input type="text" id="screen-action" class="w-full form-input rounded-md" placeholder="Contoh: Jari menekan tombol 'Pesan Sekarang'">
+                                 </div>
                                  <div id="unboxing-inputs" class="md:col-span-2 hidden">
-                                    <label for="box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
-                                    <input type="text" id="box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak hitam elegan dengan logo emas">
-                                    <label for="unboxing-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Produk yang Keluar dari Kotak</label>
-                                    <textarea id="unboxing-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu, rak sepatu, kaus kaki, semir sepatu"></textarea>
-                                </div>
+                                     <label for="box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
+                                     <input type="text" id="box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak hitam elegan dengan logo emas">
+                                     <label for="unboxing-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Produk yang Keluar dari Kotak</label>
+                                     <textarea id="unboxing-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu, rak sepatu, kaus kaki, semir sepatu"></textarea>
+                                 </div>
                                  <div id="vault-inputs" class="md:col-span-2 hidden">
-                                    <label for="vault-box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
-                                    <input type="text" id="vault-box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak sepatu hitam matte dengan logo putih menyala">
-                                    <label for="vault-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Koleksi & Display</label>
-                                    <textarea id="vault-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu Air Jordan, rak display akrilik, memorabilia basket, poster, lampu LED neon"></textarea>
-                                </div>
+                                     <label for="vault-box-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Produk</label>
+                                     <input type="text" id="vault-box-description" class="w-full form-input rounded-md" placeholder="Contoh: Kotak sepatu hitam matte dengan logo putih menyala">
+                                     <label for="vault-elements" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Elemen Koleksi & Display</label>
+                                     <textarea id="vault-elements" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Sepatu Air Jordan, rak display akrilik, memorabilia basket, poster, lampu LED neon"></textarea>
+                                 </div>
                                 <div id="pov-inputs" class="md:col-span-2 hidden">
-                                    <label for="pov-action" class="block text-sm font-medium text-gray-300 mb-1">Aksi Pengguna (POV)</label>
-                                    <input type="text" id="pov-action" class="w-full form-input rounded-md" placeholder="Contoh: Mengangkat iPhone ke depan mata, menekan tombol capture">
-                                    <label for="pov-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Dramatis (Pembekuan Waktu)</label>
-                                    <textarea id="pov-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Waktu langsung membeku, kerumunan berhenti bergerak, tetesan hujan neon menggantung di udara"></textarea>
-                                </div>
+                                     <label for="pov-action" class="block text-sm font-medium text-gray-300 mb-1">Aksi Pengguna (POV)</label>
+                                     <input type="text" id="pov-action" class="w-full form-input rounded-md" placeholder="Contoh: Mengangkat iPhone ke depan mata, menekan tombol capture">
+                                     <label for="pov-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Dramatis (Pembekuan Waktu)</label>
+                                     <textarea id="pov-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Waktu langsung membeku, kerumunan berhenti bergerak, tetesan hujan neon menggantung di udara"></textarea>
+                                 </div>
                                  <div id="pemujaan-inputs" class="md:col-span-2 hidden">
-                                    <label for="worship-figure" class="block text-sm font-medium text-gray-300 mb-1">Figur & Aksi Ritual</label>
-                                    <input type="text" id="worship-figure" class="w-full form-input rounded-md" placeholder="Contoh: Sosok berjubah mendekat dengan hormat, mematahkan sepotong cokelat">
-                                    <label for="worship-sound" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Suara & Musik</label>
-                                    <textarea id="worship-sound" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Nyanyian Gregorian, piano ambient, bisikan 'This isn't just chocolate. It's worship.'"></textarea>
-                                </div>
+                                     <label for="worship-figure" class="block text-sm font-medium text-gray-300 mb-1">Figur & Aksi Ritual</label>
+                                     <input type="text" id="worship-figure" class="w-full form-input rounded-md" placeholder="Contoh: Sosok berjubah mendekat dengan hormat, mematahkan sepotong cokelat">
+                                     <label for="worship-sound" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Suara & Musik</label>
+                                     <textarea id="worship-sound" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Nyanyian Gregorian, piano ambient, bisikan 'This isn't just chocolate. It's worship.'"></textarea>
+                                 </div>
                                 <div id="fashion-inputs" class="md:col-span-2 hidden">
-                                    <label for="fashion-character" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Karakter Utama</label>
-                                    <input type="text" id="fashion-character" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang percaya diri dan misterius">
-                                    <label for="fashion-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Kunci (Memakai Produk)</label>
-                                    <textarea id="fashion-action" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Memakai kacamata hitam ikonik dengan gerakan yang tajam dan percaya diri"></textarea>
-                                    <label for="fashion-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Pembekuan Realitas</label>
-                                    <textarea id="fashion-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Kerumunan di sekitarnya langsung membeku, matanya memantulkan pemandangan kota futuristik melalui lensa"></textarea>
-                                </div>
+                                     <label for="fashion-character" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Karakter Utama</label>
+                                     <input type="text" id="fashion-character" class="w-full form-input rounded-md" placeholder="Contoh: Seorang wanita yang percaya diri dan misterius">
+                                     <label for="fashion-action" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksi Kunci (Memakai Produk)</label>
+                                     <textarea id="fashion-action" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Memakai kacamata hitam ikonik dengan gerakan yang tajam dan percaya diri"></textarea>
+                                     <label for="fashion-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Pembekuan Realitas</label>
+                                     <textarea id="fashion-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Kerumunan di sekitarnya langsung membeku, matanya memantulkan pemandangan kota futuristik melalui lensa"></textarea>
+                                 </div>
                                 <div id="sajian-inputs" class="md:col-span-2 hidden">
-                                    <label for="plating-container" class="block text-sm font-medium text-gray-300 mb-1">Wadah Awal Produk</label>
-                                    <input type="text" id="plating-container" class="w-full form-input rounded-md" placeholder="Contoh: Bungkus Indomie Mi Goreng, kotak pizza">
-                                    <label for="plating-ingredients" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Bahan-bahan yang Dimasak</label>
-                                    <textarea id="plating-ingredients" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: mie yang sudah matang, sayuran hijau renyah, telur mata sapi, partikel bumbu, bawang goreng"></textarea>
-                                </div>
+                                     <label for="plating-container" class="block text-sm font-medium text-gray-300 mb-1">Wadah Awal Produk</label>
+                                     <input type="text" id="plating-container" class="w-full form-input rounded-md" placeholder="Contoh: Bungkus Indomie Mi Goreng, kotak pizza">
+                                     <label for="plating-ingredients" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Bahan-bahan yang Dimasak</label>
+                                     <textarea id="plating-ingredients" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: mie yang sudah matang, sayuran hijau renyah, telur mata sapi, partikel bumbu, bawang goreng"></textarea>
+                                 </div>
                                 <div id="teardown-inputs" class="md:col-span-2 hidden">
-                                    <label for="teardown-box" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Premium</label>
-                                    <input type="text" id="teardown-box" class="w-full form-input rounded-md" placeholder="Contoh: Kotak Apple Vision Pro putih bersih di atas meja kayu">
-                                    <label for="teardown-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Inti Produk</label>
-                                    <textarea id="teardown-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: lensa, sensor, chip, tali, dan casing"></textarea>
-                                    <label for="teardown-immersion" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Transisi/Imersi</label>
-                                    <textarea id="teardown-immersion" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Headset bergerak ke arah penonton dan 'terpasang', layar menjadi hitam dan logo Apple muncul"></textarea>
-                                </div>
+                                     <label for="teardown-box" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Kotak Premium</label>
+                                     <input type="text" id="teardown-box" class="w-full form-input rounded-md" placeholder="Contoh: Kotak Apple Vision Pro putih bersih di atas meja kayu">
+                                     <label for="teardown-components" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Komponen Inti Produk</label>
+                                     <textarea id="teardown-components" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: lensa, sensor, chip, tali, dan casing"></textarea>
+                                     <label for="teardown-immersion" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Transisi/Imersi</label>
+                                     <textarea id="teardown-immersion" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Headset bergerak ke arah penonton dan 'terpasang', layar menjadi hitam dan logo Apple muncul"></textarea>
+                                 </div>
+                                 <div id="kinetic-inputs" class="md:col-span-2 hidden">
+                                     <label for="kinetic-subject" class="block text-sm font-medium text-gray-300 mb-1">Subjek Utama (Contoh: Pelari)</label>
+                                     <input type="text" id="kinetic-subject" class="w-full form-input rounded-md" placeholder="Contoh: Seorang pelari dengan pakaian futuristik">
+                                     <label for="kinetic-disintegration" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Disintegrasi</label>
+                                     <textarea id="kinetic-disintegration" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Tubuh pelari terurai menjadi partikel energi saat berlari cepat"></textarea>
+                                     <label for="kinetic-logo" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Deskripsi Logo yang Bertransformasi</label>
+                                     <input type="text" id="kinetic-logo" class="w-full form-input rounded-md" placeholder="Contoh: Logo petir yang energik">
+                                 </div>
+                                 <div id="absurd-inputs" class="md:col-span-2 hidden">
+                                     <label for="absurd-robots" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Robot Mini</label>
+                                     <input type="text" id="absurd-robots" class="w-full form-input rounded-md" placeholder="Contoh: Robot konstruksi kecil transparan non-antropomorfik">
+                                     <label for="absurd-task" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Tugas yang Dibuat Rumit</label>
+                                     <textarea id="absurd-task" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Membersihkan tumpahan kopi menggunakan sebuah kaus"></textarea>
+                                     <label for="absurd-result" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Hasil Akhir yang Absurd (Menjadi Logo)</label>
+                                     <input type="text" id="absurd-result" class="w-full form-input rounded-md" placeholder="Contoh: Mereka tidak sengaja membakar kainnya, dan bekas bakaran itu berubah menjadi logo Adidas">
+                                 </div>
+                                 <div id="ingredient-explosion-inputs" class="md:col-span-2 hidden">
+                                     <label for="ingredient-container" class="block text-sm font-medium text-gray-300 mb-1">Wadah Bahan Baku</label>
+                                     <input type="text" id="ingredient-container" class="w-full form-input rounded-md" placeholder="Contoh: Sebuah keranjang berisi cabai segar">
+                                     <label for="ingredient-explosion-effect" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Efek Ledakan</label>
+                                     <textarea id="ingredient-explosion-effect" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Meledak dengan api panas ke arah kamera"></textarea>
+                                 </div>
+                                 <div id="magical-transformation-inputs" class="md:col-span-2 hidden">
+                                     <label for="magical-subject" class="block text-sm font-medium text-gray-300 mb-1">Subjek Awal Transformasi</label>
+                                     <input type="text" id="magical-subject" class="w-full form-input rounded-md" placeholder="Contoh: Satu biji kopi sangrai">
+                                     <label for="magical-result" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Hasil Transformasi (Beberapa Produk)</label>
+                                     <textarea id="magical-result" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Es Kopi Soe Gula Merah, Regal Latte, dan Es Roegal"></textarea>
+                                 </div>
+                                 <div id="retro-dynamic-inputs" class="md:col-span-2 hidden">
+                                     <label for="retro-character" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Karakter & Pakaian</label>
+                                     <textarea id="retro-character" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Pria Indonesia percaya diri dengan kaos grafis, jeans high-waisted, dan kemeja flanel di pinggang"></textarea>
+                                     <label for="retro-accessories" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Aksesori Kunci</label>
+                                     <input type="text" id="retro-accessories" class="w-full form-input rounded-md" placeholder="Contoh: Kacamata putih besar, sarung tangan putih">
+                                     <label for="retro-lens" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Jenis Lensa Kamera</label>
+                                     <input type="text" id="retro-lens" class="w-full form-input rounded-md" placeholder="Contoh: Lensa fisheye lebar untuk perspektif dinamis">
+                                 </div>
                                 <div id="location-details-wrapper" class="md:col-span-2">
                                     <label for="location-details" class="block text-sm font-medium text-gray-300 mb-1">Detail Suasana Lokasi Awal</label>
                                     <textarea id="location-details" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Papan reklame holografik, genangan air memantulkan cahaya"></textarea>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Brand Identity Section -->
+                        <div class="mt-6 pt-6 border-t border-gray-600">
+                             <h3 class="text-xl font-semibold mb-4 text-white">Identitas Merek di Akhir Video (Opsional)</h3>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                 <div>
+                                     <label for="brand-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Merek</label>
+                                     <input type="text" id="brand-name" class="w-full form-input rounded-md" placeholder="Contoh: Aura Eyewear">
+                                 </div>
+                                 <div>
+                                     <label for="brand-tagline" class="block text-sm font-medium text-gray-300 mb-1">Tagline</label>
+                                     <input type="text" id="brand-tagline" class="w-full form-input rounded-md" placeholder="Contoh: See the World Differently">
+                                 </div>
+                                 <div class="md:col-span-2">
+                                     <label for="brand-logo-upload" class="block text-sm font-medium text-gray-300 mb-1">Upload Logo</label>
+                                     <div class="flex items-center gap-4">
+                                        <input type="file" id="brand-logo-upload" accept="image/*" class="w-full form-file rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-300 hover:file:bg-gray-600">
+                                        <div id="brand-logo-preview-container" class="hidden w-16 h-16 bg-gray-700 rounded-md flex items-center justify-center">
+                                            <img id="brand-logo-preview" src="#" alt="Pratinjau Logo" class="max-h-full max-w-full">
+                                        </div>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+
 
                         <div class="mt-8 text-center flex gap-4">
                             <button type="button" id="reset-button" class="btn-secondary font-bold py-3 px-8 rounded-lg text-white w-full">Reset Proyek</button>
@@ -347,13 +413,13 @@
                 <!-- Output Section -->
                 <div id="output-section" class="hidden mt-8">
                      <div id="output-container" class="p-6 rounded-xl shadow-lg">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-2xl font-bold text-white">Hasil Prompt Video</h2>
-                            <button id="copy-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
-                                Salin Prompt
-                            </button>
-                        </div>
-                        <div id="generated-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
+                         <div class="flex justify-between items-center mb-4">
+                             <h2 class="text-2xl font-bold text-white">Hasil Prompt Video</h2>
+                             <button id="copy-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
+                                 Salin Prompt
+                             </button>
+                         </div>
+                         <div id="generated-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
                     </div>
 
                     <!-- AI Image Idea Generator -->
@@ -424,15 +490,16 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         // Your web app's Firebase configuration
+        // IMPORTANT: Replace with your actual Firebase config
         const firebaseConfig = {
             apiKey: "AIzaSyBxHhY5THznZH0qmcrqJq8I4kTOq5m3zNc",
             authDomain: "prompt-ajaib.firebaseapp.com",
             projectId: "prompt-ajaib",
-            storageBucket: "prompt-ajaib.firebasestorage.app",
+            storageBucket: "prompt-ajaib.appspot.com",
             messagingSenderId: "557430800881",
             appId: "1:557430800881:web:c651638be9f57c0810c450"
         };
@@ -472,7 +539,7 @@
             const email = emailInput.value;
             const password = passwordInput.value;
 
-            setLoading(true, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login', 'Logging in...');
+            setLoading(true, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login');
             loginError.textContent = '';
 
             signInWithEmailAndPassword(auth, email, password)
@@ -491,7 +558,7 @@
                     loginError.textContent = errorMessage;
                 })
                 .finally(() => {
-                    setLoading(false, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login', 'Logging in...');
+                    setLoading(false, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login');
                 });
         });
 
@@ -547,6 +614,7 @@
         const allStyleInputs = {
             perakitan: document.getElementById('perakitan-inputs'),
             logo: document.getElementById('logo-inputs'),
+            dekonstruksi: document.getElementById('dekonstruksi-inputs'),
             ruangan: document.getElementById('ruangan-inputs'),
             ledakan: document.getElementById('ledakan-inputs'),
             suasana: document.getElementById('suasana-inputs'),
@@ -558,6 +626,12 @@
             pemujaan: document.getElementById('pemujaan-inputs'),
             fashion: document.getElementById('fashion-inputs'),
             sajian: document.getElementById('sajian-inputs'),
+            teardown: document.getElementById('teardown-inputs'),
+            kinetic: document.getElementById('kinetic-inputs'),
+            absurd: document.getElementById('absurd-inputs'),
+            ingredient_explosion: document.getElementById('ingredient-explosion-inputs'),
+            magical_transformation: document.getElementById('magical-transformation-inputs'),
+            retro_dynamic: document.getElementById('retro-dynamic-inputs'),
         };
         const locationWrapper = document.getElementById('location-wrapper');
         const locationDetailsWrapper = document.getElementById('location-details-wrapper');
@@ -566,6 +640,11 @@
         const imageLoader = document.getElementById('image-loader');
         const generatedImage = document.getElementById('generated-image');
         const imageError = document.getElementById('image-error');
+        
+        const brandLogoUpload = document.getElementById('brand-logo-upload');
+        const brandLogoPreview = document.getElementById('brand-logo-preview');
+        const brandLogoPreviewContainer = document.getElementById('brand-logo-preview-container');
+
 
         // Modal Elements
         const settingsModal = document.getElementById('settings-modal');
@@ -597,16 +676,17 @@
             const container = overlay.querySelector('.modal-container');
             if (show) {
                 overlay.classList.remove('hidden');
+                // Use a short timeout to allow the display property to apply before starting the transition
                 setTimeout(() => {
-                    overlay.classList.remove('opacity-0');
-                    container.classList.remove('scale-95');
+                    overlay.style.opacity = '1';
+                    container.style.transform = 'scale(1)';
                 }, 10);
             } else {
-                overlay.classList.add('opacity-0');
-                container.classList.add('scale-95');
+                overlay.style.opacity = '0';
+                container.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     overlay.classList.add('hidden');
-                }, 300);
+                }, 300); // Match transition duration
             }
         }
 
@@ -619,10 +699,11 @@
                 return;
             }
 
-            setLoading(true, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan', 'Memvalidasi...');
+            setLoading(true, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan');
             apiKeyMessage.textContent = '';
 
             try {
+                // Use a simple, lightweight API call for validation, like listing models
                 const validationUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
                 const response = await fetch(validationUrl);
                 
@@ -635,13 +716,13 @@
                 } else {
                     let errorMessage = 'API Key tidak valid atau terjadi masalah jaringan.';
                      try {
-                        const errorData = await response.json();
-                        if (errorData && errorData.error && errorData.error.message) {
-                            errorMessage = `Validasi Gagal: ${errorData.error.message}`;
-                        }
-                    } catch (jsonError) {
-                        console.error("Could not parse error JSON from API response:", jsonError);
-                    }
+                         const errorData = await response.json();
+                         if (errorData && errorData.error && errorData.error.message) {
+                             errorMessage = `Validasi Gagal: ${errorData.error.message}`;
+                         }
+                     } catch (jsonError) {
+                         console.error("Could not parse error JSON from API response:", jsonError);
+                     }
                     throw new Error(errorMessage);
                 }
             } catch (error) {
@@ -649,7 +730,7 @@
                 apiKeyMessage.textContent = error.message;
                 apiKeyMessage.className = 'text-sm mt-3 text-red-400';
             } finally {
-                setLoading(false, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan', 'Memvalidasi...');
+                setLoading(false, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan');
             }
         }
 
@@ -663,16 +744,11 @@
 
         function checkApiKeyStatus() {
             const key = localStorage.getItem('googleApiKey');
-            if (key) {
-                apiKeyNotice.classList.add('hidden');
-            } else {
-                apiKeyNotice.classList.remove('hidden');
-            }
+            apiKeyNotice.classList.toggle('hidden', !!key);
             return !!key;
         }
 
-        openSettingsButton.addEventListener('click', () => toggleModal(settingsModal, true));
-        openSettingsFromNotice.addEventListener('click', () => toggleModal(settingsModal, true));
+        [openSettingsButton, openSettingsFromNotice].forEach(btn => btn.addEventListener('click', () => toggleModal(settingsModal, true)));
         closeSettingsModalButton.addEventListener('click', () => toggleModal(settingsModal, false));
         settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) { toggleModal(settingsModal, false); } });
         saveApiKeyButton.addEventListener('click', saveApiKey);
@@ -698,8 +774,11 @@
             generatedPrompt.textContent = '';
             imagePreviewContainer.classList.add('hidden');
             imagePreview.src = '#';
+            brandLogoPreviewContainer.classList.add('hidden');
+            brandLogoPreview.src = '#';
             analysisResult.textContent = '';
             imageUpload.value = ''; // Clear file input
+            brandLogoUpload.value = '';
             animationStyleSelect.value = 'transformasi'; // Reset to default
             handleStyleChange();
         }
@@ -754,6 +833,17 @@
                 reader.readAsDataURL(event.target.files[0]);
             }
         });
+        
+        brandLogoUpload.addEventListener('change', (event) => {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    brandLogoPreview.src = e.target.result;
+                    brandLogoPreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
 
         function ensureFormCompletion(analysis) {
             const productName = analysis.product_name || 'produk';
@@ -796,11 +886,13 @@
             }
             const file = imageUpload.files[0];
             if (!file) {
-                alert('Mohon pilih gambar untuk dianalisis.');
+                // Replace alert with a custom modal or inline message
+                analysisResult.textContent = 'Mohon pilih gambar untuk dianalisis.';
+                analysisResult.className = 'text-yellow-400 mt-3 text-center font-semibold';
                 return;
             }
 
-            setLoading(true, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar', 'Menganalisis...');
+            setLoading(true, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar');
             analysisResult.textContent = '';
 
             const reader = new FileReader();
@@ -809,33 +901,21 @@
                 const base64ImageData = reader.result.split(',')[1];
                 
                 try {
-                    const prompt = `You are a creative director expert. Analyze the following image. Based on the image, generate a creative concept for a video ad. Your response must be a JSON object with the following keys: "product_name", "product_features", "location", "location_details", "key_elements", and "recommended_style". The style must be one of: 'transformasi', 'perakitan', 'logo', 'ruangan', 'ledakan', 'suasana', 'kejutan', 'layar', 'unboxing', 'vault', 'pov', 'pemujaan', 'fashion'.`;
+                    const prompt = `You are a creative director expert. Analyze the following image. Based on the image, generate a creative concept for a video ad. Your response must be a JSON object with the following keys: "product_name", "product_features", "location", "location_details", "key_elements", and "recommended_style". The style must be one of: 'transformasi', 'perakitan', 'logo', 'dekonstruksi', 'ruangan', 'ledakan', 'suasana', 'kejutan', 'layar', 'unboxing', 'vault', 'pov', 'pemujaan', 'fashion', 'sajian', 'teardown', 'kinetic', 'absurd', 'ingredient_explosion', 'magical_transformation', 'retro_dynamic'.`;
                     const payload = {
                         contents: [{
                             parts: [
                                 { text: prompt },
-                                { inline_data: { mime_type: file.type, data: base64ImageData } }
+                                { inlineData: { mimeType: file.type, data: base64ImageData } }
                             ]
                         }],
                         generationConfig: {
                             responseMimeType: "application/json",
-                            responseSchema: {
-                                type: "OBJECT",
-                                properties: {
-                                    "product_name": { "type": "STRING" },
-                                    "product_features": { "type": "STRING" },
-                                    "location": { "type": "STRING" },
-                                    "location_details": { "type": "STRING" },
-                                    "key_elements": { "type": "STRING" },
-                                    "recommended_style": { "type": "STRING" }
-                                },
-                                required: ["product_name", "product_features", "location", "location_details", "key_elements", "recommended_style"]
-                            }
                         }
                     };
 
                     const apiKey = localStorage.getItem('googleApiKey');
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
                     const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
 
                     if (!response.ok) throw new Error(`API call failed: ${response.status}`);
@@ -857,8 +937,7 @@
                         
                         const selectedOptionText = animationStyleSelect.options[animationStyleSelect.selectedIndex].text;
                         analysisResult.textContent = `Analisis Selesai! Gaya yang direkomendasikan: ${selectedOptionText}. Formulir telah diisi.`;
-                        analysisResult.classList.remove('text-red-400');
-                        analysisResult.classList.add('text-green-400');
+                        analysisResult.className = 'text-green-400 mt-3 text-center font-semibold';
                     } else {
                         throw new Error("Invalid response from AI.");
                     }
@@ -866,21 +945,17 @@
                 } catch (error) {
                     console.error('Error analyzing image:', error);
                     analysisResult.textContent = 'Maaf, gagal menganalisis gambar. Coba lagi.';
-                    analysisResult.classList.add('text-red-400');
-                    analysisResult.classList.remove('text-green-400');
+                    analysisResult.className = 'text-red-400 mt-3 text-center font-semibold';
                 } finally {
-                    setLoading(false, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar', 'Menganalisis...');
+                    setLoading(false, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar');
                 }
             };
         });
 
         productForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!checkApiKeyStatus()) {
-                toggleModal(settingsModal, true);
-                return;
-            }
-            setLoading(true, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
+            
+            setLoading(true, generateButton, btnText, btnLoader, 'Generate Prompt');
 
             const style = animationStyleSelect.value;
             const aspectRatio = document.querySelector('input[name="aspect_ratio"]:checked').value;
@@ -894,6 +969,8 @@
                 productComponents: document.getElementById('product-components').value,
                 logoDescription: document.getElementById('logo-description').value,
                 finalElement: document.getElementById('final-element').value,
+                dekonLogoText: document.getElementById('dekon-logo-text').value,
+                dekonComponents: document.getElementById('dekon-components').value,
                 productCollection: document.getElementById('product-collection').value,
                 finalHumanElement: document.getElementById('final-human-element').value,
                 ledakanCollection: document.getElementById('ledakan-collection').value,
@@ -915,25 +992,28 @@
                 fashionCharacter: document.getElementById('fashion-character').value,
                 fashionAction: document.getElementById('fashion-action').value,
                 fashionEffect: document.getElementById('fashion-effect').value,
+                platingContainer: document.getElementById('plating-container').value,
+                platingIngredients: document.getElementById('plating-ingredients').value,
+                teardownBox: document.getElementById('teardown-box').value,
+                teardownComponents: document.getElementById('teardown-components').value,
+                teardownImmersion: document.getElementById('teardown-immersion').value,
+                kineticSubject: document.getElementById('kinetic-subject').value,
+                kineticDisintegration: document.getElementById('kinetic-disintegration').value,
+                kineticLogo: document.getElementById('kinetic-logo').value,
+                absurdRobots: document.getElementById('absurd-robots').value,
+                absurdTask: document.getElementById('absurd-task').value,
+                absurdResult: document.getElementById('absurd-result').value,
+                ingredientContainer: document.getElementById('ingredient-container').value,
+                ingredientExplosionEffect: document.getElementById('ingredient-explosion-effect').value,
+                magicalSubject: document.getElementById('magical-subject').value,
+                magicalResult: document.getElementById('magical-result').value,
+                retroCharacter: document.getElementById('retro-character').value,
+                retroAccessories: document.getElementById('retro-accessories').value,
+                retroLens: document.getElementById('retro-lens').value,
+                brandName: document.getElementById('brand-name').value,
+                brandTagline: document.getElementById('brand-tagline').value,
+                hasLogo: brandLogoUpload.files.length > 0,
             };
-
-            if ((style === 'perakitan' && !userInput.productComponents) ||
-                (style === 'logo' && !userInput.logoDescription) ||
-                (style === 'ruangan' && !userInput.productCollection) ||
-                (style === 'ledakan' && !userInput.ledakanCollection) ||
-                (style === 'suasana' && !userInput.vibeDescription) ||
-                (style === 'kejutan' && (!userInput.surpriseRecipient || !userInput.surpriseElement)) ||
-                (style === 'layar' && (!userInput.screenProduct || !userInput.screenAction)) ||
-                (style === 'unboxing' && (!userInput.boxDescription || !userInput.unboxingElements)) ||
-                (style === 'vault' && (!userInput.vaultBoxDescription || !userInput.vaultElements)) ||
-                (style === 'pov' && (!userInput.povAction || !userInput.povEffect)) ||
-                (style === 'pemujaan' && (!userInput.worshipFigure || !userInput.worshipSound)) ||
-                (style === 'fashion' && (!userInput.fashionCharacter || !userInput.fashionAction))
-                ) {
-                alert('Mohon isi kolom spesifik untuk gaya yang dipilih.');
-                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
-                return;
-            }
 
             try {
                 const prompt = generateVideoPrompt(userInput);
@@ -944,54 +1024,106 @@
                 outputSection.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
                 console.error("Error generating prompt:", error);
-                alert("Maaf, terjadi kesalahan saat membuat prompt. Silakan coba lagi.");
+                // Replace alert with a custom modal or inline message
+                generatedPrompt.textContent = "Maaf, terjadi kesalahan saat membuat prompt. Silakan coba lagi.";
             } finally {
-                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt', 'AI sedang Meracik Ide...');
+                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt');
             }
         });
 
-        function setLoading(isLoading, button, textElement, loaderElement, defaultText, loadingText) {
+        function setLoading(isLoading, button, textElement, loaderElement, defaultText) {
             button.disabled = isLoading;
-            textElement.textContent = isLoading ? loadingText : defaultText;
+            textElement.textContent = defaultText;
+            textElement.classList.toggle('hidden', isLoading);
             loaderElement.classList.toggle('hidden', !isLoading);
         }
 
         function generateVideoPrompt(data) {
-            const base = `cinematic video, aspect ratio ${data.aspectRatio}, 8k, photorealistic, high detail, professional color grading,`;
+            let base = `cinematic video, 60fps, aspect ratio ${data.aspectRatio}, 8k, photorealistic, high detail, professional color grading,`;
+            let prompt = '';
 
             switch (data.style) {
                 case 'transformasi':
-                    return `${base} dynamic shot in a bustling ${data.location}, a person throws a small high-tech capsule, it lands and with a 'POOF' of thick smoke, it instantly transforms into a new ${data.productName} which has these features: ${data.productFeatures}. Onlookers are stunned and amazed.`;
+                    prompt = `${base} dynamic shot in a bustling ${data.location}, a person throws a small high-tech capsule, it lands and with a 'POOF' of thick smoke, it instantly transforms into a new ${data.productName} which has these features: ${data.productFeatures}. Onlookers are stunned and amazed.`;
+                    break;
                 case 'perakitan':
-                    return `${base} fixed wide angle shot in a premium ${data.location}, ${data.productComponents} fly out and assemble in slow-motion, merging precisely to form a perfect ${data.productName} with features like ${data.productFeatures}.`;
+                    prompt = `${base} fixed wide angle shot in a premium ${data.location}, ${data.productComponents} fly out and assemble in slow-motion, merging precisely to form a perfect ${data.productName} with features like ${data.productFeatures}.`;
+                    break;
                 case 'logo':
-                    return `${base} in a minimalist abstract space with ${data.lightingStyle} lighting, a glowing ${data.logoDescription} logo morphs and twists like ribbons of energy, then explodes into fragments that swirl and reassemble mid-air into a pair of ${data.productName}. The camera floats around them in slow motion as they land. ${data.finalElement} rolls in and stops perfectly next to the product.`;
+                    prompt = `${base} in a minimalist abstract space, a glowing ${data.logoDescription} logo morphs and twists like ribbons of energy, then explodes into fragments that swirl and reassemble mid-air into a ${data.productName}. The camera floats around them in slow motion as they land. ${data.finalElement ? `${data.finalElement} rolls in and stops perfectly next to the product.` : ''}`;
+                    break;
+                case 'dekonstruksi':
+                    prompt = `${base} ultra macro shot of a ${data.dekonLogoText} in a dark, luxurious space. It deconstructs into its mechanical components: ${data.dekonComponents}. The parts float and rearrange themselves into a perfect ${data.productName}.`;
+                    break;
                 case 'ruangan':
-                    return `${base} fixed wide-angle view of an empty ${data.location}, a flat-pack box with the ${data.productName} logo opens, and a full room of furniture (${data.productCollection}) assembles itself rapidly in a time-lapse style. Finally, ${data.finalHumanElement} pops out from the box, gesturing enthusiastically at the newly assembled room.`;
+                    prompt = `${base} fixed wide-angle view of an empty ${data.location}, a flat-pack box with the ${data.productName} logo opens, and a full room of furniture (${data.productCollection}) assembles itself rapidly in a time-lapse style. ${data.finalHumanElement ? `Finally, ${data.finalHumanElement} pops out from the box, gesturing enthusiastically at the newly assembled room.` : ''}`;
+                    break;
                 case 'ledakan':
-                    return `${base} slow camera push-in on a large box labeled '${data.productName}' in an empty, cozy ${data.location}. The box suddenly bursts open, and a vibrant, colorful living room (${data.ledakanCollection}) erupts in slow motion. When everything is in place, ${data.humanReaction} appears in the middle of the scene, with an expressive shocked pose.`;
+                    prompt = `${base} slow camera push-in on a large box labeled '${data.productName}' in an empty, cozy ${data.location}. The box suddenly bursts open, and a vibrant, colorful living room (${data.ledakanCollection}) erupts in slow motion. When everything is in place, ${data.humanReaction} appears in the middle of the scene, with an expressive shocked pose.`;
+                    break;
                 case 'suasana':
-                    return `${base} in an empty room with sunlight streaming in, a box labeled '${data.productName}' opens and a complete, cozy ${data.vibeDescription} scene bursts out in slow motion, including ${data.vibeElements}. The view outside the window transforms to match the new cozy, bohemian mood.`;
+                    prompt = `${base} in an empty room with sunlight streaming in, a box labeled '${data.productName}' opens and a complete, cozy ${data.vibeDescription} scene bursts out in slow motion, including ${data.vibeElements}. The view outside the window transforms to match the new cozy, bohemian mood.`;
+                    break;
                 case 'kejutan':
-                    return `${base} in a beautiful, cozy ${data.location}, ${data.surpriseRecipient} looks surprised as a gift box labeled '${data.productName}' opens slowly. From inside, ${data.surpriseElement} emerges in dramatic slow motion, illuminated by soft golden light, creating a subtle romantic atmosphere with floating dust particles.`;
+                    prompt = `${base} in a beautiful, cozy ${data.location}, ${data.surpriseRecipient} looks surprised as a gift box labeled '${data.productName}' opens slowly. From inside, ${data.surpriseElement} emerges in dramatic slow motion, illuminated by soft golden light, creating a subtle romantic atmosphere with floating dust particles.`;
+                    break;
                 case 'layar':
-                    return `${base} 3D animation scene in a cozy ${data.location}, a realistic hand holds a smartphone showing a ${data.screenProduct}. The hand performs an action: ${data.screenAction}. The ${data.productName} then emerges out of the phone, floating with smooth realistic animation, and lands perfectly on the table, becoming a real aesthetic object with detailed textures.`;
+                    prompt = `${base} 3D animation scene in a cozy ${data.location}, a realistic hand holds a smartphone showing a ${data.screenProduct}. The hand performs an action: ${data.screenAction}. The ${data.productName} then emerges out of the phone, floating with smooth realistic animation, and lands perfectly on the table, becoming a real aesthetic object with detailed textures.`;
+                    break;
                 case 'unboxing':
-                    return `${base} in a clean, modern ${data.location}, a stylish box described as '${data.boxDescription}' sits at the center. The camera quickly zooms toward the box. The box opens smoothly with a subtle glow from inside. From the open box, product-related elements like ${data.unboxingElements} begin to float upward with gentle motion and soft lighting. The elements hover momentarily, then spread out and arrange themselves neatly around the box. Finally, the camera pulls back slowly to reveal the full, elegant setup.`;
+                    prompt = `${base} in a clean, modern ${data.location}, a stylish box described as '${data.boxDescription}' sits at the center. The camera quickly zooms toward the box. The box opens smoothly with a subtle glow from inside. From the open box, product-related elements like ${data.unboxingElements} begin to float upward with gentle motion and soft lighting. The elements hover momentarily, then spread out and arrange themselves neatly around the box. Finally, the camera pulls back slowly to reveal the full, elegant setup.`;
+                    break;
                 case 'vault':
-                    return `${base} photorealistic cinematic shot of an empty modern ${data.location} with ${data.locationDetails}. A sealed ${data.vaultBoxDescription} sits in the center. The box shakes intensely, glows with red accent lighting, and bursts open dramatically. ${data.vaultElements} fly out and assemble rapidly into a complete luxury collector's vault. The final shot is a bold, high-energy sanctuary glowing with cool LED lighting and red neon accents.`;
+                    prompt = `${base} photorealistic cinematic shot of an empty modern ${data.location} with ${data.locationDetails}. A sealed ${data.vaultBoxDescription} sits in the center. The box shakes intensely, glows with red accent lighting, and bursts open dramatically. ${data.vaultElements} fly out and assemble rapidly into a complete luxury collector's vault. The final shot is a bold, high-energy sanctuary glowing with cool LED lighting and red neon accents.`;
+                    break;
                 case 'pov':
-                    return `${base} dynamic first-person POV, user runs through a hyper-modern, neon-lit ${data.location} at night. Heartbeat synced with techno pulses. Holographic signs and data streams glitch and react to eye movement. In one motion, user performs action: ${data.povAction}. Instantly, ${data.povEffect}. The camera orbits 360 degrees, capturing the surreal stillness of the scene. The main product, ${data.productName}, is then revealed in a macro close-up, looking high-gloss and futuristic.`;
+                    prompt = `${base} dynamic first-person POV, user runs through a hyper-modern, neon-lit ${data.location} at night. Heartbeat synced with techno pulses. Holographic signs and data streams glitch and react to eye movement. In one motion, user performs action: ${data.povAction}. Instantly, ${data.povEffect}. The camera orbits 360 degrees, capturing the surreal stillness of the scene. The main product, ${data.productName}, is then revealed in a macro close-up, looking high-gloss and futuristic.`;
+                    break;
                 case 'pemujaan':
-                    return `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}. The final frame shows the ${data.productName} logo glowing, embossed into stone, surrounded by flickering candlelight. Mood is indulgent, reverent, warm, luxurious.`;
+                    prompt = `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}. The final frame shows the ${data.productName} logo glowing, embossed into stone, surrounded by flickering candlelight. Mood is indulgent, reverent, warm, luxurious.`;
+                    break;
                 case 'fashion':
-                    return `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`;
+                    prompt = `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`;
+                    break;
                 case 'sajian':
-                    return `${base} hyper-realistic cinematic food sequence in a ${data.location} with ${data.locationDetails}. A sealed ${data.platingContainer} is placed on a table under focused top-light. The container opens smoothly, releasing individual cooked ingredients into the air: ${data.platingIngredients}. Each component rises gracefully in a seamless, elegant slow-floating motion with no blur. The camera follows this orchestrated assembly as ingredients land precisely onto a clean plate. The final frame reveals a neatly plated ${data.productName} dish. Mood is elegant, focused, mouth-watering.`;
+                    prompt = `${base} hyper-realistic cinematic food sequence in a ${data.location} with ${data.locationDetails}. A sealed ${data.platingContainer} is placed on a table under focused top-light. The container opens smoothly, releasing individual cooked ingredients into the air: ${data.platingIngredients}. Each component rises gracefully in a seamless, elegant slow-floating motion with no blur. The camera follows this orchestrated assembly as ingredients land precisely onto a clean plate. The final frame reveals a neatly plated ${data.productName} dish. Mood is elegant, focused, mouth-watering.`;
+                    break;
                 case 'teardown':
-                    return `${base} in a softly lit, premium environment like a ${data.location}, a pristine ${data.teardownBox} rests on a surface. The camera slowly pushes in as the box gently opens on its own. The ${data.productName} lifts smoothly and floats mid-air, rotating to show its details. The device then disassembles into its core components — ${data.teardownComponents} — all suspended in precise formation. The camera floats through the exploded view, highlighting craftsmanship, before the components magnetically reassemble. Finally, ${data.teardownImmersion}. Style: Apple-level premium, tactile, futuristic, luxurious.`;
+                    prompt = `${base} in a softly lit, premium environment like a ${data.location}, a pristine ${data.teardownBox} rests on a surface. The camera slowly pushes in as the box gently opens on its own. The ${data.productName} lifts smoothly and floats mid-air, rotating to show its details. The device then disassembles into its core components — ${data.teardownComponents} — all suspended in precise formation. The camera floats through the exploded view, highlighting craftsmanship, before the components magnetically reassemble. Finally, ${data.teardownImmersion}. Style: Apple-level premium, tactile, futuristic, luxurious.`;
+                    break;
+                case 'kinetic':
+                    prompt = `${base} starts with a wide anamorphic landscape shot of a ${data.kineticSubject} in the center of ${data.location}. As they run, the camera transitions to a low-angle ground-level tracking of their feet. Suddenly, ${data.kineticDisintegration}. A lateral camera sweep follows the particles, which then converge into a high-angle reveal of the ${data.kineticLogo}. The logo morphs smoothly into the final ${data.productName}, with the camera pulling back to a clean product shot. Mood is energetic, high-tech, and powerful.`;
+                    break;
+                case 'absurd':
+                    prompt = `${base} a group of tiny, ${data.absurdRobots} are trying to perform a simple task: ${data.absurdTask}. They do it in an overly complicated and absurd way, with tiny mechanisms and chaotic energy. In the end, they fail at the task but accidentally create something amazing: ${data.absurdResult}. The final shot is a macro close-up of this accidental creation. Mood is humorous, quirky, and surprising.`;
+                    break;
+                case 'ingredient_explosion':
+                    prompt = `${base} VFX advertisement in a ${data.location} with ${data.locationDetails}. A ${data.ingredientContainer} ${data.ingredientExplosionEffect}, revealing the ${data.productName}. Cinematic background music and sound effects enhance the dramatic reveal.`;
+                    break;
+                case 'magical_transformation':
+                    prompt = `${base} a single ${data.magicalSubject} magically transforms into various signature drinks: ${data.magicalResult}. As it transforms, a ${data.location} with ${data.locationDetails} instantly assembles around it. The scene has nostalgic warm tones. Fixed wide-angle shot with subtle zooms on the transformation. Mood is cinematic, magical, and vibrant.`;
+                    break;
+                case 'retro_dynamic':
+                    prompt = `${base} a playful and retro-inspired scene in a ${data.location} with ${data.locationDetails}. Featuring ${data.retroCharacter} wearing ${data.productName} and ${data.retroAccessories}. The shot is taken with a ${data.retroLens}, creating an exaggerated, dynamic perspective. The lighting is soft yet vibrant. Mood is nostalgic, energetic, and carefree.`;
+                    break;
             }
-            return "";
+            
+            if (data.brandName || data.brandTagline || data.hasLogo) {
+                let closingScene = ` The video concludes with a final shot displaying`;
+                if (data.hasLogo) {
+                    closingScene += ` the ${data.brandName || 'brand'} logo`;
+                } else if (data.brandName) {
+                    closingScene += ` the brand name "${data.brandName}"`;
+                }
+                if (data.brandTagline) {
+                    closingScene += ` with the tagline "${data.brandTagline}" appearing elegantly below it.`;
+                } else {
+                    closingScene += `.`
+                }
+                prompt += closingScene;
+            }
+
+            return prompt;
         }
         
         copyButton.addEventListener('click', () => {
@@ -1030,7 +1162,11 @@
                 toggleModal(settingsModal, true);
                 return;
             }
-            if (!currentFormData.prompt) { alert("Generate prompt dulu!"); return; }
+            if (!currentFormData.prompt) { 
+                imageError.textContent = 'Generate prompt video terlebih dahulu!';
+                imageError.classList.remove('hidden');
+                return;
+            }
             imageLoader.style.display = 'flex';
             generatedImage.classList.add('hidden');
             imageError.classList.add('hidden');
@@ -1038,17 +1174,41 @@
             try {
                 const payload = { instances: [{ prompt: currentFormData.prompt }], parameters: { "sampleCount": 1 } };
                 const apiKey = localStorage.getItem('googleApiKey');
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
-                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                // Note: The endpoint might vary based on the model and region.
+                // Using a common endpoint for Imagen 2.
+                const apiUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/prompt-ajaib/locations/us-central1/publishers/google/models/imagegeneration@006:predict`;
+                
+                // This call requires GCP authentication (gcloud auth application-default login)
+                // which is not possible in a simple client-side setup.
+                // The original code had a non-working Imagen API endpoint.
+                // This part of the code WILL NOT WORK without a proper backend proxy or serverless function
+                // to handle the authenticated API call to Vertex AI.
+                
+                // Simulating an error because the direct client-side call is not feasible.
+                throw new Error("Direct client-side call to Vertex AI Imagen is not supported due to authentication requirements. A backend proxy is needed.");
+
+                /*
+                // The code below would be used if the API call was possible from the client
+                const response = await fetch(apiUrl, { 
+                    method: 'POST', 
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        // This is where the authentication token would go, which is hard to get on client-side
+                        // 'Authorization': `Bearer ${YOUR_GCP_AUTH_TOKEN}` 
+                    }, 
+                    body: JSON.stringify(payload) 
+                });
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const result = await response.json();
                 if (result.predictions?.[0]?.bytesBase64Encoded) {
                     generatedImage.src = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
                     generatedImage.classList.remove('hidden');
                 } else { throw new Error("No image data from API."); }
+                */
+
             } catch (error) {
                 console.error('Error generating image:', error);
-                imageError.textContent = 'Gagal membuat gambar. Coba lagi.';
+                imageError.textContent = 'Fitur Generate Gambar saat ini belum tersedia. ' + error.message;
                 imageError.classList.remove('hidden');
             } finally {
                 imageLoader.style.display = 'none';
@@ -1057,13 +1217,19 @@
 
         // Initial check on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize opacity and transform for modals for smooth entry
+            [settingsModal, helpModal, resetConfirmModal].forEach(modal => {
+                modal.style.opacity = '0';
+                modal.querySelector('.modal-container').style.transform = 'scale(0.95)';
+            });
+
             checkApiKeyStatus();
             handleStyleChange(); // Set initial visibility of style inputs
             // Populate help modal content
             document.getElementById('help-modal-content').innerHTML = `
                 <section>
                     <h3 class="text-xl font-semibold text-white mb-2">1. Cara Mendapatkan Google AI Studio API Key</h3>
-                    <p>API Key ini wajib diisi agar fitur AI (Analisa Gambar & Generate Gambar) bisa berfungsi. Caranya mudah:</p>
+                    <p>API Key ini wajib diisi agar fitur AI (Analisa Gambar) bisa berfungsi. Caranya mudah:</p>
                     <ol class="mt-2 space-y-1">
                         <li>Buka situs <a href="https://aistudio.google.com/" target="_blank" class="text-blue-400 hover:underline">Google AI Studio</a>.</li>
                         <li>Masuk (login) dengan akun Google Anda.</li>
@@ -1099,16 +1265,24 @@
                         <p><strong>1. Transformasi Kapsul Ajaib:</strong> Produk muncul instan dari kapsul berteknologi tinggi. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang ingin terkesan canggih, praktis, dan instan.</p>
                         <p><strong>2. Perakitan Dinamis:</strong> Komponen-komponen produk terbang dan merakit diri secara sinematik. <strong class="text-blue-300">Cocok untuk:</strong> Produk dengan detail teknis atau bahan berkualitas (gadget, mesin, makanan, gedung).</p>
                         <p><strong>3. Transformasi Logo:</strong> Logo merek Anda berubah bentuk menjadi produk. <strong class="text-blue-300">Cocok untuk:</strong> Membangun citra merek yang kuat dan premium.</p>
-                        <p><strong>4. Perakitan Ruangan:</strong> Satu kotak merakit seluruh isi ruangan secara cepat (time-lapse). <strong class="text-blue-300">Cocok untuk:</strong> Furnitur, paket dekorasi, atau produk yang menciptakan lingkungan.</p>
-                        <p><strong>5. Ledakan Kreatif:</strong> Ruangan lengkap "meledak" keluar dari kotak, mengejutkan seseorang. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang memberikan transformasi gaya hidup instan dan dramatis.</p>
-                        <p><strong>6. Suasana dalam Kotak:</strong> Sebuah kotak mengeluarkan adegan yang hidup, lengkap dengan orang dan aktivitas. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau gaya hidup (travel, acara, komunitas).</p>
-                        <p><strong>7. Kejutan dari Kotak:</strong> Kotak menjadi "portal" untuk memunculkan kejutan emosional (seseorang atau hadiah). <strong class="text-blue-300">Cocok untuk:</strong> Produk yang diposisikan sebagai hadiah atau untuk kampanye romantis/emosional.</p>
-                        <p><strong>8. Keluar dari Layar:</strong> Produk di layar gawai menjadi nyata. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang dipesan online (e-commerce, makanan delivery) atau layanan digital.</p>
-                        <p><strong>9. Unboxing Elegan:</strong> Produk dan aksesorisnya keluar dari kotak dan menata diri secara estetik. <strong class="text-blue-300">Cocok untuk:</strong> Produk premium dengan kemasan dan kelengkapan yang menarik (fashion, kosmetik, gadget).</p>
-                        <p><strong>10. Transformasi Ruang Kolektor:</strong> Kotak produk mengubah ruangan menjadi "lemari koleksi" mewah. <strong class="text-blue-300">Cocok untuk:</strong> Produk edisi terbatas atau barang koleksi (sneakers, jam tangan, mainan).</p>
-                        <p><strong>11. Aksi Sudut Pandang Pertama (POV):</strong> Penonton melihat aksi dari mata pengguna, di mana produk memberikan kekuatan super. <strong class="text-blue-300">Cocok untuk:</strong> Produk teknologi canggih yang memberikan kemampuan baru bagi pengguna.</p>
-                        <p><strong>12. Pemujaan Produk (Sakral):</strong> Produk ditampilkan sebagai artefak suci di lokasi yang megah. <strong class="text-blue-300">Cocok untuk:</strong> Produk ultra-premium yang ingin diposisikan sebagai mahakarya (cokelat, parfum, perhiasan).</p>
-                        <p><strong>13. Pembekuan Realitas (Gaya Fashion):</strong> Karakter utama menggunakan produk dan membuat dunia di sekitarnya membeku. <strong class="text-blue-300">Cocok untuk:</strong> Produk fashion dan aksesori yang memberikan rasa percaya diri dan kekuatan.</p>
+                        <p><strong>4. Dekonstruksi Logo (Mewah):</strong> Logo premium terurai menjadi komponen mekanis yang kemudian membentuk produk. <strong class="text-blue-300">Cocok untuk:</strong> Merek mewah dengan citra presisi dan rekayasa (jam tangan, mobil).</p>
+                        <p><strong>5. Perakitan Ruangan:</strong> Satu kotak merakit seluruh isi ruangan secara cepat (time-lapse). <strong class="text-blue-300">Cocok untuk:</strong> Furnitur, paket dekorasi, atau produk yang menciptakan lingkungan.</p>
+                        <p><strong>6. Ledakan Kreatif:</strong> Ruangan lengkap "meledak" keluar dari kotak, mengejutkan seseorang. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang memberikan transformasi gaya hidup instan dan dramatis.</p>
+                        <p><strong>7. Suasana dalam Kotak:</strong> Sebuah kotak mengeluarkan adegan yang hidup, lengkap dengan orang dan aktivitas. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau gaya hidup (travel, acara, komunitas).</p>
+                        <p><strong>8. Kejutan dari Kotak:</strong> Kotak menjadi "portal" untuk memunculkan kejutan emosional (seseorang atau hadiah). <strong class="text-blue-300">Cocok untuk:</strong> Produk yang diposisikan sebagai hadiah atau untuk kampanye romantis/emosional.</p>
+                        <p><strong>9. Keluar dari Layar:</strong> Produk di layar gawai menjadi nyata. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang dipesan online (e-commerce, makanan delivery) atau layanan digital.</p>
+                        <p><strong>10. Unboxing Elegan:</strong> Produk dan aksesorisnya keluar dari kotak dan menata diri secara estetik. <strong class="text-blue-300">Cocok untuk:</strong> Produk premium dengan kemasan dan kelengkapan yang menarik (fashion, kosmetik, gadget).</p>
+                        <p><strong>11. Transformasi Ruang Kolektor:</strong> Kotak produk mengubah ruangan menjadi "lemari koleksi" mewah. <strong class="text-blue-300">Cocok untuk:</strong> Produk edisi terbatas atau barang koleksi (sneakers, jam tangan, mainan).</p>
+                        <p><strong>12. Aksi Sudut Pandang Pertama (POV):</strong> Penonton melihat aksi dari mata pengguna, di mana produk memberikan kekuatan super. <strong class="text-blue-300">Cocok untuk:</strong> Produk teknologi canggih yang memberikan kemampuan baru bagi pengguna.</p>
+                        <p><strong>13. Pemujaan Produk (Sakral):</strong> Produk ditampilkan sebagai artefak suci di lokasi yang megah. <strong class="text-blue-300">Cocok untuk:</strong> Produk ultra-premium yang ingin diposisikan sebagai mahakarya (cokelat, parfum, perhiasan).</p>
+                        <p><strong>14. Pembekuan Realitas (Gaya Fashion):</strong> Karakter utama menggunakan produk dan membuat dunia di sekitarnya membeku. <strong class="text-blue-300">Cocok untuk:</strong> Produk fashion dan aksesori yang memberikan rasa percaya diri dan kekuatan.</p>
+                        <p><strong>15. Sajian Sinematik (Makanan):</strong> Bahan-bahan makanan terbang dan menata diri menjadi hidangan yang sempurna. <strong class="text-blue-300">Cocok untuk:</strong> Restoran, produk makanan, atau layanan pesan-antar makanan.</p>
+                        <p><strong>16. Pembongkaran Canggih (Tech):</strong> Produk teknologi canggih membongkar dan merakit dirinya sendiri, menunjukkan detail internalnya. <strong class="text-blue-300">Cocok untuk:</strong> Gadget dan produk teknologi dengan rekayasa kompleks (seperti gaya iklan Apple).</p>
+                        <p><strong>17. Disintegrasi Kinetik:</strong> Subjek (misal: pelari) terurai menjadi partikel energi yang kemudian menyatu membentuk logo, lalu berubah menjadi produk. <strong class="text-blue-300">Cocok untuk:</strong> Produk olahraga, teknologi, atau apa pun yang ingin menonjolkan energi, kecepatan, dan transformasi.</p>
+                        <p><strong>18. Kekacauan Absurd Robot Mini:</strong> Robot-robot kecil melakukan tugas sederhana dengan cara yang sangat rumit dan lucu, yang secara tidak sengaja menghasilkan logo merek. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang ingin tampil humoris, unik, dan tak terduga.</p>
+                        <p><strong>19. Ledakan Bahan Baku:</strong> Sekumpulan bahan baku meledak secara dramatis untuk menampilkan produk akhir. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang menonjolkan bahan-bahan alami dan segar (makanan, minuman, parfum).</p>
+                        <p><strong>20. Transformasi Lingkungan Sekitar:</strong> Satu elemen (misal: biji kopi) berubah menjadi produk, dan secara bersamaan lingkungan di sekitarnya ikut terbentuk secara magis. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau suasana (kafe, restoran, travel).</p>
+                        <p><strong>21. Gaya Retro Dinamis:</strong> Adegan fashion dengan suasana retro/vintage yang kuat, sering kali menggunakan lensa unik seperti fisheye untuk menciptakan perspektif yang dinamis dan menyenangkan. <strong class="text-blue-300">Cocok untuk:</strong> Merek fashion, musik, atau produk yang ingin membangkitkan nostalgia.</p>
                     </div>
                 </section>
             `;
