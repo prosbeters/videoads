@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Prompt Generator (Multi-Gaya)</title>
+    <title>Video Prompt Generator (Dual Prompt)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,8 @@
         .form-input:focus, .form-select:focus {
             background-color: #374151;
             border-color: #3b82f6;
-            ring: 0;
-            outline: 0;
+            box-shadow: none;
+            outline: none;
         }
         .btn-primary {
             background-color: #2563eb;
@@ -45,7 +45,7 @@
         .btn-secondary:hover {
             background-color: #6b7280;
         }
-        #output-container {
+        .output-container {
             border: 1px solid #374151;
             background-color: #1f2937;
         }
@@ -186,7 +186,7 @@
                         <!-- Style & Ratio Selector -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label for="animation-style" class="block text-xl font-semibold text-white mb-2">Pilih Gaya Iklan</label>
+                                <label for="animation-style" class="block text-xl font-semibold text-white mb-2">Pilih Gaya Iklan Produk</label>
                                 <select id="animation-style" class="w-full form-select rounded-md">
                                     <option value="transformasi">1. Transformasi Kapsul Ajaib</option>
                                     <option value="perakitan">2. Perakitan Dinamis</option>
@@ -377,33 +377,57 @@
                         
                         <!-- Brand Identity Section -->
                         <div class="mt-6 pt-6 border-t border-gray-600">
-                             <h3 class="text-xl font-semibold mb-4 text-white">Identitas Merek di Akhir Video (Opsional)</h3>
+                             <h3 class="text-xl font-semibold mb-4 text-white">Identitas Merek & Animasi Logo</h3>
                              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                 <div>
-                                     <label for="brand-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Merek</label>
-                                     <input type="text" id="brand-name" class="w-full form-input rounded-md" placeholder="Contoh: Aura Eyewear">
-                                 </div>
-                                 <div>
-                                     <label for="brand-tagline" class="block text-sm font-medium text-gray-300 mb-1">Tagline</label>
-                                     <input type="text" id="brand-tagline" class="w-full form-input rounded-md" placeholder="Contoh: See the World Differently">
+                                 <div class="md:col-span-2">
+                                     <label for="brand-final-text" class="block text-sm font-medium text-gray-300 mb-1">Teks Akhir / Call to Action</label>
+                                     <input type="text" id="brand-final-text" class="w-full form-input rounded-md" placeholder="Contoh: Shop Now, Experience the Future">
                                  </div>
                                  <div class="md:col-span-2">
-                                     <label for="brand-logo-upload" class="block text-sm font-medium text-gray-300 mb-1">Upload Logo</label>
+                                     <label for="logo-animation-style" class="block text-sm font-medium text-gray-300 mb-1">Gaya Animasi Logo</label>
+                                     <select id="logo-animation-style" class="w-full form-select rounded-md">
+                                         <option value="liquid-metal">1. Liquid Metal Forming</option>
+                                         <option value="crystalline-growth">2. Crystalline Growth</option>
+                                         <option value="digital-glitch">3. Digital Glitch Assembly</option>
+                                         <option value="particle-swarm">4. Particle Swarm Nebula</option>
+                                         <option value="blueprint-reveal">5. Architectural Blueprint</option>
+                                         <option value="light-streak">6. Light Streak Etching</option>
+                                         <option value="percussive-assembly">7. Percussive Assembly (Hentakan)</option>
+                                         <option value="glitch-morph">8. Glitch Morph (Transformasi Unik)</option>
+                                         <option value="claymation-stopmotion">9. Claymation Stop-Motion (Abnormal)</option>
+                                         <option value="fluid-ink-bleed">10. Fluid Ink Bleed</option>
+                                         <option value="dissolve">11. Dissolve (Pudar)</option>
+                                         <option value="slide">12. Slide (Geser)</option>
+                                         <option value="zoom">13. Zoom (Perbesar/Perkecil)</option>
+                                         <option value="wipe">14. Wipe (Sapuan)</option>
+                                         <option value="glow">15. Glow (Bercahaya)</option>
+                                         <option value="flash">16. Flash (Kilatan)</option>
+                                         <option value="light-leaks">17. Light Leaks (Bocoran Cahaya)</option>
+                                     </select>
+                                 </div>
+                                 <div class="md:col-span-2">
+                                     <label for="brand-logo-upload" class="block text-sm font-medium text-gray-300 mb-1">Upload Logo untuk Analisis Otomatis</label>
                                      <div class="flex items-center gap-4">
-                                        <input type="file" id="brand-logo-upload" accept="image/*" class="w-full form-file rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-300 hover:file:bg-gray-600">
-                                        <div id="brand-logo-preview-container" class="hidden w-16 h-16 bg-gray-700 rounded-md flex items-center justify-center">
-                                            <img id="brand-logo-preview" src="#" alt="Pratinjau Logo" class="max-h-full max-w-full">
-                                        </div>
+                                         <input type="file" id="brand-logo-upload" accept="image/*" class="w-full form-file rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-300 hover:file:bg-gray-600">
+                                         <div id="brand-logo-preview-container" class="hidden w-16 h-16 bg-gray-700 rounded-md flex items-center justify-center">
+                                             <img id="brand-logo-preview" src="#" alt="Pratinjau Logo" class="max-h-full max-w-full">
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="md:col-span-2">
+                                     <label for="logo-auto-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Logo (Otomatis)</label>
+                                     <div class="flex items-center gap-2">
+                                        <textarea id="logo-auto-description" rows="2" class="w-full form-input rounded-md bg-gray-800" placeholder="Unggah logo untuk dianalisis oleh AI..." readonly></textarea>
+                                        <div id="logo-analysis-loader" class="hidden btn-loader"></div>
                                      </div>
                                  </div>
                              </div>
                         </div>
 
-
                         <div class="mt-8 text-center flex gap-4">
                             <button type="button" id="reset-button" class="btn-secondary font-bold py-3 px-8 rounded-lg text-white w-full">Reset Proyek</button>
                             <button type="submit" id="generate-button" class="btn-primary font-bold py-3 px-8 rounded-lg text-white text-lg w-full">
-                                <span id="btn-text">Generate Prompt</span>
+                                <span id="btn-text">Generate Prompts</span>
                                 <span id="btn-loader" class="hidden btn-loader"></span>
                             </button>
                         </div>
@@ -411,21 +435,33 @@
                 </div>
 
                 <!-- Output Section -->
-                <div id="output-section" class="hidden mt-8">
-                     <div id="output-container" class="p-6 rounded-xl shadow-lg">
+                <div id="output-section" class="hidden mt-8 space-y-8">
+                     <!-- Product Prompt Output -->
+                     <div id="product-prompt-container" class="output-container p-6 rounded-xl shadow-lg">
                          <div class="flex justify-between items-center mb-4">
-                             <h2 class="text-2xl font-bold text-white">Hasil Prompt Video</h2>
-                             <button id="copy-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
+                             <h2 class="text-2xl font-bold text-white">1. Prompt Iklan Produk</h2>
+                             <button id="copy-product-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
                                  Salin Prompt
                              </button>
                          </div>
-                         <div id="generated-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
-                    </div>
+                         <div id="generated-product-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
+                     </div>
+
+                     <!-- Logo Prompt Output -->
+                     <div id="logo-prompt-container" class="output-container p-6 rounded-xl shadow-lg">
+                         <div class="flex justify-between items-center mb-4">
+                             <h2 class="text-2xl font-bold text-white">2. Prompt Animasi Logo</h2>
+                             <button id="copy-logo-button" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg">
+                                 Salin Prompt
+                             </button>
+                         </div>
+                         <div id="generated-logo-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
+                     </div>
 
                     <!-- AI Image Idea Generator -->
                     <div id="image-idea-container" class="mt-8 bg-gray-800 p-6 rounded-xl shadow-lg text-center">
                         <h2 class="text-2xl font-bold text-white mb-4">Butuh Inspirasi Visual?</h2>
-                        <p class="text-gray-400 mb-4">Dapatkan ide gambar AI berdasarkan prompt yang telah dibuat.</p>
+                        <p class="text-gray-400 mb-4">Dapatkan ide gambar AI berdasarkan prompt produk yang telah dibuat.</p>
                         <button id="generate-image-idea" class="btn-primary font-bold py-2 px-6 rounded-lg text-white">
                             Buat Ide Gambar
                         </button>
@@ -448,7 +484,7 @@
         <div class="bg-gray-800 rounded-xl shadow-lg w-full max-w-md p-6 modal-container transform scale-95">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-white">Pengaturan API Key</h2>
-                <button id="close-settings-modal-button" class="text-gray-400 hover:text-white">&times;</button>
+                <button id="close-settings-modal-button" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div>
                 <label for="api-key-input" class="block text-sm font-medium text-gray-300 mb-1">Google AI Studio API Key</label>
@@ -470,7 +506,7 @@
         <div class="bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 modal-container transform scale-95 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4 sticky top-0 bg-gray-800 py-2">
                 <h2 class="text-2xl font-bold text-white">Panduan Pengguna</h2>
-                <button id="close-help-modal-button" class="text-gray-400 hover:text-white">&times;</button>
+                <button id="close-help-modal-button" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div id="help-modal-content" class="text-gray-300 space-y-6">
                 <!-- Help content goes here -->
@@ -494,7 +530,6 @@
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         // Your web app's Firebase configuration
-        // IMPORTANT: Replace with your actual Firebase config
         const firebaseConfig = {
             apiKey: "AIzaSyBxHhY5THznZH0qmcrqJq8I4kTOq5m3zNc",
             authDomain: "prompt-ajaib.firebaseapp.com",
@@ -522,12 +557,10 @@
         // --- Auth State Logic ---
         onAuthStateChanged(auth, user => {
             if (user) {
-                // User is signed in
                 loginContainer.classList.add('hidden');
                 appContainer.classList.remove('hidden');
                 checkApiKeyStatus();
             } else {
-                // User is signed out
                 loginContainer.classList.remove('hidden');
                 appContainer.classList.add('hidden');
             }
@@ -538,16 +571,9 @@
             e.preventDefault();
             const email = emailInput.value;
             const password = passwordInput.value;
-
             setLoading(true, loginForm.querySelector('button'), loginBtnText, loginBtnLoader, 'Login');
             loginError.textContent = '';
-
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    // The onAuthStateChanged observer will handle showing the app
-                })
                 .catch((error) => {
                     const errorCode = error.code;
                     let errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
@@ -565,7 +591,6 @@
         // --- Logout Logic ---
         logoutButton.addEventListener('click', () => {
             signOut(auth).then(() => {
-                // Clear the input fields on successful logout
                 emailInput.value = '';
                 passwordInput.value = '';
                 loginError.textContent = '';
@@ -574,34 +599,22 @@
             });
         });
 
-        // The rest of your application's JavaScript goes here
-        // Store the previous style to enable smart data transfer between styles
+        // --- App Logic ---
         let previousStyle = 'transformasi';
-
-        // Mappings for conceptually similar fields across different styles
         const styleToFieldMap = {
-            collection: {
-                perakitan: 'product-components',
-                ruangan: 'product-collection',
-                ledakan: 'ledakan-collection',
-                suasana: 'vibe-elements',
-                unboxing: 'unboxing-elements',
-                vault: 'vault-elements'
-            },
-            boxDescription: {
-                unboxing: 'box-description',
-                vault: 'vault-box-description'
-            }
+            collection: { perakitan: 'product-components', ruangan: 'product-collection', ledakan: 'ledakan-collection', suasana: 'vibe-elements', unboxing: 'unboxing-elements', vault: 'vault-elements' },
+            boxDescription: { unboxing: 'box-description', vault: 'vault-box-description' }
         };
 
         const productForm = document.getElementById('product-form');
         const outputSection = document.getElementById('output-section');
-        const generatedPrompt = document.getElementById('generated-prompt');
-        const copyButton = document.getElementById('copy-button');
+        const generatedProductPrompt = document.getElementById('generated-product-prompt');
+        const generatedLogoPrompt = document.getElementById('generated-logo-prompt');
+        const copyProductButton = document.getElementById('copy-product-button');
+        const copyLogoButton = document.getElementById('copy-logo-button');
         const generateButton = document.getElementById('generate-button');
         const btnText = document.getElementById('btn-text');
         const btnLoader = document.getElementById('btn-loader');
-        
         const analyzeImageButton = document.getElementById('analyze-image-button');
         const analysisResult = document.getElementById('analysis-result');
         const analyzeBtnText = document.getElementById('analyze-btn-text');
@@ -609,44 +622,21 @@
         const imageUpload = document.getElementById('image-upload');
         const imagePreview = document.getElementById('image-preview');
         const imagePreviewContainer = document.getElementById('image-preview-container');
-
         const animationStyleSelect = document.getElementById('animation-style');
         const allStyleInputs = {
-            perakitan: document.getElementById('perakitan-inputs'),
-            logo: document.getElementById('logo-inputs'),
-            dekonstruksi: document.getElementById('dekonstruksi-inputs'),
-            ruangan: document.getElementById('ruangan-inputs'),
-            ledakan: document.getElementById('ledakan-inputs'),
-            suasana: document.getElementById('suasana-inputs'),
-            kejutan: document.getElementById('kejutan-inputs'),
-            layar: document.getElementById('layar-inputs'),
-            unboxing: document.getElementById('unboxing-inputs'),
-            vault: document.getElementById('vault-inputs'),
-            pov: document.getElementById('pov-inputs'),
-            pemujaan: document.getElementById('pemujaan-inputs'),
-            fashion: document.getElementById('fashion-inputs'),
-            sajian: document.getElementById('sajian-inputs'),
-            teardown: document.getElementById('teardown-inputs'),
-            kinetic: document.getElementById('kinetic-inputs'),
-            absurd: document.getElementById('absurd-inputs'),
-            ingredient_explosion: document.getElementById('ingredient-explosion-inputs'),
-            magical_transformation: document.getElementById('magical-transformation-inputs'),
-            retro_dynamic: document.getElementById('retro-dynamic-inputs'),
+            perakitan: document.getElementById('perakitan-inputs'), logo: document.getElementById('logo-inputs'), dekonstruksi: document.getElementById('dekonstruksi-inputs'), ruangan: document.getElementById('ruangan-inputs'), ledakan: document.getElementById('ledakan-inputs'), suasana: document.getElementById('suasana-inputs'), kejutan: document.getElementById('kejutan-inputs'), layar: document.getElementById('layar-inputs'), unboxing: document.getElementById('unboxing-inputs'), vault: document.getElementById('vault-inputs'), pov: document.getElementById('pov-inputs'), pemujaan: document.getElementById('pemujaan-inputs'), fashion: document.getElementById('fashion-inputs'), sajian: document.getElementById('sajian-inputs'), teardown: document.getElementById('teardown-inputs'), kinetic: document.getElementById('kinetic-inputs'), absurd: document.getElementById('absurd-inputs'), ingredient_explosion: document.getElementById('ingredient-explosion-inputs'), magical_transformation: document.getElementById('magical-transformation-inputs'), retro_dynamic: document.getElementById('retro-dynamic-inputs'),
         };
         const locationWrapper = document.getElementById('location-wrapper');
         const locationDetailsWrapper = document.getElementById('location-details-wrapper');
-
         const generateImageButton = document.getElementById('generate-image-idea');
         const imageLoader = document.getElementById('image-loader');
         const generatedImage = document.getElementById('generated-image');
         const imageError = document.getElementById('image-error');
-        
         const brandLogoUpload = document.getElementById('brand-logo-upload');
         const brandLogoPreview = document.getElementById('brand-logo-preview');
         const brandLogoPreviewContainer = document.getElementById('brand-logo-preview-container');
-
-
-        // Modal Elements
+        const logoAutoDescription = document.getElementById('logo-auto-description');
+        const logoAnalysisLoader = document.getElementById('logo-analysis-loader');
         const settingsModal = document.getElementById('settings-modal');
         const openSettingsButton = document.getElementById('open-settings-button');
         const openSettingsFromNotice = document.getElementById('open-settings-from-notice');
@@ -658,17 +648,53 @@
         const apiKeyMessage = document.getElementById('api-key-message');
         const saveBtnText = document.getElementById('save-btn-text');
         const saveBtnLoader = document.getElementById('save-btn-loader');
-
         const helpModal = document.getElementById('help-modal');
         const openHelpButton = document.getElementById('open-help-button');
         const closeHelpModalButton = document.getElementById('close-help-modal-button');
-
         const resetConfirmModal = document.getElementById('reset-confirm-modal');
         const resetButton = document.getElementById('reset-button');
         const cancelResetButton = document.getElementById('cancel-reset-button');
         const confirmResetButton = document.getElementById('confirm-reset-button');
 
-        let currentFormData = {};
+        let currentProductPrompt = "";
+
+        // --- Helper: Fetch with Retry ---
+        async function fetchWithRetry(url, payload, maxRetries = 3) {
+            let lastError;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        return await response.json();
+                    }
+
+                    if (response.status >= 400 && response.status < 500) {
+                         const errorData = await response.json();
+                         const message = errorData?.error?.message || `Client error: ${response.status}`;
+                         throw new Error(message);
+                    }
+                    
+                    lastError = new Error(`Layanan AI sedang sibuk: ${response.status}`);
+                    
+                    const delay = Math.pow(2, i) * 1000;
+                    console.log(`API call failed with status ${response.status}. Retrying in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+
+                } catch (error) {
+                    lastError = error;
+                    const delay = Math.pow(2, i) * 1000;
+                    console.log(`Network error during API call. Retrying in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+            throw lastError;
+        }
+
 
         // --- Modal Logic ---
         function toggleModal(modal, show) {
@@ -676,7 +702,6 @@
             const container = overlay.querySelector('.modal-container');
             if (show) {
                 overlay.classList.remove('hidden');
-                // Use a short timeout to allow the display property to apply before starting the transition
                 setTimeout(() => {
                     overlay.style.opacity = '1';
                     container.style.transform = 'scale(1)';
@@ -686,7 +711,7 @@
                 container.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     overlay.classList.add('hidden');
-                }, 300); // Match transition duration
+                }, 300);
             }
         }
 
@@ -698,15 +723,10 @@
                 apiKeyMessage.className = 'text-sm mt-3 text-red-400';
                 return;
             }
-
             setLoading(true, saveApiKeyButton, saveBtnText, saveBtnLoader, 'Simpan');
             apiKeyMessage.textContent = '';
-
             try {
-                // Use a simple, lightweight API call for validation, like listing models
-                const validationUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
-                const response = await fetch(validationUrl);
-                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
                 if (response.ok) {
                     localStorage.setItem('googleApiKey', key);
                     apiKeyMessage.textContent = 'API Key valid dan berhasil disimpan!';
@@ -717,12 +737,10 @@
                     let errorMessage = 'API Key tidak valid atau terjadi masalah jaringan.';
                      try {
                          const errorData = await response.json();
-                         if (errorData && errorData.error && errorData.error.message) {
+                         if (errorData?.error?.message) {
                              errorMessage = `Validasi Gagal: ${errorData.error.message}`;
                          }
-                     } catch (jsonError) {
-                         console.error("Could not parse error JSON from API response:", jsonError);
-                     }
+                     } catch (e) { /* ignore json parsing error */ }
                     throw new Error(errorMessage);
                 }
             } catch (error) {
@@ -753,13 +771,9 @@
         settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) { toggleModal(settingsModal, false); } });
         saveApiKeyButton.addEventListener('click', saveApiKey);
         deleteApiKeyButton.addEventListener('click', deleteApiKey);
-
-        // --- Help Modal ---
         openHelpButton.addEventListener('click', () => toggleModal(helpModal, true));
         closeHelpModalButton.addEventListener('click', () => toggleModal(helpModal, false));
         helpModal.addEventListener('click', (e) => { if (e.target === helpModal) { toggleModal(helpModal, false); } });
-
-        // --- Reset Modal ---
         resetButton.addEventListener('click', () => toggleModal(resetConfirmModal, true));
         cancelResetButton.addEventListener('click', () => toggleModal(resetConfirmModal, false));
         resetConfirmModal.addEventListener('click', (e) => { if (e.target === resetConfirmModal) { toggleModal(resetConfirmModal, false); } });
@@ -771,180 +785,133 @@
         function resetForm() {
             productForm.reset();
             outputSection.classList.add('hidden');
-            generatedPrompt.textContent = '';
+            generatedProductPrompt.textContent = '';
+            generatedLogoPrompt.textContent = '';
             imagePreviewContainer.classList.add('hidden');
             imagePreview.src = '#';
             brandLogoPreviewContainer.classList.add('hidden');
             brandLogoPreview.src = '#';
             analysisResult.textContent = '';
-            imageUpload.value = ''; // Clear file input
+            logoAutoDescription.value = '';
+            imageUpload.value = '';
             brandLogoUpload.value = '';
-            animationStyleSelect.value = 'transformasi'; // Reset to default
+            animationStyleSelect.value = 'transformasi';
             handleStyleChange();
         }
 
-        // --- Main App Logic ---
         function handleStyleChange() {
             const newStyle = animationStyleSelect.value;
-            
-            function transferData(fieldGroup) {
-                const sourceFieldId = fieldGroup[previousStyle];
-                const targetFieldId = fieldGroup[newStyle];
-                if (sourceFieldId && targetFieldId) {
-                    const sourceElement = document.getElementById(sourceFieldId);
-                    const targetElement = document.getElementById(targetFieldId);
-                    if (sourceElement && targetElement && sourceElement.value && !targetElement.value) {
-                        targetElement.value = sourceElement.value;
-                    }
+            const transfer = (group) => {
+                const sourceId = group[previousStyle], targetId = group[newStyle];
+                if (sourceId && targetId) {
+                    const sourceEl = document.getElementById(sourceId), targetEl = document.getElementById(targetId);
+                    if (sourceEl && targetEl && sourceEl.value && !targetEl.value) targetEl.value = sourceEl.value;
                 }
-            }
-            transferData(styleToFieldMap.collection);
-            transferData(styleToFieldMap.boxDescription);
-
+            };
+            transfer(styleToFieldMap.collection);
+            transfer(styleToFieldMap.boxDescription);
             Object.values(allStyleInputs).forEach(el => el.classList.add('hidden'));
-            if (allStyleInputs[newStyle]) {
-                allStyleInputs[newStyle].classList.remove('hidden');
-            }
-            
-            locationWrapper.classList.remove('hidden');
-            locationDetailsWrapper.classList.remove('hidden');
+            if (allStyleInputs[newStyle]) allStyleInputs[newStyle].classList.remove('hidden');
             let placeholder = "Contoh: Ruangan kosong yang nyaman";
             if (newStyle === 'logo') {
                 placeholder = "Contoh: Ruang putih minimalis berkabut";
                 locationDetailsWrapper.classList.add('hidden');
-            } else if (newStyle === 'transformasi') {
-                placeholder = "Contoh: Jalanan kota yang ramai";
-            } else if (newStyle === 'fashion') {
+            } else if (newStyle === 'transformasi' || newStyle === 'fashion') {
                 placeholder = "Contoh: Jalanan kota yang ramai saat senja";
             }
             document.getElementById('location').placeholder = placeholder;
-
             previousStyle = newStyle;
         }
         animationStyleSelect.addEventListener('change', handleStyleChange);
 
-        imageUpload.addEventListener('change', (event) => {
+        const handleFileUpload = (event, previewEl, containerEl) => {
             if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    imagePreview.src = e.target.result;
-                    imagePreviewContainer.classList.remove('hidden');
+                    previewEl.src = e.target.result;
+                    containerEl.classList.remove('hidden');
                 };
                 reader.readAsDataURL(event.target.files[0]);
             }
+        };
+        imageUpload.addEventListener('change', (e) => handleFileUpload(e, imagePreview, imagePreviewContainer));
+        
+        brandLogoUpload.addEventListener('change', (e) => {
+            handleFileUpload(e, brandLogoPreview, brandLogoPreviewContainer);
+            analyzeLogo(e.target.files[0]);
         });
         
-        brandLogoUpload.addEventListener('change', (event) => {
-            if (event.target.files && event.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    brandLogoPreview.src = e.target.result;
-                    brandLogoPreviewContainer.classList.remove('hidden');
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        });
-
-        function ensureFormCompletion(analysis) {
-            const productName = analysis.product_name || 'produk';
-            const keyElements = analysis.key_elements || 'elemen-elemen produk';
-
-            const fillIfEmpty = (id, value) => {
-                const el = document.getElementById(id);
-                if (el && !el.value) { el.value = value; }
-            };
-
-            fillIfEmpty('product-components', keyElements);
-            fillIfEmpty('logo-description', `Logo ikonik untuk ${productName}`);
-            fillIfEmpty('product-collection', keyElements);
-            fillIfEmpty('final-human-element', `Seorang pengguna yang puas`);
-            fillIfEmpty('ledakan-collection', keyElements);
-            fillIfEmpty('human-reaction', `Seseorang yang kaget dan takjub`);
-            fillIfEmpty('vibe-description', `Suasana ${analysis.product_features || 'yang unik'}`);
-            fillIfEmpty('vibe-elements', `Beberapa orang menikmati ${productName}, ${keyElements}`);
-            fillIfEmpty('surprise-recipient', `Seseorang yang menerima hadiah`);
-            fillIfEmpty('surprise-element', `Kejutan spesial terkait ${productName}`);
-            fillIfEmpty('screen-product', `${productName} di layar aplikasi`);
-            fillIfEmpty('screen-action', `Menekan tombol 'Dapatkan Sekarang'`);
-            fillIfEmpty('box-description', `Kotak elegan untuk ${productName}`);
-            fillIfEmpty('unboxing-elements', keyElements);
-            fillIfEmpty('vault-box-description', `Kotak premium untuk ${productName}`);
-            fillIfEmpty('vault-elements', `${productName}, ${keyElements}`);
-            fillIfEmpty('pov-action', `Menggunakan ${productName} untuk pertama kali`);
-            fillIfEmpty('pov-effect', `Dunia di sekitar berubah menjadi lebih keren`);
-            fillIfEmpty('worship-figure', `Seseorang yang mengagumi ${productName}`);
-            fillIfEmpty('worship-sound', `Musik sinematik yang megah`);
-            fillIfEmpty('fashion-character', `Model yang stylish dan percaya diri`);
-            fillIfEmpty('fashion-action', `Memakai ${productName} dengan elegan`);
-            fillIfEmpty('fashion-effect', `Semua mata tertuju padanya, dunia melambat`);
-        }
-
-        analyzeImageButton.addEventListener('click', async () => {
+        async function analyzeLogo(file) {
+            if (!file) return;
             if (!checkApiKeyStatus()) {
                 toggleModal(settingsModal, true);
                 return;
             }
-            const file = imageUpload.files[0];
-            if (!file) {
-                // Replace alert with a custom modal or inline message
-                analysisResult.textContent = 'Mohon pilih gambar untuk dianalisis.';
-                analysisResult.className = 'text-yellow-400 mt-3 text-center font-semibold';
-                return;
-            }
-
-            setLoading(true, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar');
-            analysisResult.textContent = '';
+            logoAnalysisLoader.classList.remove('hidden');
+            logoAutoDescription.value = '';
+            logoAutoDescription.placeholder = 'Menganalisis logo dengan AI...';
 
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = async () => {
                 const base64ImageData = reader.result.split(',')[1];
-                
                 try {
-                    const prompt = `You are a creative director expert. Analyze the following image. Based on the image, generate a creative concept for a video ad. Your response must be a JSON object with the following keys: "product_name", "product_features", "location", "location_details", "key_elements", and "recommended_style". The style must be one of: 'transformasi', 'perakitan', 'logo', 'dekonstruksi', 'ruangan', 'ledakan', 'suasana', 'kejutan', 'layar', 'unboxing', 'vault', 'pov', 'pemujaan', 'fashion', 'sajian', 'teardown', 'kinetic', 'absurd', 'ingredient_explosion', 'magical_transformation', 'retro_dynamic'.`;
-                    const payload = {
-                        contents: [{
-                            parts: [
-                                { text: prompt },
-                                { inlineData: { mimeType: file.type, data: base64ImageData } }
-                            ]
-                        }],
-                        generationConfig: {
-                            responseMimeType: "application/json",
-                        }
-                    };
-
+                    const prompt = "Analyze this logo image and provide a concise, detailed, and objective description of its visual elements in one short sentence. For example: 'the Adidas trefoil logo, which consists of three leaf shapes with three horizontal stripes across them' or 'the Apple logo, an apple with a bite taken out of it'.";
+                    const payload = { contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: file.type, data: base64ImageData } }] }] };
                     const apiKey = localStorage.getItem('googleApiKey');
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    
+                    const result = await fetchWithRetry(apiUrl, payload);
 
-                    if (!response.ok) throw new Error(`API call failed: ${response.status}`);
+                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        logoAutoDescription.value = result.candidates[0].content.parts[0].text.trim();
+                    } else { throw new Error("Invalid response from AI."); }
+                } catch (error) {
+                    console.error('Error analyzing logo:', error);
+                    logoAutoDescription.placeholder = `Gagal menganalisis: ${error.message}. Coba lagi.`;
+                } finally {
+                    logoAnalysisLoader.classList.add('hidden');
+                }
+            };
+        }
+
+        analyzeImageButton.addEventListener('click', async () => {
+            if (!checkApiKeyStatus()) return toggleModal(settingsModal, true);
+            const file = imageUpload.files[0];
+            if (!file) {
+                analysisResult.textContent = 'Mohon pilih gambar untuk dianalisis.';
+                analysisResult.className = 'text-yellow-400 mt-3 text-center font-semibold';
+                return;
+            }
+            setLoading(true, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar');
+            analysisResult.textContent = '';
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async () => {
+                const base64ImageData = reader.result.split(',')[1];
+                try {
+                    const prompt = `You are a creative director expert. Analyze the image. Generate a JSON object for a video ad concept with keys: "product_name", "product_features", "location", "location_details", "key_elements", and "recommended_style". The style must be one of: 'transformasi', 'perakitan', 'logo', 'dekonstruksi', 'ruangan', 'ledakan', 'suasana', 'kejutan', 'layar', 'unboxing', 'vault', 'pov', 'pemujaan', 'fashion', 'sajian', 'teardown', 'kinetic', 'absurd', 'ingredient_explosion', 'magical_transformation', 'retro_dynamic'.`;
+                    const payload = { contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: file.type, data: base64ImageData } }] }], generationConfig: { responseMimeType: "application/json" } };
+                    const apiKey = localStorage.getItem('googleApiKey');
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
                     
-                    const result = await response.json();
-                    
+                    const result = await fetchWithRetry(apiUrl, payload);
+
                     if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
                         const analysis = JSON.parse(result.candidates[0].content.parts[0].text);
-                        
                         document.getElementById('product-name').value = analysis.product_name || '';
                         document.getElementById('product-features').value = analysis.product_features || '';
                         document.getElementById('location').value = analysis.location || '';
                         document.getElementById('location-details').value = analysis.location_details || '';
-                        
-                        ensureFormCompletion(analysis);
-                        
                         animationStyleSelect.value = analysis.recommended_style;
                         handleStyleChange();
-                        
                         const selectedOptionText = animationStyleSelect.options[animationStyleSelect.selectedIndex].text;
-                        analysisResult.textContent = `Analisis Selesai! Gaya yang direkomendasikan: ${selectedOptionText}. Formulir telah diisi.`;
+                        analysisResult.textContent = `Analisis Selesai! Gaya direkomendasikan: ${selectedOptionText}. Formulir telah diisi.`;
                         analysisResult.className = 'text-green-400 mt-3 text-center font-semibold';
-                    } else {
-                        throw new Error("Invalid response from AI.");
-                    }
-
+                    } else { throw new Error("Invalid response from AI."); }
                 } catch (error) {
                     console.error('Error analyzing image:', error);
-                    analysisResult.textContent = 'Maaf, gagal menganalisis gambar. Coba lagi.';
+                    analysisResult.textContent = `Maaf, gagal menganalisis gambar: ${error.message}. Coba lagi.`;
                     analysisResult.className = 'text-red-400 mt-3 text-center font-semibold';
                 } finally {
                     setLoading(false, analyzeImageButton, analyzeBtnText, analyzeBtnLoader, 'Analisa Gambar');
@@ -952,338 +919,167 @@
             };
         });
 
-        productForm.addEventListener('submit', async (e) => {
+        productForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            setLoading(true, generateButton, btnText, btnLoader, 'Generate Prompt');
-
-            const style = animationStyleSelect.value;
-            const aspectRatio = document.querySelector('input[name="aspect_ratio"]:checked').value;
+            setLoading(true, generateButton, btnText, btnLoader, 'Generate Prompts');
+            const getVal = id => document.getElementById(id).value;
             const userInput = {
-                style: style,
-                aspectRatio: aspectRatio,
-                productName: document.getElementById('product-name').value,
-                productFeatures: document.getElementById('product-features').value,
-                location: document.getElementById('location').value,
-                locationDetails: document.getElementById('location-details').value,
-                productComponents: document.getElementById('product-components').value,
-                logoDescription: document.getElementById('logo-description').value,
-                finalElement: document.getElementById('final-element').value,
-                dekonLogoText: document.getElementById('dekon-logo-text').value,
-                dekonComponents: document.getElementById('dekon-components').value,
-                productCollection: document.getElementById('product-collection').value,
-                finalHumanElement: document.getElementById('final-human-element').value,
-                ledakanCollection: document.getElementById('ledakan-collection').value,
-                humanReaction: document.getElementById('human-reaction').value,
-                vibeDescription: document.getElementById('vibe-description').value,
-                vibeElements: document.getElementById('vibe-elements').value,
-                surpriseRecipient: document.getElementById('surprise-recipient').value,
-                surpriseElement: document.getElementById('surprise-element').value,
-                screenProduct: document.getElementById('screen-product').value,
-                screenAction: document.getElementById('screen-action').value,
-                boxDescription: document.getElementById('box-description').value,
-                unboxingElements: document.getElementById('unboxing-elements').value,
-                vaultBoxDescription: document.getElementById('vault-box-description').value,
-                vaultElements: document.getElementById('vault-elements').value,
-                povAction: document.getElementById('pov-action').value,
-                povEffect: document.getElementById('pov-effect').value,
-                worshipFigure: document.getElementById('worship-figure').value,
-                worshipSound: document.getElementById('worship-sound').value,
-                fashionCharacter: document.getElementById('fashion-character').value,
-                fashionAction: document.getElementById('fashion-action').value,
-                fashionEffect: document.getElementById('fashion-effect').value,
-                platingContainer: document.getElementById('plating-container').value,
-                platingIngredients: document.getElementById('plating-ingredients').value,
-                teardownBox: document.getElementById('teardown-box').value,
-                teardownComponents: document.getElementById('teardown-components').value,
-                teardownImmersion: document.getElementById('teardown-immersion').value,
-                kineticSubject: document.getElementById('kinetic-subject').value,
-                kineticDisintegration: document.getElementById('kinetic-disintegration').value,
-                kineticLogo: document.getElementById('kinetic-logo').value,
-                absurdRobots: document.getElementById('absurd-robots').value,
-                absurdTask: document.getElementById('absurd-task').value,
-                absurdResult: document.getElementById('absurd-result').value,
-                ingredientContainer: document.getElementById('ingredient-container').value,
-                ingredientExplosionEffect: document.getElementById('ingredient-explosion-effect').value,
-                magicalSubject: document.getElementById('magical-subject').value,
-                magicalResult: document.getElementById('magical-result').value,
-                retroCharacter: document.getElementById('retro-character').value,
-                retroAccessories: document.getElementById('retro-accessories').value,
-                retroLens: document.getElementById('retro-lens').value,
-                brandName: document.getElementById('brand-name').value,
-                brandTagline: document.getElementById('brand-tagline').value,
-                hasLogo: brandLogoUpload.files.length > 0,
+                style: getVal('animation-style'),
+                aspectRatio: document.querySelector('input[name="aspect_ratio"]:checked').value,
+                productName: getVal('product-name'), productFeatures: getVal('product-features'), location: getVal('location'), locationDetails: getVal('location-details'), productComponents: getVal('product-components'), logoDescription: getVal('logo-description'), finalElement: getVal('final-element'), dekonLogoText: getVal('dekon-logo-text'), dekonComponents: getVal('dekon-components'), productCollection: getVal('product-collection'), finalHumanElement: getVal('final-human-element'), ledakanCollection: getVal('ledakan-collection'), humanReaction: getVal('human-reaction'), vibeDescription: getVal('vibe-description'), vibeElements: getVal('vibe-elements'), surpriseRecipient: getVal('surprise-recipient'), surpriseElement: getVal('surprise-element'), screenProduct: getVal('screen-product'), screenAction: getVal('screen-action'), boxDescription: getVal('box-description'), unboxingElements: getVal('unboxing-elements'), vaultBoxDescription: getVal('vault-box-description'), vaultElements: getVal('vault-elements'), povAction: getVal('pov-action'), povEffect: getVal('pov-effect'), worshipFigure: getVal('worship-figure'), worshipSound: getVal('worship-sound'), fashionCharacter: getVal('fashion-character'), fashionAction: getVal('fashion-action'), fashionEffect: getVal('fashion-effect'), platingContainer: getVal('plating-container'), platingIngredients: getVal('plating-ingredients'), teardownBox: getVal('teardown-box'), teardownComponents: getVal('teardown-components'), teardownImmersion: getVal('teardown-immersion'), kineticSubject: getVal('kinetic-subject'), kineticDisintegration: getVal('kinetic-disintegration'), kineticLogo: getVal('kinetic-logo'), absurdRobots: getVal('absurd-robots'), absurdTask: getVal('absurd-task'), absurdResult: getVal('absurd-result'), ingredientContainer: getVal('ingredient-container'), ingredientExplosionEffect: getVal('ingredient-explosion-effect'), magicalSubject: getVal('magical-subject'), magicalResult: getVal('magical-result'), retroCharacter: getVal('retro-character'), retroAccessories: getVal('retro-accessories'), retroLens: getVal('retro-lens'),
+                brandFinalText: getVal('brand-final-text'),
+                logoAnimationStyle: getVal('logo-animation-style'),
+                logoAutoDescription: getVal('logo-auto-description')
             };
-
             try {
-                const prompt = generateVideoPrompt(userInput);
-                currentFormData = { ...userInput, prompt: prompt };
-                
-                generatedPrompt.textContent = prompt;
+                currentProductPrompt = generateProductPrompt(userInput);
+                const logoPrompt = generateLogoPrompt(userInput);
+                generatedProductPrompt.textContent = currentProductPrompt;
+                generatedLogoPrompt.textContent = logoPrompt;
                 outputSection.classList.remove('hidden');
                 outputSection.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
-                console.error("Error generating prompt:", error);
-                // Replace alert with a custom modal or inline message
-                generatedPrompt.textContent = "Maaf, terjadi kesalahan saat membuat prompt. Silakan coba lagi.";
+                console.error("Error generating prompts:", error);
+                generatedProductPrompt.textContent = "Maaf, terjadi kesalahan. Silakan coba lagi.";
+                generatedLogoPrompt.textContent = "";
             } finally {
-                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompt');
+                setLoading(false, generateButton, btnText, btnLoader, 'Generate Prompts');
             }
         });
 
-        function setLoading(isLoading, button, textElement, loaderElement, defaultText) {
+        function setLoading(isLoading, button, textEl, loaderEl, defaultText) {
             button.disabled = isLoading;
-            textElement.textContent = defaultText;
-            textElement.classList.toggle('hidden', isLoading);
-            loaderElement.classList.toggle('hidden', !isLoading);
+            textEl.textContent = defaultText;
+            textEl.classList.toggle('hidden', isLoading);
+            loaderEl.classList.toggle('hidden', !isLoading);
         }
 
-        function generateVideoPrompt(data) {
+        function generateProductPrompt(data) {
             let base = `cinematic video, 60fps, aspect ratio ${data.aspectRatio}, 8k, photorealistic, high detail, professional color grading,`;
             let prompt = '';
-
             switch (data.style) {
-                case 'transformasi':
-                    prompt = `${base} dynamic shot in a bustling ${data.location}, a person throws a small high-tech capsule, it lands and with a 'POOF' of thick smoke, it instantly transforms into a new ${data.productName} which has these features: ${data.productFeatures}. Onlookers are stunned and amazed.`;
-                    break;
-                case 'perakitan':
-                    prompt = `${base} fixed wide angle shot in a premium ${data.location}, ${data.productComponents} fly out and assemble in slow-motion, merging precisely to form a perfect ${data.productName} with features like ${data.productFeatures}.`;
-                    break;
-                case 'logo':
-                    prompt = `${base} in a minimalist abstract space, a glowing ${data.logoDescription} logo morphs and twists like ribbons of energy, then explodes into fragments that swirl and reassemble mid-air into a ${data.productName}. The camera floats around them in slow motion as they land. ${data.finalElement ? `${data.finalElement} rolls in and stops perfectly next to the product.` : ''}`;
-                    break;
-                case 'dekonstruksi':
-                    prompt = `${base} ultra macro shot of a ${data.dekonLogoText} in a dark, luxurious space. It deconstructs into its mechanical components: ${data.dekonComponents}. The parts float and rearrange themselves into a perfect ${data.productName}.`;
-                    break;
-                case 'ruangan':
-                    prompt = `${base} fixed wide-angle view of an empty ${data.location}, a flat-pack box with the ${data.productName} logo opens, and a full room of furniture (${data.productCollection}) assembles itself rapidly in a time-lapse style. ${data.finalHumanElement ? `Finally, ${data.finalHumanElement} pops out from the box, gesturing enthusiastically at the newly assembled room.` : ''}`;
-                    break;
-                case 'ledakan':
-                    prompt = `${base} slow camera push-in on a large box labeled '${data.productName}' in an empty, cozy ${data.location}. The box suddenly bursts open, and a vibrant, colorful living room (${data.ledakanCollection}) erupts in slow motion. When everything is in place, ${data.humanReaction} appears in the middle of the scene, with an expressive shocked pose.`;
-                    break;
-                case 'suasana':
-                    prompt = `${base} in an empty room with sunlight streaming in, a box labeled '${data.productName}' opens and a complete, cozy ${data.vibeDescription} scene bursts out in slow motion, including ${data.vibeElements}. The view outside the window transforms to match the new cozy, bohemian mood.`;
-                    break;
-                case 'kejutan':
-                    prompt = `${base} in a beautiful, cozy ${data.location}, ${data.surpriseRecipient} looks surprised as a gift box labeled '${data.productName}' opens slowly. From inside, ${data.surpriseElement} emerges in dramatic slow motion, illuminated by soft golden light, creating a subtle romantic atmosphere with floating dust particles.`;
-                    break;
-                case 'layar':
-                    prompt = `${base} 3D animation scene in a cozy ${data.location}, a realistic hand holds a smartphone showing a ${data.screenProduct}. The hand performs an action: ${data.screenAction}. The ${data.productName} then emerges out of the phone, floating with smooth realistic animation, and lands perfectly on the table, becoming a real aesthetic object with detailed textures.`;
-                    break;
-                case 'unboxing':
-                    prompt = `${base} in a clean, modern ${data.location}, a stylish box described as '${data.boxDescription}' sits at the center. The camera quickly zooms toward the box. The box opens smoothly with a subtle glow from inside. From the open box, product-related elements like ${data.unboxingElements} begin to float upward with gentle motion and soft lighting. The elements hover momentarily, then spread out and arrange themselves neatly around the box. Finally, the camera pulls back slowly to reveal the full, elegant setup.`;
-                    break;
-                case 'vault':
-                    prompt = `${base} photorealistic cinematic shot of an empty modern ${data.location} with ${data.locationDetails}. A sealed ${data.vaultBoxDescription} sits in the center. The box shakes intensely, glows with red accent lighting, and bursts open dramatically. ${data.vaultElements} fly out and assemble rapidly into a complete luxury collector's vault. The final shot is a bold, high-energy sanctuary glowing with cool LED lighting and red neon accents.`;
-                    break;
-                case 'pov':
-                    prompt = `${base} dynamic first-person POV, user runs through a hyper-modern, neon-lit ${data.location} at night. Heartbeat synced with techno pulses. Holographic signs and data streams glitch and react to eye movement. In one motion, user performs action: ${data.povAction}. Instantly, ${data.povEffect}. The camera orbits 360 degrees, capturing the surreal stillness of the scene. The main product, ${data.productName}, is then revealed in a macro close-up, looking high-gloss and futuristic.`;
-                    break;
-                case 'pemujaan':
-                    prompt = `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}. The final frame shows the ${data.productName} logo glowing, embossed into stone, surrounded by flickering candlelight. Mood is indulgent, reverent, warm, luxurious.`;
-                    break;
-                case 'fashion':
-                    prompt = `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`;
-                    break;
-                case 'sajian':
-                    prompt = `${base} hyper-realistic cinematic food sequence in a ${data.location} with ${data.locationDetails}. A sealed ${data.platingContainer} is placed on a table under focused top-light. The container opens smoothly, releasing individual cooked ingredients into the air: ${data.platingIngredients}. Each component rises gracefully in a seamless, elegant slow-floating motion with no blur. The camera follows this orchestrated assembly as ingredients land precisely onto a clean plate. The final frame reveals a neatly plated ${data.productName} dish. Mood is elegant, focused, mouth-watering.`;
-                    break;
-                case 'teardown':
-                    prompt = `${base} in a softly lit, premium environment like a ${data.location}, a pristine ${data.teardownBox} rests on a surface. The camera slowly pushes in as the box gently opens on its own. The ${data.productName} lifts smoothly and floats mid-air, rotating to show its details. The device then disassembles into its core components — ${data.teardownComponents} — all suspended in precise formation. The camera floats through the exploded view, highlighting craftsmanship, before the components magnetically reassemble. Finally, ${data.teardownImmersion}. Style: Apple-level premium, tactile, futuristic, luxurious.`;
-                    break;
-                case 'kinetic':
-                    prompt = `${base} starts with a wide anamorphic landscape shot of a ${data.kineticSubject} in the center of ${data.location}. As they run, the camera transitions to a low-angle ground-level tracking of their feet. Suddenly, ${data.kineticDisintegration}. A lateral camera sweep follows the particles, which then converge into a high-angle reveal of the ${data.kineticLogo}. The logo morphs smoothly into the final ${data.productName}, with the camera pulling back to a clean product shot. Mood is energetic, high-tech, and powerful.`;
-                    break;
-                case 'absurd':
-                    prompt = `${base} a group of tiny, ${data.absurdRobots} are trying to perform a simple task: ${data.absurdTask}. They do it in an overly complicated and absurd way, with tiny mechanisms and chaotic energy. In the end, they fail at the task but accidentally create something amazing: ${data.absurdResult}. The final shot is a macro close-up of this accidental creation. Mood is humorous, quirky, and surprising.`;
-                    break;
-                case 'ingredient_explosion':
-                    prompt = `${base} VFX advertisement in a ${data.location} with ${data.locationDetails}. A ${data.ingredientContainer} ${data.ingredientExplosionEffect}, revealing the ${data.productName}. Cinematic background music and sound effects enhance the dramatic reveal.`;
-                    break;
-                case 'magical_transformation':
-                    prompt = `${base} a single ${data.magicalSubject} magically transforms into various signature drinks: ${data.magicalResult}. As it transforms, a ${data.location} with ${data.locationDetails} instantly assembles around it. The scene has nostalgic warm tones. Fixed wide-angle shot with subtle zooms on the transformation. Mood is cinematic, magical, and vibrant.`;
-                    break;
-                case 'retro_dynamic':
-                    prompt = `${base} a playful and retro-inspired scene in a ${data.location} with ${data.locationDetails}. Featuring ${data.retroCharacter} wearing ${data.productName} and ${data.retroAccessories}. The shot is taken with a ${data.retroLens}, creating an exaggerated, dynamic perspective. The lighting is soft yet vibrant. Mood is nostalgic, energetic, and carefree.`;
-                    break;
+                case 'transformasi': prompt = `${base} dynamic shot in a bustling ${data.location}, a person throws a small high-tech capsule, it lands and with a 'POOF' of thick smoke, it instantly transforms into a new ${data.productName} which has these features: ${data.productFeatures}. Onlookers are stunned and amazed.`; break;
+                case 'perakitan': prompt = `${base} fixed wide angle shot in a premium ${data.location}, ${data.productComponents} fly out and assemble in slow-motion, merging precisely to form a perfect ${data.productName} with features like ${data.productFeatures}.`; break;
+                case 'logo': prompt = `${base} in a minimalist abstract space, a glowing ${data.logoDescription} logo morphs and twists like ribbons of energy, then explodes into fragments that swirl and reassemble mid-air into a ${data.productName}. The camera floats around them in slow motion as they land. ${data.finalElement ? `${data.finalElement} rolls in and stops perfectly next to the product.` : ''}`; break;
+                case 'dekonstruksi': prompt = `${base} ultra macro shot of a ${data.dekonLogoText} in a dark, luxurious space. It deconstructs into its mechanical components: ${data.dekonComponents}. The parts float and rearrange themselves into a perfect ${data.productName}.`; break;
+                case 'ruangan': prompt = `${base} fixed wide-angle view of an empty ${data.location}, a flat-pack box with the ${data.productName} logo opens, and a full room of furniture (${data.productCollection}) assembles itself rapidly in a time-lapse style. ${data.finalHumanElement ? `Finally, ${data.finalHumanElement} pops out from the box, gesturing enthusiastically at the newly assembled room.` : ''}`; break;
+                case 'ledakan': prompt = `${base} slow camera push-in on a large box labeled '${data.productName}' in an empty, cozy ${data.location}. The box suddenly bursts open, and a vibrant, colorful living room (${data.ledakanCollection}) erupts in slow motion. When everything is in place, ${data.humanReaction} appears in the middle of the scene, with an expressive shocked pose.`; break;
+                case 'suasana': prompt = `${base} in an empty room with sunlight streaming in, a box labeled '${data.productName}' opens and a complete, cozy ${data.vibeDescription} scene bursts out in slow motion, including ${data.vibeElements}. The view outside the window transforms to match the new cozy, bohemian mood.`; break;
+                case 'kejutan': prompt = `${base} in a beautiful, cozy ${data.location}, ${data.surpriseRecipient} looks surprised as a gift box labeled '${data.productName}' opens slowly. From inside, ${data.surpriseElement} emerges in dramatic slow motion, illuminated by soft golden light, creating a subtle romantic atmosphere with floating dust particles.`; break;
+                case 'layar': prompt = `${base} 3D animation scene in a cozy ${data.location}, a realistic hand holds a smartphone showing a ${data.screenProduct}. The hand performs an action: ${data.screenAction}. The ${data.productName} then emerges out of the phone, floating with smooth realistic animation, and lands perfectly on the table, becoming a real aesthetic object with detailed textures.`; break;
+                case 'unboxing': prompt = `${base} in a clean, modern ${data.location}, a stylish box described as '${data.boxDescription}' sits at the center. The camera quickly zooms toward the box. The box opens smoothly with a subtle glow from inside. From the open box, product-related elements like ${data.unboxingElements} begin to float upward with gentle motion and soft lighting. The elements hover momentarily, then spread out and arrange themselves neatly around the box. Finally, the camera pulls back slowly to reveal the full, elegant setup.`; break;
+                case 'vault': prompt = `${base} photorealistic cinematic shot of an empty modern ${data.location} with ${data.locationDetails}. A sealed ${data.vaultBoxDescription} sits in the center. The box shakes intensely, glows with red accent lighting, and bursts open dramatically. ${data.vaultElements} fly out and assemble rapidly into a complete luxury collector's vault. The final shot is a bold, high-energy sanctuary glowing with cool LED lighting and red neon accents.`; break;
+                case 'pov': prompt = `${base} dynamic first-person POV, user runs through a hyper-modern, neon-lit ${data.location} at night. Heartbeat synced with techno pulses. Holographic signs and data streams glitch and react to eye movement. In one motion, user performs action: ${data.povAction}. Instantly, ${data.povEffect}. The camera orbits 360 degrees, capturing the surreal stillness of the scene. The main product, ${data.productName}, is then revealed in a macro close-up, looking high-gloss and futuristic.`; break;
+                case 'pemujaan': prompt = `${base} sweeping cinematic crane shot descending into a vast, candle-lit ${data.location} with ${data.locationDetails}. In the center, a glowing pedestal rises, with a perfect ${data.productName} resting atop it, glistening. ${data.worshipFigure}. The camera glides around the product in ultra-close macro, catching soft gold reflections. Sound of ${data.worshipSound}.`; break;
+                case 'fashion': prompt = `${base} cinematic slow-motion close-up shot, POV from a passing stranger as ${data.fashionCharacter} stands still in a bustling ${data.location} at golden hour, glowing halo of sun behind their head. Camera slowly tracks as they perform the action: ${data.fashionAction}. Suddenly, the bustling crowd around them freezes, motionless, as they turn their head and lock eyes with the camera. ${data.fashionEffect}. As they walk past the camera, the world resumes normal speed. Style: high fashion, modern noir, luxurious, mysterious, bold.`; break;
+                case 'sajian': prompt = `${base} hyper-realistic cinematic food sequence in a ${data.location} with ${data.locationDetails}. A sealed ${data.platingContainer} is placed on a table under focused top-light. The container opens smoothly, releasing individual cooked ingredients into the air: ${data.platingIngredients}. Each component rises gracefully in a seamless, elegant slow-floating motion with no blur. The camera follows this orchestrated assembly as ingredients land precisely onto a clean plate. The final frame reveals a neatly plated ${data.productName} dish. Mood is elegant, focused, mouth-watering.`; break;
+                case 'teardown': prompt = `${base} in a softly lit, premium environment like a ${data.location}, a pristine ${data.teardownBox} rests on a surface. The camera slowly pushes in as the box gently opens on its own. The ${data.productName} lifts smoothly and floats mid-air, rotating to show its details. The device then disassembles into its core components — ${data.teardownComponents} — all suspended in precise formation. The camera floats through the exploded view, highlighting craftsmanship, before the components magnetically reassemble. Finally, ${data.teardownImmersion}. Style: Apple-level premium, tactile, futuristic, luxurious.`; break;
+                case 'kinetic': prompt = `${base} starts with a wide anamorphic landscape shot of a ${data.kineticSubject} in the center of ${data.location}. As they run, the camera transitions to a low-angle ground-level tracking of their feet. Suddenly, ${data.kineticDisintegration}. A lateral camera sweep follows the particles, which then converge into a high-angle reveal of the ${data.kineticLogo}. The logo morphs smoothly into the final ${data.productName}, with the camera pulling back to a clean product shot. Mood is energetic, high-tech, and powerful.`; break;
+                case 'absurd': prompt = `${base} a group of tiny, ${data.absurdRobots} are trying to perform a simple task: ${data.absurdTask}. They do it in an overly complicated and absurd way, with tiny mechanisms and chaotic energy. In the end, they fail at the task but accidentally create something amazing: ${data.absurdResult}. The final shot is a macro close-up of this accidental creation. Mood is humorous, quirky, and surprising.`; break;
+                case 'ingredient_explosion': prompt = `${base} VFX advertisement in a ${data.location} with ${data.locationDetails}. A ${data.ingredientContainer} ${data.ingredientExplosionEffect}, revealing the ${data.productName}. Cinematic background music and sound effects enhance the dramatic reveal.`; break;
+                case 'magical_transformation': prompt = `${base} a single ${data.magicalSubject} magically transforms into various signature drinks: ${data.magicalResult}. As it transforms, a ${data.location} with ${data.locationDetails} instantly assembles around it. The scene has nostalgic warm tones. Fixed wide-angle shot with subtle zooms on the transformation. Mood is cinematic, magical, and vibrant.`; break;
+                case 'retro_dynamic': prompt = `${base} a playful and retro-inspired scene in a ${data.location} with ${data.locationDetails}. Featuring ${data.retroCharacter} wearing ${data.productName} and ${data.retroAccessories}. The shot is taken with a ${data.retroLens}, creating an exaggerated, dynamic perspective. The lighting is soft yet vibrant. Mood is nostalgic, energetic, and carefree.`; break;
             }
-            
-            if (data.brandName || data.brandTagline || data.hasLogo) {
-                let closingScene = ` The video concludes with a final shot displaying`;
-                if (data.hasLogo) {
-                    closingScene += ` the ${data.brandName || 'brand'} logo`;
-                } else if (data.brandName) {
-                    closingScene += ` the brand name "${data.brandName}"`;
-                }
-                if (data.brandTagline) {
-                    closingScene += ` with the tagline "${data.brandTagline}" appearing elegantly below it.`;
-                } else {
-                    closingScene += `.`
-                }
-                prompt += closingScene;
-            }
+            return prompt;
+        }
 
+        function generateLogoPrompt(data) {
+            const logoDescription = data.logoAutoDescription || "the brand's logo";
+            let base = `logo reveal animation, 3D render, 8K, ultra-realistic, cinematic lighting, dramatic, high-end, aspect ratio ${data.aspectRatio},`;
+            let prompt = '';
+            switch(data.logoAnimationStyle) {
+                case 'liquid-metal': prompt = `${base} drops of liquid chrome/gold coalesce on a dark, reflective surface, swirling and merging to form ${logoDescription} with intricate surface ripples.`; break;
+                case 'crystalline-growth': prompt = `${base} macro shot of complex crystal structures growing and branching out rapidly, forming the facets of ${logoDescription}. Light refracts beautifully through the crystalline form.`; break;
+                case 'digital-glitch': prompt = `${base} on a black background, digital artifacts, scan lines, and glitched pixels rapidly assemble and de-noise, snapping into place to reveal a sharp, clean ${logoDescription}.`; break;
+                case 'particle-swarm': prompt = `${base} thousands of glowing particles, like a nebula or a swarm of fireflies, swirl in a vortex before elegantly converging to form the solid shape of ${logoDescription}.`; break;
+                case 'blueprint-reveal': prompt = `${base} a holographic blueprint of ${logoDescription} is drawn in the air with lines of light. The lines then fill in with solid, premium materials (like brushed metal or carbon fiber) to complete the logo.`; break;
+                case 'light-streak': prompt = `${base} streaks of colored light race across the screen from multiple directions, carving and etching ${logoDescription} into a dark stone or metal surface, leaving glowing trails.`; break;
+                case 'percussive-assembly': prompt = `${base} in a dark, industrial space, components of ${logoDescription} slam into place one by one from off-screen, each impact creating a visible shockwave and a deep bass sound. The final piece locks in, completing the logo with a powerful thud.`; break;
+                case 'glitch-morph': prompt = `${base} a chaotic mess of digital noise, datamoshing, and RGB split effects flicker on screen. The glitches start to resolve and coalesce, morphing and stabilizing into the clean, sharp ${logoDescription}.`; break;
+                case 'claymation-stopmotion': prompt = `${base} a stop-motion animation where different colored lumps of clay are sculpted frame-by-frame on a textured surface, finally forming the complete ${logoDescription}. The lighting is soft and tactile, showing fingerprints on the clay.`; break;
+                case 'fluid-ink-bleed': prompt = `${base} a macro shot of a drop of black ink falling onto a wet, textured paper surface. The ink bleeds outwards in beautiful, organic patterns, magically forming the precise shape of ${logoDescription}.`; break;
+                case 'dissolve': prompt = `${base} on a clean background, ${logoDescription} slowly materializes, dissolving into view with soft, ethereal particles, creating a gentle and elegant reveal.`; break;
+                case 'slide': prompt = `${base} ${logoDescription} slides smoothly and quickly into the center of the frame from off-screen, with a subtle motion blur effect to emphasize its dynamic entrance.`; break;
+                case 'zoom': prompt = `${base} the camera starts on a black screen and rapidly zooms back to dramatically reveal ${logoDescription} at the center, creating a powerful and impactful entrance.`; break;
+                case 'wipe': prompt = `${base} a clean, sharp line wipes across the screen, progressively revealing ${logoDescription} as it passes, creating a clean and modern transition.`; break;
+                case 'glow': prompt = `${base} ${logoDescription} materializes from a soft, elegant glow of light, with volumetric rays emanating from behind it, creating a futuristic and premium feel.`; break;
+                case 'flash': prompt = `${base} a powerful flash of bright, lens-flare-inducing light explodes on screen, quickly receding to reveal ${logoDescription} in its place, looking sharp and impactful.`; break;
+                case 'light-leaks': prompt = `${base} vintage and artistic, ${logoDescription} is revealed through warm, analogue light leaks that wash over the screen, giving it a retro and dreamy quality.`; break;
+            }
+            if (data.brandFinalText) {
+                prompt += ` The text "${data.brandFinalText}" appears elegantly below the fully formed logo.`;
+            }
             return prompt;
         }
         
-        copyButton.addEventListener('click', () => {
-            const textToCopy = generatedPrompt.textContent;
+        const copyToClipboard = (text, button) => {
             const textArea = document.createElement("textarea");
-            textArea.value = textToCopy;
-            
+            textArea.value = text;
             textArea.style.position = "fixed";
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.width = "1px";
-            textArea.style.height = "1px";
-            textArea.style.padding = "0";
-            textArea.style.border = "none";
-            textArea.style.outline = "none";
-            textArea.style.boxShadow = "none";
-            textArea.style.background = "transparent";
-
+            textArea.style.opacity = "0";
             document.body.appendChild(textArea);
-            textArea.focus();
             textArea.select();
-
             try {
                 document.execCommand('copy');
-                copyButton.textContent = 'Berhasil Disalin!';
-                setTimeout(() => { copyButton.textContent = 'Salin Prompt'; }, 2000);
+                button.textContent = 'Berhasil Disalin!';
+                setTimeout(() => { button.textContent = 'Salin Prompt'; }, 2000);
             } catch (err) {
-                console.error('Gagal menyalin prompt: ', err);
+                console.error('Gagal menyalin:', err);
             }
-
             document.body.removeChild(textArea);
-        });
+        };
+        copyProductButton.addEventListener('click', () => copyToClipboard(generatedProductPrompt.textContent, copyProductButton));
+        copyLogoButton.addEventListener('click', () => copyToClipboard(generatedLogoPrompt.textContent, copyLogoButton));
 
         generateImageButton.addEventListener('click', async () => {
-            if (!checkApiKeyStatus()) {
-                toggleModal(settingsModal, true);
-                return;
-            }
-            if (!currentFormData.prompt) { 
-                imageError.textContent = 'Generate prompt video terlebih dahulu!';
+            if (!checkApiKeyStatus()) return toggleModal(settingsModal, true);
+            if (!currentProductPrompt) { 
+                imageError.textContent = 'Generate prompt produk terlebih dahulu!';
                 imageError.classList.remove('hidden');
                 return;
             }
             imageLoader.style.display = 'flex';
             generatedImage.classList.add('hidden');
             imageError.classList.add('hidden');
-            
             try {
-                const payload = { instances: [{ prompt: currentFormData.prompt }], parameters: { "sampleCount": 1 } };
-                const apiKey = localStorage.getItem('googleApiKey');
-                // Note: The endpoint might vary based on the model and region.
-                // Using a common endpoint for Imagen 2.
-                const apiUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/prompt-ajaib/locations/us-central1/publishers/google/models/imagegeneration@006:predict`;
-                
-                // This call requires GCP authentication (gcloud auth application-default login)
-                // which is not possible in a simple client-side setup.
-                // The original code had a non-working Imagen API endpoint.
-                // This part of the code WILL NOT WORK without a proper backend proxy or serverless function
-                // to handle the authenticated API call to Vertex AI.
-                
-                // Simulating an error because the direct client-side call is not feasible.
-                throw new Error("Direct client-side call to Vertex AI Imagen is not supported due to authentication requirements. A backend proxy is needed.");
-
-                /*
-                // The code below would be used if the API call was possible from the client
-                const response = await fetch(apiUrl, { 
-                    method: 'POST', 
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        // This is where the authentication token would go, which is hard to get on client-side
-                        // 'Authorization': `Bearer ${YOUR_GCP_AUTH_TOKEN}` 
-                    }, 
-                    body: JSON.stringify(payload) 
-                });
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const result = await response.json();
-                if (result.predictions?.[0]?.bytesBase64Encoded) {
-                    generatedImage.src = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
-                    generatedImage.classList.remove('hidden');
-                } else { throw new Error("No image data from API."); }
-                */
-
+                throw new Error("Fitur Generate Gambar memerlukan koneksi ke backend yang aman dan saat ini tidak dapat diakses langsung dari browser.");
             } catch (error) {
                 console.error('Error generating image:', error);
-                imageError.textContent = 'Fitur Generate Gambar saat ini belum tersedia. ' + error.message;
+                imageError.textContent = 'Maaf, terjadi kesalahan. ' + error.message;
                 imageError.classList.remove('hidden');
             } finally {
                 imageLoader.style.display = 'none';
             }
         });
 
-        // Initial check on page load
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize opacity and transform for modals for smooth entry
             [settingsModal, helpModal, resetConfirmModal].forEach(modal => {
                 modal.style.opacity = '0';
                 modal.querySelector('.modal-container').style.transform = 'scale(0.95)';
             });
-
             checkApiKeyStatus();
-            handleStyleChange(); // Set initial visibility of style inputs
-            // Populate help modal content
+            handleStyleChange();
             document.getElementById('help-modal-content').innerHTML = `
                 <section>
                     <h3 class="text-xl font-semibold text-white mb-2">1. Cara Mendapatkan Google AI Studio API Key</h3>
                     <p>API Key ini wajib diisi agar fitur AI (Analisa Gambar) bisa berfungsi. Caranya mudah:</p>
                     <ol class="mt-2 space-y-1">
                         <li>Buka situs <a href="https://aistudio.google.com/" target="_blank" class="text-blue-400 hover:underline">Google AI Studio</a>.</li>
-                        <li>Masuk (login) dengan akun Google Anda.</li>
-                        <li>Di halaman utama, klik tombol <strong class="text-white">"Get API Key"</strong> (biasanya di pojok kiri atas).</li>
-                        <li>Klik <strong class="text-white">"Create API key in new project"</strong>.</li>
-                        <li>Sebuah kunci akan muncul. Klik ikon salin (copy) di sebelahnya.</li>
-                        <li>Kembali ke aplikasi ini, buka menu <strong class="text-white">Pengaturan</strong> (ikon gerigi), tempel (paste) kuncinya di kolom yang tersedia, lalu klik <strong class="text-white">Simpan</strong>.</li>
+                        <li>Masuk dengan akun Google Anda, lalu klik <strong class="text-white">"Get API Key"</strong> &gt; <strong class="text-white">"Create API key in new project"</strong>.</li>
+                        <li>Salin (copy) kunci yang muncul.</li>
+                        <li>Kembali ke aplikasi ini, buka <strong class="text-white">Pengaturan</strong> (ikon gerigi), tempel (paste) kuncinya, lalu klik <strong class="text-white">Simpan</strong>.</li>
                     </ol>
                 </section>
                 <section>
-                    <h3 class="text-xl font-semibold text-white mb-2">2. Cara Menggunakan Aplikasi</h3>
-                    <div>
-                        <h4 class="text-lg font-semibold text-white mt-4 mb-1">Cara Cepat (Rekomendasi)</h4>
-                        <ol>
-                            <li><strong class="text-white">Unggah Gambar:</strong> Klik area unggah dan pilih gambar produk Anda.</li>
-                            <li><strong class="text-white">Analisa:</strong> Klik tombol "Analisa Gambar". AI akan otomatis mengisi seluruh formulir dan merekomendasikan gaya iklan terbaik.</li>
-                            <li><strong class="text-white">Sempurnakan:</strong> Baca hasil isian AI. Anda bisa mengubah atau menambah detail apa pun agar lebih sesuai dengan visi Anda.</li>
-                            <li><strong class="text-white">Generate:</strong> Klik "Generate Prompt" untuk mendapatkan hasil akhir.</li>
-                        </ol>
-                    </div>
-                     <div>
-                        <h4 class="text-lg font-semibold text-white mt-4 mb-1">Cara Manual</h4>
-                        <ol>
-                            <li><strong class="text-white">Pilih Gaya & Rasio:</strong> Pilih gaya iklan dan rasio video yang Anda inginkan dari menu dropdown.</li>
-                            <li><strong class="text-white">Isi Formulir:</strong> Isi semua detail produk dan suasana secara manual.</li>
-                            <li><strong class="text-white">Generate:</strong> Klik "Generate Prompt".</li>
-                        </ol>
-                    </div>
-                </section>
-                 <section>
-                    <h3 class="text-xl font-semibold text-white mb-2">3. Penjelasan Gaya Iklan</h3>
-                    <div class="space-y-4">
-                        <p><strong>1. Transformasi Kapsul Ajaib:</strong> Produk muncul instan dari kapsul berteknologi tinggi. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang ingin terkesan canggih, praktis, dan instan.</p>
-                        <p><strong>2. Perakitan Dinamis:</strong> Komponen-komponen produk terbang dan merakit diri secara sinematik. <strong class="text-blue-300">Cocok untuk:</strong> Produk dengan detail teknis atau bahan berkualitas (gadget, mesin, makanan, gedung).</p>
-                        <p><strong>3. Transformasi Logo:</strong> Logo merek Anda berubah bentuk menjadi produk. <strong class="text-blue-300">Cocok untuk:</strong> Membangun citra merek yang kuat dan premium.</p>
-                        <p><strong>4. Dekonstruksi Logo (Mewah):</strong> Logo premium terurai menjadi komponen mekanis yang kemudian membentuk produk. <strong class="text-blue-300">Cocok untuk:</strong> Merek mewah dengan citra presisi dan rekayasa (jam tangan, mobil).</p>
-                        <p><strong>5. Perakitan Ruangan:</strong> Satu kotak merakit seluruh isi ruangan secara cepat (time-lapse). <strong class="text-blue-300">Cocok untuk:</strong> Furnitur, paket dekorasi, atau produk yang menciptakan lingkungan.</p>
-                        <p><strong>6. Ledakan Kreatif:</strong> Ruangan lengkap "meledak" keluar dari kotak, mengejutkan seseorang. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang memberikan transformasi gaya hidup instan dan dramatis.</p>
-                        <p><strong>7. Suasana dalam Kotak:</strong> Sebuah kotak mengeluarkan adegan yang hidup, lengkap dengan orang dan aktivitas. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau gaya hidup (travel, acara, komunitas).</p>
-                        <p><strong>8. Kejutan dari Kotak:</strong> Kotak menjadi "portal" untuk memunculkan kejutan emosional (seseorang atau hadiah). <strong class="text-blue-300">Cocok untuk:</strong> Produk yang diposisikan sebagai hadiah atau untuk kampanye romantis/emosional.</p>
-                        <p><strong>9. Keluar dari Layar:</strong> Produk di layar gawai menjadi nyata. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang dipesan online (e-commerce, makanan delivery) atau layanan digital.</p>
-                        <p><strong>10. Unboxing Elegan:</strong> Produk dan aksesorisnya keluar dari kotak dan menata diri secara estetik. <strong class="text-blue-300">Cocok untuk:</strong> Produk premium dengan kemasan dan kelengkapan yang menarik (fashion, kosmetik, gadget).</p>
-                        <p><strong>11. Transformasi Ruang Kolektor:</strong> Kotak produk mengubah ruangan menjadi "lemari koleksi" mewah. <strong class="text-blue-300">Cocok untuk:</strong> Produk edisi terbatas atau barang koleksi (sneakers, jam tangan, mainan).</p>
-                        <p><strong>12. Aksi Sudut Pandang Pertama (POV):</strong> Penonton melihat aksi dari mata pengguna, di mana produk memberikan kekuatan super. <strong class="text-blue-300">Cocok untuk:</strong> Produk teknologi canggih yang memberikan kemampuan baru bagi pengguna.</p>
-                        <p><strong>13. Pemujaan Produk (Sakral):</strong> Produk ditampilkan sebagai artefak suci di lokasi yang megah. <strong class="text-blue-300">Cocok untuk:</strong> Produk ultra-premium yang ingin diposisikan sebagai mahakarya (cokelat, parfum, perhiasan).</p>
-                        <p><strong>14. Pembekuan Realitas (Gaya Fashion):</strong> Karakter utama menggunakan produk dan membuat dunia di sekitarnya membeku. <strong class="text-blue-300">Cocok untuk:</strong> Produk fashion dan aksesori yang memberikan rasa percaya diri dan kekuatan.</p>
-                        <p><strong>15. Sajian Sinematik (Makanan):</strong> Bahan-bahan makanan terbang dan menata diri menjadi hidangan yang sempurna. <strong class="text-blue-300">Cocok untuk:</strong> Restoran, produk makanan, atau layanan pesan-antar makanan.</p>
-                        <p><strong>16. Pembongkaran Canggih (Tech):</strong> Produk teknologi canggih membongkar dan merakit dirinya sendiri, menunjukkan detail internalnya. <strong class="text-blue-300">Cocok untuk:</strong> Gadget dan produk teknologi dengan rekayasa kompleks (seperti gaya iklan Apple).</p>
-                        <p><strong>17. Disintegrasi Kinetik:</strong> Subjek (misal: pelari) terurai menjadi partikel energi yang kemudian menyatu membentuk logo, lalu berubah menjadi produk. <strong class="text-blue-300">Cocok untuk:</strong> Produk olahraga, teknologi, atau apa pun yang ingin menonjolkan energi, kecepatan, dan transformasi.</p>
-                        <p><strong>18. Kekacauan Absurd Robot Mini:</strong> Robot-robot kecil melakukan tugas sederhana dengan cara yang sangat rumit dan lucu, yang secara tidak sengaja menghasilkan logo merek. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang ingin tampil humoris, unik, dan tak terduga.</p>
-                        <p><strong>19. Ledakan Bahan Baku:</strong> Sekumpulan bahan baku meledak secara dramatis untuk menampilkan produk akhir. <strong class="text-blue-300">Cocok untuk:</strong> Produk yang menonjolkan bahan-bahan alami dan segar (makanan, minuman, parfum).</p>
-                        <p><strong>20. Transformasi Lingkungan Sekitar:</strong> Satu elemen (misal: biji kopi) berubah menjadi produk, dan secara bersamaan lingkungan di sekitarnya ikut terbentuk secara magis. <strong class="text-blue-300">Cocok untuk:</strong> Merek yang menjual pengalaman atau suasana (kafe, restoran, travel).</p>
-                        <p><strong>21. Gaya Retro Dinamis:</strong> Adegan fashion dengan suasana retro/vintage yang kuat, sering kali menggunakan lensa unik seperti fisheye untuk menciptakan perspektif yang dinamis dan menyenangkan. <strong class="text-blue-300">Cocok untuk:</strong> Merek fashion, musik, atau produk yang ingin membangkitkan nostalgia.</p>
-                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">2. Cara Penggunaan (Dengan Analisis Logo Otomatis)</h3>
+                    <p>Aplikasi ini sekarang bisa menganalisis logo Anda secara otomatis untuk prompt yang lebih akurat.</p>
+                    <ol>
+                        <li><strong class="text-white">(Opsional) Analisa Produk:</strong> Unggah gambar produk dan klik "Analisa Gambar" untuk mengisi formulir produk.</li>
+                        <li><strong class="text-white">Lengkapi Formulir Produk:</strong> Isi atau sesuaikan detail produk dan pilih gaya iklan.</li>
+                        <li><strong class="text-white">Analisa Logo:</strong> Di bagian bawah, unggah file gambar logo Anda. AI akan otomatis menganalisis dan mengisi kolom "Deskripsi Logo".</li>
+                        <li><strong class="text-white">Atur Teks Akhir:</strong> Isi Teks Akhir/Call to Action dan pilih gaya animasi logo.</li>
+                        <li><strong class="text-white">Generate:</strong> Klik "Generate Prompts" untuk mendapatkan kedua hasil prompt.</li>
+                    </ol>
                 </section>
             `;
         });
