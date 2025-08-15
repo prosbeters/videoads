@@ -457,23 +457,6 @@
                          </div>
                          <div id="generated-logo-prompt" class="whitespace-pre-wrap text-gray-300 text-base leading-relaxed bg-gray-900 p-4 rounded-md"></div>
                      </div>
-
-                    <!-- AI Image Idea Generator -->
-                    <div id="image-idea-container" class="mt-8 bg-gray-800 p-6 rounded-xl shadow-lg text-center">
-                        <h2 class="text-2xl font-bold text-white mb-4">Butuh Inspirasi Visual?</h2>
-                        <p class="text-gray-400 mb-4">Dapatkan ide gambar AI berdasarkan prompt produk yang telah dibuat.</p>
-                        <button id="generate-image-idea" class="btn-primary font-bold py-2 px-6 rounded-lg text-white">
-                            Buat Ide Gambar
-                        </button>
-                        <div id="image-loader" class="hidden justify-center items-center mt-6">
-                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-600 border-t-blue-500"></div>
-                            <p class="ml-4 text-gray-300">AI sedang melukis...</p>
-                        </div>
-                        <div id="image-result" class="mt-6">
-                             <img id="generated-image" src="" alt="Generated AI image" class="hidden max-w-full mx-auto rounded-lg shadow-md">
-                             <p id="image-error" class="hidden text-red-400"></p>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>
@@ -628,10 +611,6 @@
         };
         const locationWrapper = document.getElementById('location-wrapper');
         const locationDetailsWrapper = document.getElementById('location-details-wrapper');
-        const generateImageButton = document.getElementById('generate-image-idea');
-        const imageLoader = document.getElementById('image-loader');
-        const generatedImage = document.getElementById('generated-image');
-        const imageError = document.getElementById('image-error');
         const brandLogoUpload = document.getElementById('brand-logo-upload');
         const brandLogoPreview = document.getElementById('brand-logo-preview');
         const brandLogoPreviewContainer = document.getElementById('brand-logo-preview-container');
@@ -1031,27 +1010,6 @@
         copyProductButton.addEventListener('click', () => copyToClipboard(generatedProductPrompt.textContent, copyProductButton));
         copyLogoButton.addEventListener('click', () => copyToClipboard(generatedLogoPrompt.textContent, copyLogoButton));
 
-        generateImageButton.addEventListener('click', async () => {
-            if (!checkApiKeyStatus()) return toggleModal(settingsModal, true);
-            if (!currentProductPrompt) { 
-                imageError.textContent = 'Generate prompt produk terlebih dahulu!';
-                imageError.classList.remove('hidden');
-                return;
-            }
-            imageLoader.style.display = 'flex';
-            generatedImage.classList.add('hidden');
-            imageError.classList.add('hidden');
-            try {
-                throw new Error("Fitur Generate Gambar memerlukan koneksi ke backend yang aman dan saat ini tidak dapat diakses langsung dari browser.");
-            } catch (error) {
-                console.error('Error generating image:', error);
-                imageError.textContent = 'Maaf, terjadi kesalahan. ' + error.message;
-                imageError.classList.remove('hidden');
-            } finally {
-                imageLoader.style.display = 'none';
-            }
-        });
-
         document.addEventListener('DOMContentLoaded', () => {
             [settingsModal, helpModal, resetConfirmModal].forEach(modal => {
                 modal.style.opacity = '0';
@@ -1080,6 +1038,17 @@
                         <li><strong class="text-white">Atur Teks Akhir:</strong> Isi Teks Akhir/Call to Action dan pilih gaya animasi logo.</li>
                         <li><strong class="text-white">Generate:</strong> Klik "Generate Prompts" untuk mendapatkan kedua hasil prompt.</li>
                     </ol>
+                </section>
+                 <section>
+                    <h3 class="text-xl font-semibold text-white mb-2">3. Penjelasan Gaya Animasi Logo</h3>
+                    <p>Berikut adalah beberapa gaya baru yang telah ditambahkan:</p>
+                    <ul class="list-disc list-inside mt-2 space-y-2">
+                        <li><strong class="text-blue-300">Percussive Assembly:</strong> Komponen logo muncul satu per satu dengan hentakan yang kuat dan efek suara bass.</li>
+                        <li><strong class="text-blue-300">Glitch Morph:</strong> Logo terbentuk dari kumpulan efek distorsi digital (glitch) yang kemudian menjadi stabil.</li>
+                        <li><strong class="text-blue-300">Claymation Stop-Motion:</strong> Gaya unik di mana logo tampak seperti dibentuk dari tanah liat frame-by-frame.</li>
+                        <li><strong class="text-blue-300">Dissolve, Slide, Zoom, Wipe:</strong> Efek transisi klasik untuk memunculkan atau menghilangkan logo dengan cara yang dinamis dan bersih.</li>
+                        <li><strong class="text-blue-300">Glow, Flash, Light Leaks:</strong> Berbagai efek cahaya untuk memberikan nuansa futuristik, dramatis, atau retro pada logo Anda.</li>
+                    </ul>
                 </section>
             `;
         });
