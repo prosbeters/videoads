@@ -209,6 +209,7 @@
                                     <option value="ingredient_explosion">19. Ledakan Bahan Baku</option>
                                     <option value="magical_transformation">20. Transformasi Lingkungan Sekitar</option>
                                     <option value="retro_dynamic">21. Gaya Retro Dinamis</option>
+                                    <option value="harta-karun">22. Pembukaan Harta Karun</option>
                                 </select>
                             </div>
                             <div>
@@ -367,6 +368,12 @@
                                      <input type="text" id="retro-accessories" class="w-full form-input rounded-md" placeholder="Contoh: Kacamata putih besar, sarung tangan putih">
                                      <label for="retro-lens" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Jenis Lensa Kamera</label>
                                      <input type="text" id="retro-lens" class="w-full form-input rounded-md" placeholder="Contoh: Lensa fisheye lebar untuk perspektif dinamis">
+                                 </div>
+                                 <div id="harta-karun-inputs" class="md:col-span-2 hidden">
+                                     <label for="treasure-container" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Wadah / Kotak Produk</label>
+                                     <textarea id="treasure-container" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Koper vintage seukuran telapak tangan, kotak musik kayu tua"></textarea>
+                                     <label for="treasure-reveal" class="block text-sm font-medium text-gray-300 mb-1 mt-4">Detail Aksi Pembukaan & Suara</label>
+                                     <textarea id="treasure-reveal" rows="2" class="w-full form-input rounded-md" placeholder="Contoh: Kait berbunyi klik, tutup terbuka perlahan, memperlihatkan jam saku berkilauan di atas beludru"></textarea>
                                  </div>
                                 <div id="location-details-wrapper" class="md:col-span-2">
                                     <label for="location-details" class="block text-sm font-medium text-gray-300 mb-1">Detail Suasana Lokasi Awal</label>
@@ -608,6 +615,7 @@
         const animationStyleSelect = document.getElementById('animation-style');
         const allStyleInputs = {
             perakitan: document.getElementById('perakitan-inputs'), logo: document.getElementById('logo-inputs'), dekonstruksi: document.getElementById('dekonstruksi-inputs'), ruangan: document.getElementById('ruangan-inputs'), ledakan: document.getElementById('ledakan-inputs'), suasana: document.getElementById('suasana-inputs'), kejutan: document.getElementById('kejutan-inputs'), layar: document.getElementById('layar-inputs'), unboxing: document.getElementById('unboxing-inputs'), vault: document.getElementById('vault-inputs'), pov: document.getElementById('pov-inputs'), pemujaan: document.getElementById('pemujaan-inputs'), fashion: document.getElementById('fashion-inputs'), sajian: document.getElementById('sajian-inputs'), teardown: document.getElementById('teardown-inputs'), kinetic: document.getElementById('kinetic-inputs'), absurd: document.getElementById('absurd-inputs'), ingredient_explosion: document.getElementById('ingredient-explosion-inputs'), magical_transformation: document.getElementById('magical-transformation-inputs'), retro_dynamic: document.getElementById('retro-dynamic-inputs'),
+            'harta-karun': document.getElementById('harta-karun-inputs'),
         };
         const locationWrapper = document.getElementById('location-wrapper');
         const locationDetailsWrapper = document.getElementById('location-details-wrapper');
@@ -908,7 +916,9 @@
                 productName: getVal('product-name'), productFeatures: getVal('product-features'), location: getVal('location'), locationDetails: getVal('location-details'), productComponents: getVal('product-components'), logoDescription: getVal('logo-description'), finalElement: getVal('final-element'), dekonLogoText: getVal('dekon-logo-text'), dekonComponents: getVal('dekon-components'), productCollection: getVal('product-collection'), finalHumanElement: getVal('final-human-element'), ledakanCollection: getVal('ledakan-collection'), humanReaction: getVal('human-reaction'), vibeDescription: getVal('vibe-description'), vibeElements: getVal('vibe-elements'), surpriseRecipient: getVal('surprise-recipient'), surpriseElement: getVal('surprise-element'), screenProduct: getVal('screen-product'), screenAction: getVal('screen-action'), boxDescription: getVal('box-description'), unboxingElements: getVal('unboxing-elements'), vaultBoxDescription: getVal('vault-box-description'), vaultElements: getVal('vault-elements'), povAction: getVal('pov-action'), povEffect: getVal('pov-effect'), worshipFigure: getVal('worship-figure'), worshipSound: getVal('worship-sound'), fashionCharacter: getVal('fashion-character'), fashionAction: getVal('fashion-action'), fashionEffect: getVal('fashion-effect'), platingContainer: getVal('plating-container'), platingIngredients: getVal('plating-ingredients'), teardownBox: getVal('teardown-box'), teardownComponents: getVal('teardown-components'), teardownImmersion: getVal('teardown-immersion'), kineticSubject: getVal('kinetic-subject'), kineticDisintegration: getVal('kinetic-disintegration'), kineticLogo: getVal('kinetic-logo'), absurdRobots: getVal('absurd-robots'), absurdTask: getVal('absurd-task'), absurdResult: getVal('absurd-result'), ingredientContainer: getVal('ingredient-container'), ingredientExplosionEffect: getVal('ingredient-explosion-effect'), magicalSubject: getVal('magical-subject'), magicalResult: getVal('magical-result'), retroCharacter: getVal('retro-character'), retroAccessories: getVal('retro-accessories'), retroLens: getVal('retro-lens'),
                 brandFinalText: getVal('brand-final-text'),
                 logoAnimationStyle: getVal('logo-animation-style'),
-                logoAutoDescription: getVal('logo-auto-description')
+                logoAutoDescription: getVal('logo-auto-description'),
+                treasureContainer: getVal('treasure-container'),
+                treasureReveal: getVal('treasure-reveal'),
             };
             try {
                 currentProductPrompt = generateProductPrompt(userInput);
@@ -958,6 +968,7 @@
                 case 'ingredient_explosion': prompt = `${base} VFX advertisement in a ${data.location} with ${data.locationDetails}. A ${data.ingredientContainer} ${data.ingredientExplosionEffect}, revealing the ${data.productName}. Cinematic background music and sound effects enhance the dramatic reveal.`; break;
                 case 'magical_transformation': prompt = `${base} a single ${data.magicalSubject} magically transforms into various signature drinks: ${data.magicalResult}. As it transforms, a ${data.location} with ${data.locationDetails} instantly assembles around it. The scene has nostalgic warm tones. Fixed wide-angle shot with subtle zooms on the transformation. Mood is cinematic, magical, and vibrant.`; break;
                 case 'retro_dynamic': prompt = `${base} a playful and retro-inspired scene in a ${data.location} with ${data.locationDetails}. Featuring ${data.retroCharacter} wearing ${data.productName} and ${data.retroAccessories}. The shot is taken with a ${data.retroLens}, creating an exaggerated, dynamic perspective. The lighting is soft yet vibrant. Mood is nostalgic, energetic, and carefree.`; break;
+                case 'harta-karun': prompt = `${base} macro, ultra-realistic stationary shot on a ${data.location} with ${data.locationDetails}. A ${data.treasureContainer} sits center. ${data.treasureReveal}. The camera focuses on the hyper-detailed craftsmanship of the ${data.productName}, highlighting its features: ${data.productFeatures}.`; break;
             }
             return prompt;
         }
