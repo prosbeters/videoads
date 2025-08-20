@@ -410,6 +410,12 @@
                                          <option value="glow">15. Glow (Bercahaya)</option>
                                          <option value="flash">16. Flash (Kilatan)</option>
                                          <option value="light-leaks">17. Light Leaks (Bocoran Cahaya)</option>
+                                         <option value="thunderstorm-fx">18. Badai Petir (Weather FX)</option>
+                                         <option value="surreal-dust">19. Debu Emas Sureal</option>
+                                         <option value="cracked-surface">20. Permukaan Retak</option>
+                                         <option value="kinetic-destruction">21. Penghancuran Kinetik</option>
+                                         <option value="ethereal-smoke">22. Jejak Asap Ethereal</option>
+                                         <option value="electric-current">23. Arus Listrik</option>
                                      </select>
                                  </div>
                                  <div class="md:col-span-2">
@@ -995,6 +1001,12 @@
                 case 'glow': prompt = `${base} ${logoDescription} materializes from a soft, elegant glow of light, with volumetric rays emanating from behind it, creating a futuristic and premium feel.`; break;
                 case 'flash': prompt = `${base} a powerful flash of bright, lens-flare-inducing light explodes on screen, quickly receding to reveal ${logoDescription} in its place, looking sharp and impactful.`; break;
                 case 'light-leaks': prompt = `${base} vintage and artistic, ${logoDescription} is revealed through warm, analogue light leaks that wash over the screen, giving it a retro and dreamy quality.`; break;
+                case 'thunderstorm-fx': prompt = `${base} fast zoom-in camera movement as ${logoDescription} forms, with each component textured like dark storm clouds. Lightning strikes each part as it appears, and finally, the entire logo flashes brightly before settling. Intense weather effects like wind and rain surround the animation.`; break;
+                case 'surreal-dust': prompt = `${base} low angle upward tracking movement, ${logoDescription} emerges letter by letter in golden dust. As the letters finalize, they slowly dissolve upward like sand caught in a reverse gravity stream. Surreal, uplifting motion.`; break;
+                case 'cracked-surface': prompt = `${base} top-down crane camera movement, ${logoDescription} is drawn letter by letter in glossy black paint on a surface. As the logo finishes, the surface cracks and breaks apart, each piece falling into darkness. Dramatic, moody tone.`; break;
+                case 'kinetic-destruction': prompt = `${base} each component of ${logoDescription} slams onto the screen one by one with a metal clang sound effect. As the final piece hits, the entire logo shatters and breaks apart like concrete, with gritty, kinetic destruction.`; break;
+                case 'ethereal-smoke': prompt = `${base} ${logoDescription} appears letter by letter in floating smoke trails. Once complete, the smoke letters swirl and disperse into the sky. Poetic, soft, ethereal mood.`; break;
+                case 'electric-current': prompt = `${base} 360° orbiting camera movement, ${logoDescription} writes itself letter by letter in glowing electric currents. Once complete, the entire logo sparks violently and bursts into streaming arcs of electricity. High-energy, sci-fi visual.`; break;
             }
             if (data.brandFinalText) {
                 prompt += ` The text "${data.brandFinalText}" appears elegantly below the fully formed logo.`;
